@@ -1,0 +1,31 @@
+
+fonts:
+    inputs: ${PROJECT_DIR}/Tpay/Resources/Fonts
+    outputs:
+        templatePath: ${PROJECT_DIR}/Tools/SwiftGen/Templates/fonts.stencil
+        output: ${PROJECT_DIR}/Tpay/Resources/Generated/Fonts.swift
+        params:
+            bundleId: ${PRODUCT_BUNDLE_IDENTIFIER}
+            bundleName: ${PRODUCT_NAME}
+
+xcassets:
+    inputs:
+        - ${PROJECT_DIR}/Tpay/Resources/Assets/Icons.xcassets
+        - ${PROJECT_DIR}/Tpay/Resources/Assets/Colors.xcassets
+
+    outputs:
+        templatePath: ${PROJECT_DIR}/Tools/SwiftGen/Templates/assets.stencil
+        output: ${PROJECT_DIR}/Tpay/Resources/Generated/Assets.swift
+        params:
+            bundleId: ${PRODUCT_BUNDLE_IDENTIFIER}
+            bundleName: ${PRODUCT_NAME}
+
+strings:
+    inputs:
+        - ${PROJECT_DIR}/Tpay/Resources/Localizables/pl.strings
+    outputs:
+        templatePath: ${PROJECT_DIR}/Tools/SwiftGen/Templates/strings.stencil
+        output: ${PROJECT_DIR}/Tpay/Resources/Generated/Strings.swift
+        params:
+            bundleId: ${PRODUCT_BUNDLE_IDENTIFIER}
+            bundleName: ${PRODUCT_NAME}

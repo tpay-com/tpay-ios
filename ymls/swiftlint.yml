@@ -1,0 +1,80 @@
+disabled_rules:
+    - function_parameter_count
+    - missing_docs
+    - type_name
+    - trailing_whitespace
+    - identifier_name
+    - weak_delegate
+    - discouraged_optional_boolean
+    - discouraged_optional_collection
+    - nesting
+    - implicitly_unwrapped_optional
+    - multiline_function_chains
+    - multiline_arguments
+    - attributes
+    - no_extension_access_modifier
+opt_in_rules:
+    - force_unwrapping
+    - last_where
+    - anyobject_protocol
+    - array_init
+    - attributes
+    - closure_end_indentation
+    - closure_spacing
+    - contains_over_first_not_nil
+    - convenience_type
+    - discouraged_object_literal
+    - empty_count
+    - empty_string
+    - explicit_init
+    - fallthrough
+    - first_where
+    - function_default_parameter_at_end
+    - identical_operands
+    - implicit_return
+    - implicitly_unwrapped_optional
+    - joined_default_parameter
+    - let_var_whitespace
+    - literal_expression_end_indentation
+    - lower_acl_than_parent
+    - multiline_arguments
+    - multiline_function_chains
+    - multiline_parameters
+    - no_extension_access_modifier
+    - number_separator
+    - operator_usage_whitespace
+    - override_in_extension
+    - overridden_super_call
+    - pattern_matching_keywords
+    - private_action
+    - private_outlet
+    - private_over_fileprivate
+    - prohibited_super_call
+    - redundant_nil_coalescing
+    - single_test_class
+    - sorted_first_last
+    - sorted_imports
+    - todo
+    - toggle_bool
+    - unneeded_parentheses_in_closure_argument
+    - yoda_condition
+whitelist_rules:
+force_cast: warning
+force_unwrapping: warning
+force_try:
+    severity: warning
+line_length: 150
+function_body_length:
+    warning: 100
+    error: 150
+file_length:
+    warning: 500
+    error: 800
+    ignore_comment_only_lines: true
+cyclomatic_complexity:
+    warning: 15
+    error: 20
+excluded:
+  - ../Tpay/Tpay/Dependencies
+  - ../Tpay/TpayTests/DependenciesTests
+reporter: "xcode"

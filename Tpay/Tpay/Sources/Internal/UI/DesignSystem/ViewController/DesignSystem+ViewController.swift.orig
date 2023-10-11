@@ -1,0 +1,97 @@
+//
+//  Copyright © 2022 Tpay. All rights reserved.
+//
+
+// TODO: To be removed after https://jira.rndlab.online/browse/TPAY-35 is completed.
+
+import UIKit
+
+extension DesignSystem {
+    
+    final class ViewController: UIViewController {
+        
+        // MARK: - Lifecycle
+        
+        override func loadView() {
+            view = ContentView()
+            
+            hideKeyboardWhenTappedAround()
+        }
+        
+        // MARK: - Private
+        
+        private func hideKeyboardWhenTappedAround() {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+            tap.cancelsTouchesInView = false
+            view.addGestureRecognizer(tap)
+        }
+            
+        @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
+        
+    }
+}
+
+extension DesignSystem.ViewController {
+    
+    final class ContentView: UIScrollView {
+        
+        // MARK: - Properties
+        
+        private lazy var stackView: UIStackView = {
+<<<<<<< Updated upstream
+            UIStackView(arrangeVertically: labels, buttons, lines)
+=======
+            let stackView = UIStackView(arrangeVertically: textInputs)
+            stackView.spacing = 20
+            return stackView
+>>>>>>> Stashed changes
+        }()
+        
+        private lazy var labels: UIView = { Labels().view }()
+        private lazy var buttons: UIView = { Buttons().view }()
+<<<<<<< Updated upstream
+        private lazy var lines: UIView = {
+            let generated = Generator(numberOfLines: 100).generate()
+            let stackView = UIStackView(arrangedSubviews: generated)
+            stackView.axis = .vertical
+            return stackView
+        }()
+=======
+        private lazy var textInputs: UIView = { TextInputs().view }()
+>>>>>>> Stashed changes
+            
+        // MARK: - Lifecycle
+        
+        override func didMoveToSuperview() {
+            super.didMoveToSuperview()
+            
+            setupLayout()
+            setupAppearance()
+        }
+        
+        // MARK: - Private
+        
+        private func setupLayout() {
+            stackView.layout
+                .add(to: self)
+<<<<<<< Updated upstream
+                .leading.equalTo(safeAreaLayoutGuide, .leading).with(constant: 16)
+                .trailing.equalTo(safeAreaLayoutGuide, .trailing).with(constant: -16)
+                .top.equalTo(self, .top).with(constant: 16)
+                .bottom.equalTo(self, .bottom).with(constant: -16)
+=======
+                .leading.equalTo(safeAreaLayoutGuide, .leading).with(constant: 20)
+                .trailing.equalTo(safeAreaLayoutGuide, .trailing).with(constant: -20)
+                .top.equalTo(safeAreaLayoutGuide, .top).with(constant: 20)
+                .bottom.lessThanOrEqualTo(self, .bottom).with(constant: -20)
+>>>>>>> Stashed changes
+                .activate()
+        }
+        
+        private func setupAppearance() {
+            backgroundColor = .white
+        }
+    }
+}

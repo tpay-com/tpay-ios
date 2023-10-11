@@ -1,0 +1,177 @@
+//
+//  Copyright © 2022 Tpay. All rights reserved.
+//
+
+// MARK: - Common
+
+"field_is_required" = "This field is required";
+
+"invalid_length" = "Invalid number of characters";
+
+"email_is_invalid" = "Email address is incorrect";
+
+"name_is_invalid" = "Payer name is incorrect";
+
+"try_again" = "Try again";
+
+"card_number_is_invalid" = "Card number is incorrect";
+
+"card_expiry_date_is_invalid" = "Expiration date is invalid";
+
+"card_security_code_is_invalid" = "Security code is invalid";
+
+"blik_code_is_invalid" = "BLIK code is incorrect";
+
+"cancel" = "Cancel";
+
+"something_went_wrong" = "Something went wrong. Please, try again.";
+
+"close" = "Close";
+
+"back" = "Back";
+
+"ok" = "OK";
+
+"apple_pay" = "Apple Pay";
+
+"google_pay" = "Google Pay";
+
+"gdpr_note" = "<span>The personal data administrator is Krajowy Integrator Płatności S.A with its registered office in Poznań. <a href='%@'><b>Show full content.</b></a></span>";
+
+"regulations_note" = "<span>By paying, you accept <a href='%@'><b>regulations</b></a></span>";
+
+// MARK: - Setup payer details scene
+
+"setup_payer_details_headline" = "Your Details";
+
+"payer_name" = "First and Last Name";
+
+"payer_email" = "E-mail";
+
+"choose_payment_method" = "Select a payment method";
+
+// MARK: - Select payment method scene
+
+"payment_method_headline" = "Select a payment method";
+
+"blik" = "BLIK";
+
+"pbl" = "Transfer";
+
+"card" = "Credit Card";
+
+"digital_wallets" = "Mobile wallets";
+
+// MARK: - Pay with card scene
+
+"pay_with_card_headline" = "Add card";
+
+"powered_by" = "Powered by";
+
+"card_number" = "Card number";
+
+"card_expiry_date" = "Expiration date";
+
+"card_security_code" = "CVV2/CVC";
+
+"card_expiry_date_hint" = "MM/YY";
+
+"save_card_note" = "Save this card for future purchases.";
+
+"merchant_gdpr_note_without_headquarters" = "<span>The personal data administrator is %@. <a href='%@'><b>Show full content.</b></a></span>";
+
+"merchant_gdpr_note_with_headquarters" = "<span>The personal data administrator is %@ with its registered office in %@. <a href='%@'><b>Show full content.</b></a></span>";
+
+"im_paying" = "Pay %@";
+
+"navigate_to_card_selection" = "Select a card";
+
+// MARK: - Pay with card token scene
+
+"pay_with_card_token_headline" = "Select a card";
+
+"add_card" = "Add card";
+
+// MARK: - Pay with BLIK code scene
+
+"blik_code" = "Enter BLIK code";
+
+"register_blik_alias_note" = "Remember the store and enable one-click payment";
+
+"alias_label_placeholder" = "Name the store";
+
+// MARK: - Pay with BLIK alias scene
+
+"pay_with_blik_alias_note" = "You do not have to enter the BLIK code - you shop in a previously remembered store. ";
+
+// MARK: - Processing payment scene
+
+"processing_payment_title" = "Payment processing";
+
+"processing_payment_message" = "Just a moment more. We are waiting for your bank response.";
+
+// MARK: - Payment success scene
+
+"payment_success_title" = "Payment successfully completed";
+
+"payment_success_button_title" = "My orders";
+
+// MARK: - Payment failure scene
+
+"payment_failure_title" = "Payment failed";
+
+"payment_failure_button_title" = "Try again";
+
+// MARK: - Card Scanning
+
+"scanning_description" = "The data is read in real time. Card details are not saved anywhere.";
+
+"put_card_in_detection_area" = "Put the card in the frame";
+
+"scanning_error" = "The data could not be read";
+
+// MARK: - Pay with BLIK alias scene
+
+"pay_with_headline" = "Pay with";
+
+"pay_with_code" = "Pay with code";
+
+// MARK: - Pay By Link scene
+
+"pay_by_link_headline" = "Choose your bank";
+
+// MARK: - Add Card scene
+
+"add_card_headline" = "Add card";
+
+"add_card_save" = "Save card";
+
+// MARK: - Tokenization Success scene
+
+"tokenization_success_title" = "Card added successfully!";
+
+"tokenization_success_description" = "You can now make payments using your card";
+
+// MARK: - Tokenization Failure scene
+
+"tokenization_failure_title" = "Sorry, the card could not be added";
+
+"tokenization_failure_description" = "Please try again or choose a different payment method";
+
+// MARK: - Transaction Attempt errors
+
+"transaction_attempt_error_title" = "Transaction errors:";
+
+"transaction_attempt_error_blik_unknown" = "Unknown BLIK error";
+
+"transaction_attempt_error_blik_declined" = "Payment declined by user";
+
+"transaction_attempt_error_blik_general" = "General BLIK error";
+
+"transaction_attempt_error_blik_insufficient_funds" = "User insufficient funds";
+
+"transaction_attempt_error_blik_timeout" = "BLIK system timeout";
+
+// MARK: - Networking errors
+
+"no_internet_connection" = "No Internet connection";

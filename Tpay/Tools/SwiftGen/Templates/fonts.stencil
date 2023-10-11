@@ -1,0 +1,73 @@
+// swiftlint:disable all
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+
+{% if families %}
+{% set accessModifier %}{% if param.publicAccess %}public{% else %}internal{% endif %}{% endset %}
+  import UIKit.UIFont
+  {{accessModifier}} typealias Font = UIFont
+
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+
+// MARK: - Fonts
+
+// swiftlint:disable identifier_name line_length type_body_length
+{% macro transformPath path %}{% filter removeNewlines %}
+  {% if param.preservePath %}
+    {{path}}
+  {% else %}
+    {{path|basename}}
+  {% endif %}
+{% endfilter %}{% endmacro %}
+{{accessModifier}} enum {{param.enumName|default:"FontFamily"}} {
+  {% for family in families %}
+  {{accessModifier}} enum {{family.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
+    {% for font in family.fonts %}
+    {{accessModifier}} static let {{font.style|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = FontConvertible(name: "{{font.name}}", family: "{{family.name}}", path: "{% call transformPath font.path %}")
+    {% endfor %}
+    {{accessModifier}} static let all: [FontConvertible] = [{% for font in family.fonts %}{{font.style|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{{ ", " if not forloop.last }}{% endfor %}]
+  }
+  {% endfor %}
+  {{accessModifier}} static let allCustomFonts: [FontConvertible] = [{% for family in families %}{{family.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.all{{ ", " if not forloop.last }}{% endfor %}].flatMap { $0 }
+  {{accessModifier}} static func registerAllCustomFonts() {
+    allCustomFonts.forEach { $0.register() }
+  }
+}
+// swiftlint:enable identifier_name line_length type_body_length
+
+// MARK: - Implementation Details
+
+{{accessModifier}} struct FontConvertible {
+  {{accessModifier}} let name: String
+  {{accessModifier}} let family: String
+  {{accessModifier}} let path: String
+
+  {{accessModifier}} func font(size: CGFloat) -> Font! {
+    return Font(font: self, size: size)
+  }
+
+  {{accessModifier}} func register() {
+    // swiftlint:disable:next conditional_returns_on_newline
+    guard let url = url else { return }
+    CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
+  }
+
+  fileprivate var url: URL? {
+    let bundlePath = Bundle.main.path(forResource: "{{param.bundleName}}", ofType: ".bundle") ?? Bundle(identifier: "{{param.bundleId}}")?.bundlePath
+    let bundle = Bundle(path: bundlePath!)!
+    return bundle.url(forResource: path, withExtension: nil)
+  }
+}
+
+{{accessModifier}} extension Font {
+  convenience init!(font: FontConvertible, size: CGFloat) {
+    if !UIFont.fontNames(forFamilyName: font.family).contains(font.name) {
+      font.register()
+    }
+    self.init(name: font.name, size: size)
+  }
+}
+
+{% else %}
+// No fonts found
+{% endif %}

@@ -1,0 +1,167 @@
+fastlane_require 'dotenv'
+
+default_platform(:ios)
+
+ENV['FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT'] = "60"
+ENV['FASTLANE_XCODEBUILD_SETTINGS_RETRIES'] = "10"
+
+# - Variables
+
+module_name = "Tpay"
+xcodeproj_file = "#{module_name}.xcodeproj"
+pbxproj_file = "#{xcodeproj_file}/project.pbxproj"
+podspec_file = "#{module_name}.podspec"
+package_file = "Package.swift"
+xcframework_file = "#{module_name}.xcframework"
+xcframework_zip_file = "#{module_name}.xcframework.zip"
+ios_dsym_file = "#{module_name}-ios.framework.dSYM"
+ios_sim_dsym_file = "#{module_name}-ios_sim.framework.dSYM"
+license_file = "LICENSE"
+
+precompiled_dir_path = "Precompiled"
+xcframework_file_path = "#{precompiled_dir_path}/#{xcframework_file}"
+ios_dsym_file_path = "#{precompiled_dir_path}/#{ios_dsym_file}"
+ios_sim_dsym_file_path = "#{precompiled_dir_path}/#{ios_sim_dsym_file}"
+xcodeproj_file_path = "#{module_name}/#{xcodeproj_file}"
+
+# - Lanes
+
+update_fastlane
+
+platform :ios do
+
+  before_all do |lane, options|
+    Dotenv.overload '.env.secret'
+  end
+
+  desc "Runs module unit tests"
+  lane :test do 
+    run_tests(scheme: module_name)
+  end
+
+  desc "Releases a new version of the module"
+  lane :prepare_release do |options|
+    version = options[:version]
+
+    set_marketing_version(version: version)
+    build_xcframework
+    zip_assets
+    release_to_github(version: version)
+    update_podspec(version: version)
+    update_swift_package(version: version)
+  end
+
+  # - Private
+
+  private_lane :set_marketing_version do |options|
+    version = options[:version]
+
+    increment_version_number_in_xcodeproj(
+      version_number: version,     
+      xcodeproj: xcodeproj_file_path
+    )
+    git_commit(
+      path: [pbxproj_file],
+      message: "Set module version to #{version}",
+      allow_nothing_to_commit: true
+    )
+  end
+
+  private_lane :build_xcframework do 
+    precompile_module(
+      scheme_name: module_name,
+      module_name: module_name,
+      output_dir: precompiled_dir_path
+    )
+  end
+
+  private_lane :zip_assets do 
+    prepare_assets(
+      license_file_path: license_file,
+      precompiled_dir_path: precompiled_dir_path,
+      output_dir_path: xcframework_zip_file
+    )
+  end
+
+  private_lane :release_to_github do |options|
+    version = options[:version]
+
+    set_github_release(
+      repository_name: github_repository_name,
+      tag_name: version,
+      api_token: github_api_token,
+      upload_assets: [xcframework_zip_file],
+      is_draft: true
+    )
+  end
+
+  private_lane :update_podspec do |options|
+    version = options[:version]
+    published_asset_source = resolve_tagged_binary_url(
+      draft_asset_url: github_release_uploaded_binary_url(xcframework_zip_file),
+      version: version
+    )
+
+    version_bump_podspec(
+      path: podspec_file,
+      version_number: version
+    )
+    update_podspec_source(
+      remote_binary_zip_url: published_asset_source,
+      podspec_file_path: podspec_file
+    )
+    git_commit(
+      path: [podspec_file],
+      message: "Update podspec",
+      allow_nothing_to_commit: true
+    )
+  end
+
+  private_lane :update_swift_package do |options|
+    version = options[:version]
+    published_asset_source = resolve_tagged_binary_url(
+      draft_asset_url: github_release_uploaded_binary_url(xcframework_zip_file),
+      version: version
+    )
+
+    update_swift_package_binary_target(
+      local_binary_zip_path: xcframework_zip_file,
+      remote_binary_zip_url: published_asset_source,
+      package_file_path: package_file
+    )
+    git_commit(
+      path: [package_file],
+      message: "Update swift package",
+      allow_nothing_to_commit: true
+    )
+  end
+
+  private_lane :clean_up do
+    clean_outputs(output_dir: precompiled_dir_path)
+  end  
+
+  after_all do |lane, options|
+    clean_up
+  end
+
+  error do |lane, exception, options|
+    clean_up
+  end
+
+end
+
+# - Utils
+
+def github_api_token
+  ENV['GITHUB_API_TOKEN']
+end
+
+def github_repository_name
+  ENV['GITHUB_REPOSITORY_NAME']
+end
+
+def github_release_uploaded_binary_url(file_name)
+  assets = lane_context[SharedValues::SET_GITHUB_RELEASE_JSON]['assets']
+  xcframework_asset = assets.find { |asset| asset['name'] == file_name }
+  xcframework_asset['browser_download_url']
+end

@@ -1,0 +1,185 @@
+//
+//  Copyright © 2022 Tpay. All rights reserved.
+//
+
+// MARK: - Common
+
+"field_is_required" = "Pole wymagane";
+
+"invalid_length" = "Nieprawidłowa liczba znaków";
+
+"email_is_invalid" = "Nieprawidłowy adres email";
+
+"name_is_invalid" = "Nieprawidłowa nazwa płatnika";
+
+"try_again" = "Spróbuj ponownie";
+
+"card_number_is_invalid" = "Nieprawidłowy numer karty";
+
+"card_expiry_date_is_invalid" = "Nieprawidłowa data ważności";
+
+"card_security_code_is_invalid" = "Nieprawidłowy kod";
+
+"blik_code_is_invalid" = "Nieprawidłowy kod BLIK";
+
+"cancel" = "Anuluj";
+
+"close" = "Zamknij";
+
+"back" = "Wróć";
+
+"something_went_wrong" = "Coś poszło nie tak! Spróbuj ponownie.";
+
+"ok" = "OK";
+
+"apple_pay" = "Apple Pay";
+
+"google_pay" = "Google Pay";
+
+"gdpr_note" = "<span>Administratorem danych osobowych jest Krajowy Integrator Płatności spółka akcyjna z siedzibą w Poznaniu. <a href='%@'><b>Zapoznaj się z pełną treścią.</b></a></span>";
+
+"regulations_note" = "<span>Płacąc, akceptujesz <a href='%@'><b>regulamin.</b></a></span>";
+
+// MARK: - Setup payer details scene
+
+"setup_payer_details_headline" = "Twoje dane";
+
+"payer_name" = "Imię i nazwisko";
+
+"payer_email" = "E-mail";
+
+"choose_payment_method" = "Wybierz metodę płatności";
+
+// MARK: - Select payment method scene
+
+"payment_method_headline" = "Wybierz formę płatności";
+
+"blik" = "BLIK";
+
+"pbl" = "Przelew";
+
+"card" = "Karta";
+
+"digital_wallets" = "Portfel elektroniczny";
+
+// MARK: - Pay with card scene
+
+"pay_with_card_headline" = "Dodaj kartę";
+
+"powered_by" = "Powered by";
+
+"card_number" = "Numer karty";
+
+"card_expiry_date" = "Data ważności";
+
+"card_expiry_date_hint" = "MM/RR";
+
+"card_security_code" = "CVV2/CVC";
+
+"save_card_note" = "Zapisz kartę, aby nie uzupełniać formularza przy następnych zakupach.";
+
+"merchant_gdpr_note_without_headquarters" = "<span>Administratorem danych osobowych jest %@.</br><a href='%@'><b>Zapoznaj się z pełną treścią.</b></a></span>";
+
+"merchant_gdpr_note_with_headquarters" = "<span>Administratorem danych osobowych jest %@ z siedzibą w %@.</br><a href='%@'><b>Zapoznaj się z pełną treścią.</b></a></span>";
+
+"im_paying" = "Płacę %@";
+
+"navigate_to_card_selection" = "Wybór karty";
+
+// MARK: - Pay with card token scene
+
+"pay_with_card_token_headline" = "Wybierz kartę";
+
+"add_card" = "Dodaj Kartę";
+
+// MARK: - Pay with BLIK code scene
+
+"blik_code" = "Wpisz kod BLIK";
+
+"register_blik_alias_note" = "Zapamiętaj sklep i włącz płatność one-click";
+
+"alias_label_placeholder" = "Nazwij sklep";
+
+// MARK: - Pay with BLIK alias scene
+
+"pay_with_blik_alias_note" = "Nie musisz podawać kodu BLIK - robisz zakupy w zapisanym wcześniej sklepie.";
+
+// MARK: - Processing payment scene
+
+"processing_payment_title" = "Przetwarzanie płatności";
+
+"processing_payment_message" = "Jeszcze chwila. Czekamy na odpowiedź Twojego banku";
+
+// MARK: - Payment success scene
+
+"payment_success_title" = "Płatność zakończona sukcesem";
+
+"payment_success_button_title" = "Moje zamówienia";
+
+// MARK: - Payment failure scene
+
+"payment_failure_title" = "Płatność nieudana";
+
+"payment_failure_button_title" = "Ponów płatność";
+
+// MARK: - Card Scanning
+
+"scanning_description" = "Odczyt danych odbywa się w czasie rzeczywistym. Dane karty nie są nigdzie zapisywane.";
+
+"put_card_in_detection_area" = "Umieść kartę w ramce";
+
+"scanning_error" = "Nie udało się odczytać danych";
+
+// MARK: - No camera access scene
+
+"no_camera_access_title" = "Brak dostępu do kamery";
+
+"no_camera_access_description" = "Przejdź do ustawień i nadaj wymagane uprawienia dla aplikacji";
+
+"open_application_settings" = "Przejdź do ustawień aplikacji";
+
+// MARK: - Pay with BLIK alias scene
+
+"pay_with_headline" = "Zapłać za pomocą";
+
+"pay_with_code" = "Zapłać przy użyciu kodu";
+
+// MARK: - Pay By Link scene
+
+"pay_by_link_headline" = "Wybierz swój bank";
+
+// MARK: - Add Card scene
+
+"add_card_headline" = "Dodaj kartę";
+
+"add_card_save" = "Zapisz kartę";
+
+// MARK: - Tokenization Success scene
+
+"tokenization_success_title" = "Karta została dodana!";
+
+"tokenization_success_description" = "Możesz teraz dokonywać płatności za pomocą karty";
+
+// MARK: - Tokenization Failure scene
+
+"tokenization_failure_title" = "Niestety, nie udało się dodać karty";
+
+"tokenization_failure_description" = "Proszę spróbować ponownie lub wybrać inną metodę płatności";
+
+// MARK: - Transaction Attempt errors
+
+"transaction_attempt_error_title" = "Błędy transakcji:";
+
+"transaction_attempt_error_blik_unknown" = "Nieznany błąd BLIK";
+
+"transaction_attempt_error_blik_declined" = "Płatność odrzucona przez użytkownika";
+
+"transaction_attempt_error_blik_general" = "Ogólny błąd BLIK";
+
+"transaction_attempt_error_blik_insufficient_funds" = "Użytkownik nie posiada wystarczających środków";
+
+"transaction_attempt_error_blik_timeout" = "Przekroczono czas oczekiwania";
+
+// MARK: - Networking errors
+
+"no_internet_connection" = "Brak połączenia z internetem";

@@ -1,0 +1,53 @@
+name: Publish release
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  publish_release:
+    if: github.event.pull_request.merged && (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/'))
+    runs-on: macos-13
+    steps:
+
+    - name: Extract version from branch name (for release branches)
+      if: startsWith(github.event.pull_request.head.ref, 'release/')
+      run: |
+        BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+        VERSION=${BRANCH_NAME#release/}
+        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Extract version from branch name (for hotfix branches)
+      if: startsWith(github.event.pull_request.head.ref, 'hotfix/')
+      run: |
+        BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+        VERSION=${BRANCH_NAME#hotfix/}
+        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Checkout Source
+      uses: actions/checkout@v2
+
+    - name: Set up ruby env
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+        bundler-cache: true
+
+    - name: Update release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        tag: ${{ env.RELEASE_VERSION }}
+
+    - name: Validate manifests
+      run: |
+        bundle exec pod spec lint
+        swift package dump-package
+
+    - name: Publish pod
+      env: 
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+      run: bundle exec pod trunk push
