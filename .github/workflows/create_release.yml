@@ -10,7 +10,6 @@ on:
 jobs:
   create_release:
     runs-on: macos-13
-    timeout-minutes: 29
     steps:
 
     - name: Checkout Source
@@ -24,8 +23,8 @@ jobs:
 
     - name: Config Git
       run: |
-        git config user.name "Tpay CI"
-        git config user.email ci-noreply@tpay.com
+        git config user.name "Tpay Auto Commit"
+        git config user.email devs@tpay.com
 
     - name: Create release branch
       run: git checkout -b release/${{ github.event.inputs.version }}
@@ -50,11 +49,11 @@ jobs:
     - name: Push release branch
       run: git push origin release/${{ github.event.inputs.version }}
 
-    - name: Create pull request into main
+    - name: Create pull request into master
       uses: thomaseizinger/create-pull-request@1.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         head: release/${{ github.event.inputs.version }}
-        base: main
-        title: ${{ github.event.inputs.version }} into main
+        base: master
+        title: ${{ github.event.inputs.version }} into master

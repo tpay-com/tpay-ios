@@ -5,7 +5,6 @@ on: workflow_dispatch
 jobs:  
   unit_test:
     runs-on: macos-13
-    timeout-minutes: 29
     steps:
 
     - name: Checkout Source
