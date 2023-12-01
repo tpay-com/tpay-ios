@@ -130,6 +130,7 @@
 		035EC90D2805B72C002C6D54 /* Button+Primary+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC90C2805B72C002C6D54 /* Button+Primary+Builder.swift */; };
 		035EC9142805E7BB002C6D54 /* ShadowEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC9132805E7BB002C6D54 /* ShadowEmitter.swift */; };
 		035EC9162805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC9152805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift */; };
+		03630B112B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */; };
 		0369EE752857546C00B972D1 /* Merchant+CardsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0369EE742857546C00B972D1 /* Merchant+CardsAPI.swift */; };
 		036C1F2528524E2400BEF66F /* BankGroupId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C1F2428524E2400BEF66F /* BankGroupId.swift */; };
 		036C1F2828537C1200BEF66F /* CardEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C1F2728537C1200BEF66F /* CardEncryptor.swift */; };
@@ -421,7 +422,6 @@
 		03FF1E062832775B004238B6 /* DefaultPayWithCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF1E052832775B004238B6 /* DefaultPayWithCardRouter.swift */; };
 		03FF1E082832776B004238B6 /* PayWithCardViewController+ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF1E072832776B004238B6 /* PayWithCardViewController+ContentView.swift */; };
 		03FF1E0A283290CB004238B6 /* PayWithCardScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF1E09283290CB004238B6 /* PayWithCardScreen.swift */; };
-		03FF1E0C2832A24F004238B6 /* PayWithCardViewController+ContentView+ElavonLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF1E0B2832A24F004238B6 /* PayWithCardViewController+ContentView+ElavonLogo.swift */; };
 		03FF1E102833B4B8004238B6 /* PayWithCardViewController+ContentView+Partners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF1E0F2833B4B7004238B6 /* PayWithCardViewController+ContentView+Partners.swift */; };
 		03FF1E1C2833DD38004238B6 /* PinnableContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FF1E1B2833DD38004238B6 /* PinnableContentProvider.swift */; };
 		0669D1981C159EB37B48C4B4 /* ImageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCA15BEECA6B599DD8F20DD /* ImageDataProvider.swift */; };
@@ -1144,6 +1144,7 @@
 		035EC90C2805B72C002C6D54 /* Button+Primary+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Primary+Builder.swift"; sourceTree = "<group>"; };
 		035EC9132805E7BB002C6D54 /* ShadowEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowEmitter.swift; sourceTree = "<group>"; };
 		035EC9152805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetViewController+CardView+TopShadowEmitter.swift"; sourceTree = "<group>"; };
+		03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDTO+Payments+Status.swift"; sourceTree = "<group>"; };
 		0369EE742857546C00B972D1 /* Merchant+CardsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Merchant+CardsAPI.swift"; sourceTree = "<group>"; };
 		036C1F2428524E2400BEF66F /* BankGroupId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankGroupId.swift; sourceTree = "<group>"; };
 		036C1F2728537C1200BEF66F /* CardEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEncryptor.swift; sourceTree = "<group>"; };
@@ -1433,7 +1434,6 @@
 		03FF1E052832775B004238B6 /* DefaultPayWithCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPayWithCardRouter.swift; sourceTree = "<group>"; };
 		03FF1E072832776B004238B6 /* PayWithCardViewController+ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWithCardViewController+ContentView.swift"; sourceTree = "<group>"; };
 		03FF1E09283290CB004238B6 /* PayWithCardScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWithCardScreen.swift; sourceTree = "<group>"; };
-		03FF1E0B2832A24F004238B6 /* PayWithCardViewController+ContentView+ElavonLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWithCardViewController+ContentView+ElavonLogo.swift"; sourceTree = "<group>"; };
 		03FF1E0F2833B4B7004238B6 /* PayWithCardViewController+ContentView+Partners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PayWithCardViewController+ContentView+Partners.swift"; sourceTree = "<group>"; };
 		03FF1E1B2833DD38004238B6 /* PinnableContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnableContentProvider.swift; sourceTree = "<group>"; };
 		04E99471C98944E3553E07E6 /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -4453,7 +4453,6 @@
 			children = (
 				03FF1DFD28327733004238B6 /* PayWithCardViewController.swift */,
 				03FF1E072832776B004238B6 /* PayWithCardViewController+ContentView.swift */,
-				03FF1E0B2832A24F004238B6 /* PayWithCardViewController+ContentView+ElavonLogo.swift */,
 				03FF1E0F2833B4B7004238B6 /* PayWithCardViewController+ContentView+Partners.swift */,
 			);
 			path = View;
@@ -5325,6 +5324,7 @@
 			isa = PBXGroup;
 			children = (
 				D3D85E602A2FFD3900989A45 /* TransactionDTO+Payments.swift */,
+				03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */,
 				03ACF5E82A7167CC003D9E5E /* TransactionDTO+Payments+Alternative.swift */,
 				D3D85E622A2FFE2F00989A45 /* TransactionDTO+Payments+Attempts.swift */,
 				D384CDD92A33562100D8C199 /* TransactionDTO+Payments+Attempts+AttemptError.swift */,
@@ -6269,7 +6269,6 @@
 				03DA8FDC2873226C00AFE828 /* SheetViewController+TransitioningDelegate+PresentTransition.swift in Sources */,
 				D3A2A6202976137500310308 /* PayByLinkScreen.swift in Sources */,
 				035D54FC2862FB8200AEE662 /* ChoosePaymentMethodViewController+ContentView+CollectionView+DataSource.swift in Sources */,
-				03FF1E0C2832A24F004238B6 /* PayWithCardViewController+ContentView+ElavonLogo.swift in Sources */,
 				D32A2CE7299BAE9F00568DA4 /* SuccessConent.swift in Sources */,
 				62DFE65BB03F7C64F5436A3F /* DefaultViewControllerPresenter+TransitioningDelegate+PresentAnimation.swift in Sources */,
 				8781733B2850DB3B00E6564C /* CardDetector+Constants.swift in Sources */,
@@ -6722,6 +6721,7 @@
 				D367CFD92A2DFA6F00B64205 /* SheetViewController+OccupationState.swift in Sources */,
 				2A60087CC768DDD12FE1AB52 /* SnailSubscription.swift in Sources */,
 				89D619098A968E5C9BE0FABE /* UIBarButtonItemExtensions.swift in Sources */,
+				03630B112B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift in Sources */,
 				5F8327AA7706D39E2B18F096 /* Unique.swift in Sources */,
 				33F34EF9963CA7655E0811D0 /* NotificationCenterExtensions.swift in Sources */,
 				B7899F173101A62A4A8F4DF1 /* Observable+Combine.swift in Sources */,
@@ -7101,7 +7101,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.1;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpay.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
@@ -7131,7 +7131,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.1;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpay.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;

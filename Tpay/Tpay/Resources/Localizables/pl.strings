@@ -66,8 +66,6 @@
 
 "pay_with_card_headline" = "Dodaj kartę";
 
-"powered_by" = "Powered by";
-
 "card_number" = "Numer karty";
 
 "card_expiry_date" = "Data ważności";
@@ -165,6 +163,10 @@
 "tokenization_failure_title" = "Niestety, nie udało się dodać karty";
 
 "tokenization_failure_description" = "Proszę spróbować ponownie lub wybrać inną metodę płatności";
+
+// MARK: - Payment errors
+
+"payment_failed_general" = "Płatność nie powiodła się. Spróbuj ponownie lub wybierz inną metodę płatności.";
 
 // MARK: - Transaction Attempt errors
 

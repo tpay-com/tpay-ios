@@ -2,6 +2,8 @@
 //  Copyright © 2023 Tpay. All rights reserved.
 //
 
+import Foundation
+
 extension TransactionDTO.Payments {
     
     struct Attempt: Decodable {

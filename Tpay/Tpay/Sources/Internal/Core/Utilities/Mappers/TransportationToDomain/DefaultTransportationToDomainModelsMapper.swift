@@ -60,6 +60,9 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
         }
         
         var accumulatedErrors = [Domain.OngoingTransaction.PaymentError]()
+        if let status = dto.status, status == .declined {
+            accumulatedErrors.append(.declined)
+        }
         if let attempts = dto.attempts {
             accumulatedErrors.append(contentsOf: attempts.compactMap(\.paymentErrorCode).map { Domain.OngoingTransaction.PaymentError.attemptError(code: $0.rawValue) })
         }

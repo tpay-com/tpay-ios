@@ -8,6 +8,7 @@ extension TransactionDTO {
         
         // MARK: - Properties
         
+        let status: Status?
         let attempts: [Attempt]?
         let alternatives: [Alternative]?
         let errors: [TransactionDataError]?
@@ -17,6 +18,7 @@ extension TransactionDTO {
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
+            status = try container.decodeIfPresent(Status.self, forKey: .status)
             attempts = try container.decodeIfPresent([Attempt].self, forKey: .attempts)
             alternatives = try container.decodeIfPresent([Alternative].self, forKey: .alternatives)
             errors = try container.decodeIfPresent([TransactionDataError].self, forKey: .errors)
@@ -30,6 +32,7 @@ extension TransactionDTO.Payments {
         
         // MARK: - Cases
         
+        case status
         case alternatives
         case attempts
         case errors

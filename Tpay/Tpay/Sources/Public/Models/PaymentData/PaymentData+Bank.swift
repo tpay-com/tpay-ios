@@ -8,9 +8,16 @@ extension PaymentData {
         
         // MARK: - Properties
         
-        let id: String
-        let name: String
-        let imageUrl: URL?
+        public let id: String
+        public let name: String
+        public let imageUrl: URL?
         
+        // MARK: - Initializers
+        
+        public init(id: String, name: String, imageUrl: URL?) {
+            self.id = id
+            self.name = name
+            self.imageUrl = imageUrl
+        }
     }
 }

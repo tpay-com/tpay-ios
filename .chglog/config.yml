@@ -1,0 +1,10 @@
+template: CHANGELOG.tpl.md
+info:
+  header:
+    pattern: "^(\\w*)\\:\\s(.*)$"
+    pattern_maps:
+      - Type
+      - Subject
+  notes:
+    keywords:
+      - BREAKING CHANGE

@@ -19,5 +19,11 @@ extension PaymentData.DigitalWallet {
         // MARK: - Properties
         
         let token: String
+        
+        // MARK: - Initializers
+        
+        public init(token: String) {
+            self.token = token
+        }
     }
 }

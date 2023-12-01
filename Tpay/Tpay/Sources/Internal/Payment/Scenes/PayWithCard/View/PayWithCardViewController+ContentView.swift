@@ -36,9 +36,7 @@ extension PayWithCardViewController {
                 
         private lazy var navigateToOneClickButton = UIButton.Builder(button: Button.Secondary.BackButton(text: Strings.navigateToCardSelection))
             .build()
-        
-        private let elavonLogo = ElavonLogo()
-        
+                
         private let cardNumberTextField = TextField.CardNumber()
         private let cardSecurityCodeTextField = TextField.CVC()
                 
@@ -227,13 +225,6 @@ extension PayWithCardViewController {
                 .top.equalTo(headerContainer, .top)
                 .bottom.equalTo(headerContainer, .bottom)
                 .activate()
-
-            elavonLogo.layout
-                .add(to: headerContainer)
-                .trailing.equalTo(headerContainer, .trailing)
-                .leading.greaterThanOrEqualTo(navigateToOneClickButton, .trailing).with(constant: 8)
-                .yAxis.center(with: navigateToOneClickButton)
-                .activate()
         }
         
         private func setupHeaderLayoutWithTitle() {
@@ -242,13 +233,6 @@ extension PayWithCardViewController {
                 .leading.equalTo(headerContainer, .leading)
                 .top.equalTo(headerContainer, .top)
                 .bottom.equalTo(headerContainer, .bottom).with(constant: -8)
-                .activate()
-
-            elavonLogo.layout
-                .add(to: headerContainer)
-                .trailing.equalTo(headerContainer, .trailing)
-                .leading.greaterThanOrEqualTo(heading, .trailing).with(constant: 8)
-                .bottom.equalTo(heading, .bottom)
                 .activate()
         }
         

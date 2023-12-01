@@ -49,7 +49,6 @@ internal enum Asset {
     internal static let check = ImageAsset(name: "check")
     internal static let close = ImageAsset(name: "close")
     internal static let dots = ImageAsset(name: "dots")
-    internal static let elavonLogo = ImageAsset(name: "elavonLogo")
     internal static let exclamation = ImageAsset(name: "exclamation")
     internal static let googlePay = ImageAsset(name: "google_pay")
     internal static let idCheckLogo = ImageAsset(name: "idCheckLogo")

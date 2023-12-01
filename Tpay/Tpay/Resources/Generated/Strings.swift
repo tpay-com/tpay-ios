@@ -107,6 +107,8 @@ internal enum Strings {
   internal static var payerEmail: String { Strings.tr("pl", "payer_email") }
   /// Imię i nazwisko
   internal static var payerName: String { Strings.tr("pl", "payer_name") }
+  /// Płatność nie powiodła się. Spróbuj ponownie lub wybierz inną metodę płatności.
+  internal static var paymentFailedGeneral: String { Strings.tr("pl", "payment_failed_general") }
   /// Ponów płatność
   internal static var paymentFailureButtonTitle: String { Strings.tr("pl", "payment_failure_button_title") }
   /// Płatność nieudana
@@ -119,8 +121,6 @@ internal enum Strings {
   internal static var paymentSuccessTitle: String { Strings.tr("pl", "payment_success_title") }
   /// Przelew
   internal static var pbl: String { Strings.tr("pl", "pbl") }
-  /// Powered by
-  internal static var poweredBy: String { Strings.tr("pl", "powered_by") }
   /// Jeszcze chwila. Czekamy na odpowiedź Twojego banku
   internal static var processingPaymentMessage: String { Strings.tr("pl", "processing_payment_message") }
   /// Przetwarzanie płatności

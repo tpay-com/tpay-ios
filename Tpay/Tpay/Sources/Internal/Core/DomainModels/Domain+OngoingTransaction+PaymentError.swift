@@ -10,6 +10,7 @@ extension Domain.OngoingTransaction {
         
         // MARK: - Cases
         
+        case declined
         case ambiguousBlikAlias(alternatives: [Domain.Blik.OneClick.Alias.Application])
         case attemptError(code: String)
         case invalidData(description: String)
@@ -18,6 +19,8 @@ extension Domain.OngoingTransaction {
         
         var errorDescription: String? {
             switch self {
+            case .declined:
+                return Strings.paymentFailedGeneral
             case .ambiguousBlikAlias:
                 return "Ambiguous BLIK alias, should be handled by providing a specific application key."
             case .attemptError(let code):
@@ -33,12 +36,14 @@ extension Domain.OngoingTransaction.PaymentError {
     
     var priority: Int {
         switch self {
-        case .ambiguousBlikAlias:
+        case .declined:
             return 0
-        case .attemptError:
+        case .ambiguousBlikAlias:
             return 1
-        case .invalidData:
+        case .attemptError:
             return 2
+        case .invalidData:
+            return 3
         }
     }
 }

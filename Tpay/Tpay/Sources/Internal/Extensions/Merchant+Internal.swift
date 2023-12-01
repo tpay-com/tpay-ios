@@ -8,9 +8,9 @@ extension Merchant {
     
     var domain: String { "https://tpay.com" }
     
-    var successCallbackUrl: URL { URL(safeString: "https://127.0.0.1/success/") }
-    var errorCallbackUrl: URL { URL(safeString: "https://127.0.0.1/error/") }
-    var validationUrl: URL { URL(safeString: "https://127.0.0.1/validation/") }
+    var successCallbackUrl: URL { URL(safeString: "https://secure.tpay.com/mobile-sdk/success/") }
+    var errorCallbackUrl: URL { URL(safeString: "https://secure.tpay.com/mobile-sdk/error/") }
+    var validationUrl: URL { URL(safeString: "https://secure.tpay.com/mobile-sdk/validation/") }
     
     var scheme: String { "https" }
     var host: String {
