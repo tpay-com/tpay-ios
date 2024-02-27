@@ -10,6 +10,7 @@ final class DefaultChoosePaymentMethodRouter: ChoosePaymentMethodRouter {
     let showBLIKFlow: Observable<Void> = Observable<Void>()
     let showPBLFlow: Observable<Void> = Observable<Void>()
     let showDigitalWalletsFlow: Observable<Void> = Observable<Void>()
+    let showRatyPekaoFlow: Observable<Void> = Observable<Void>()
     
     // MARK: - API
 
@@ -27,5 +28,9 @@ final class DefaultChoosePaymentMethodRouter: ChoosePaymentMethodRouter {
     
     func showDigitalWallets() {
         showDigitalWalletsFlow.on(.next(()))
+    }
+    
+    func showRatyPekao() {
+        showRatyPekaoFlow.on(.next(()))
     }
 }

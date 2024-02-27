@@ -6,7 +6,7 @@ import UIKit
 
 extension Domain.PaymentMethod {
     
-    struct DigitalWallet: Equatable {
+    struct DigitalWallet: Equatable, Hashable {
         
         // MARK: - Properties
         

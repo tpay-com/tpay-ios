@@ -11,6 +11,7 @@ enum BankGroupId: String, Codable {
     case googlePay = "166"
     case payPal = "106"
     case applePay = "170"
+    case ratyPekao = "169"
     
     case alior = "113"
     case pekao = "102"

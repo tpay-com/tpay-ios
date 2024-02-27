@@ -13,15 +13,6 @@ extension [Domain.PaymentMethod] {
         return banks
     }
     
-    func allBankMethods() -> [Domain.PaymentMethod] {
-        var bankMethods: [Domain.PaymentMethod] = []
-        self.forEach { paymentMethod in
-            guard case .pbl = paymentMethod else { return }
-            bankMethods.append(paymentMethod)
-        }
-        return bankMethods
-    }
-    
     func allWallets() -> [Domain.PaymentMethod.DigitalWallet] {
         var wallets: [Domain.PaymentMethod.DigitalWallet] = []
         self.forEach { paymentMethod in
@@ -29,5 +20,28 @@ extension [Domain.PaymentMethod] {
             wallets.append(wallet)
         }
         return wallets
+    }
+    
+    func allInstallmentPayments() -> [Domain.PaymentMethod.InstallmentPayment] {
+        var installmentPayments: [Domain.PaymentMethod.InstallmentPayment] = []
+        self.forEach { paymentMethod in
+            guard case let .installmentPayments(iPayment) = paymentMethod else { return }
+            installmentPayments.append(iPayment)
+        }
+        return installmentPayments
+    }
+}
+
+extension Array where Element == Domain.PaymentMethod.Bank {
+    
+    func wrapped() -> [Domain.PaymentMethod] {
+        map { Domain.PaymentMethod.pbl($0) }
+    }
+}
+ 
+extension Array where Element == Domain.PaymentMethod.InstallmentPayment {
+    
+    func wrapped() -> [Domain.PaymentMethod] {
+        map { Domain.PaymentMethod.installmentPayments($0) }
     }
 }

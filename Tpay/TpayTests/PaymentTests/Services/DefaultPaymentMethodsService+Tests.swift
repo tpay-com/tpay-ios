@@ -203,6 +203,11 @@ private extension [Domain.PaymentMethod] {
                 if case .digitalWallet = $0 { return false }
                 return true
             }
+        case .installmentPayments:
+            return self.filter {
+                if case .installmentPayments = $0 { return false }
+                return true
+            }
         case .unknown:
             return self.filter { $0 != payment }
         }

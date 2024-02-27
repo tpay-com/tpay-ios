@@ -81,6 +81,10 @@ final class DefaultTransportationToDomainModelsMapper_Tests: XCTestCase {
         let unknown = BankGroupDTO(id: "999")
         expect(self.sut.makePaymentMethod(from: unknown)) == .unknown
     }
+    
+    func test_PaymentChannelFromDTO() {
+        
+    }
 }
 
 private extension BankGroupDTO {

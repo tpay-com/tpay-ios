@@ -8,9 +8,10 @@ ENV['FASTLANE_XCODEBUILD_SETTINGS_RETRIES'] = "10"
 # - Variables
 
 module_name = "Tpay"
+pod_name = "TpaySDK"
 xcodeproj_file = "#{module_name}.xcodeproj"
 pbxproj_file = "#{xcodeproj_file}/project.pbxproj"
-podspec_file = "#{module_name}.podspec"
+podspec_file = "#{pod_name}.podspec"
 package_file = "Package.swift"
 xcframework_file = "#{module_name}.xcframework"
 xcframework_zip_file = "#{module_name}.xcframework.zip"

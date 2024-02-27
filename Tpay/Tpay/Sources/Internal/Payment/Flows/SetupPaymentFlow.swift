@@ -67,7 +67,12 @@ final class SetupPaymentFlow: ModuleFlow {
     }
     
     private func showChoosePaymentMethodScreen() {
-        let screen = ChoosePaymentMethodScreen(using: resolver)
+        guard let transaction = transactionBuilder.build() else {
+            assertionFailure("Cannot construct transaction object")
+            return
+        }
+        
+        let screen = ChoosePaymentMethodScreen(for: transaction, using: resolver)
         
         screen.router.showCardFlow
             .subscribe(onNext: { [weak self, unowned screen] in self?.showCardFlow(using: screen) })
@@ -75,6 +80,10 @@ final class SetupPaymentFlow: ModuleFlow {
         
         screen.router.showBLIKFlow
             .subscribe(onNext: { [weak self, unowned screen] in self?.showBlikFlow(using: screen) })
+            .add(to: disposer)
+        
+        screen.router.showRatyPekaoFlow
+            .subscribe(onNext: { [weak self, unowned screen] in self?.showRatyPekaoFlow(using: screen) })
             .add(to: disposer)
         
         screen.router.showPBLFlow
@@ -276,6 +285,25 @@ final class SetupPaymentFlow: ModuleFlow {
                 self?.payWithCardScreen = nil
                 self?.showOneClickFlow(using: screen)
             })
+            .add(to: disposer)
+        
+        screen.present(sub: subScene)
+    }
+    
+    private func showRatyPekaoFlow(using screen: ChoosePaymentMethodScreen) {
+        guard let transaction = transactionBuilder.build() else {
+            assertionFailure("Cannot construct transaction object")
+            return
+        }
+        
+        let subScene = PayWithRatyPekaoScreen(for: transaction, using: resolver)
+        
+        subScene.router.onTransactionCreated
+            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .add(to: disposer)
+
+        subScene.router.onError
+            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
             .add(to: disposer)
         
         screen.present(sub: subScene)

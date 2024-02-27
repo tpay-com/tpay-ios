@@ -2,7 +2,7 @@
 //  Copyright © 2022 Tpay. All rights reserved.
 //
 
-extension PayDTO {
+extension PayWithInstantRedirectionDTO {
     
     struct Recursive: Encodable {
         
@@ -15,7 +15,7 @@ extension PayDTO {
     }
 }
 
-extension PayDTO.Recursive {
+extension PayWithInstantRedirectionDTO.Recursive {
     
     enum Period: Int, Encodable {
         
@@ -29,7 +29,7 @@ extension PayDTO.Recursive {
     }
 }
 
-extension PayDTO.Recursive {
+extension PayWithInstantRedirectionDTO.Recursive {
     
     enum TransactionType: Int, Encodable {
         

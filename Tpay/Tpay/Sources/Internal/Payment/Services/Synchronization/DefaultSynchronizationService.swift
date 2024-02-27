@@ -42,7 +42,7 @@ final class DefaultSynchronizationService: SynchronizationService {
         synchronizationStatus.value = .syncing
         Invocation.Queue()
             .append(authenticationService.authenticate)
-            .append(paymentDataService.fetchBankGroups)
+            .append(paymentDataService.fetchChannels)
             .invoke(completion: { [weak self] result in
                 self?.handleSyncResult(result, then: then)
             })

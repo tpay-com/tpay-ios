@@ -6,6 +6,24 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
     
     // MARK: - API
     
+    func makePaymentMethod(from dto: ChannelDTO) -> Domain.PaymentMethod {
+        let groupId = dto.groupId
+        
+        switch groupId {
+        case .card:
+            return .card
+        case .blik:
+            return .blik
+        case _ where BankGroupId.digitalWallets.contains(groupId):
+            return .digitalWallet(makeDigitalWallet(from: dto))
+        case _ where BankGroupId.bankIds.contains(groupId):
+            return .pbl(makeBank(from: dto))
+        case _ where BankGroupId.installmentPayments.contains(groupId):
+            return .installmentPayments(makeInstallmentPayment(from: dto))
+        default: return .unknown
+        }
+    }
+    
     func makePaymentMethod(from dto: BankGroupDTO) -> Domain.PaymentMethod {
         let groupId = dto.id
         
@@ -20,6 +38,11 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
             return .pbl(makeBank(from: dto))
         default: return .unknown
         }
+    }
+    
+    func makePaymentChannel(from dto: ChannelDTO) -> Domain.PaymentChannel {
+        let amountConstraints = dto.constraints?.compactMap { makeAmountConstraint(from: $0) } ?? []
+        return Domain.PaymentChannel(id: dto.id, associatedGroupId: dto.groupId, amountConstraints: amountConstraints)
     }
     
     func makeOngoingTransaction(from dto: TransactionDTO) -> Domain.OngoingTransaction {
@@ -37,6 +60,10 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
     
     private func makeBank(from dto: BankGroupDTO) -> Domain.PaymentMethod.Bank {
         Domain.PaymentMethod.Bank(id: dto.id.rawValue, name: dto.name, imageUrl: URL(string: dto.img))
+    }
+    
+    private func makeBank(from dto: ChannelDTO) -> Domain.PaymentMethod.Bank {
+        Domain.PaymentMethod.Bank(id: dto.id, name: dto.name, imageUrl: URL(string: dto.imageUrl))
     }
     
     private func makeTransactionStatus(from dto: TransactionDTO.TransactionStatus) -> Domain.OngoingTransaction.Status {
@@ -95,6 +122,20 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
                                            imageUrl: URL(string: dto.img))
     }
     
+    private func makeDigitalWallet(from dto: ChannelDTO) -> Domain.PaymentMethod.DigitalWallet {
+        Domain.PaymentMethod.DigitalWallet(id: dto.id,
+                                           kind: makeDigitalWalletKind(from: dto.groupId),
+                                           name: dto.name,
+                                           imageUrl: URL(string: dto.imageUrl))
+    }
+    
+    private func makeInstallmentPayment(from dto: ChannelDTO) -> Domain.PaymentMethod.InstallmentPayment {
+        Domain.PaymentMethod.InstallmentPayment(id: dto.id,
+                                                kind: makeInstallmentPaymentKind(from: dto.groupId),
+                                                name: dto.name,
+                                                imageUrl: URL(string: dto.imageUrl))
+    }
+    
     private func makeDigitalWalletKind(from dto: BankGroupId) -> Domain.PaymentMethod.DigitalWallet.Kind {
         switch dto {
         case .applePay:
@@ -107,6 +148,29 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
             return .unknown
         }
     }
+    
+    private func makeInstallmentPaymentKind(from dto: BankGroupId) -> Domain.PaymentMethod.InstallmentPayment.Kind {
+        switch dto {
+        case .ratyPekao:
+            return .ratyPekao
+        default:
+            return .unknown
+        }
+    }
+    
+    private func makeAmountConstraint(from dto: ChannelDTO.Constraint) -> AmountConstraint? {
+        guard dto.field == .amount else {
+            return nil
+        }
+        switch (dto.type, Double(dto.value)) {
+        case (.min, .some(let minValue)):
+            return Domain.PaymentChannel.MinAmountConstraint(minValue: minValue)
+        case (.max, .some(let maxValue)):
+            return Domain.PaymentChannel.MaxAmountConstraint(maxValue: maxValue)
+        default:
+            return nil
+        }
+    }
 }
 
 private extension BankGroupId {
@@ -115,4 +179,5 @@ private extension BankGroupId {
     
     static var bankIds: [BankGroupId] = [.alior, .pekao, .pko, .inteligo, .mBank, .ing, .millennium, .santander, .citibank, .creditAgricole, .velo, .pocztowy, .bankiSpoldzielcze, .bnpParibas, .neo, .nest, .plus]
     static var digitalWallets: [BankGroupId] = [.applePay, .googlePay, .payPal]
+    static var installmentPayments: [BankGroupId] = [.ratyPekao]
 }

@@ -16,6 +16,8 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
             return .card
         case let .digitalWallet(wallet):
             return .digitalWallet(makeWallet(from: wallet))
+        case let .installmentPayments(installmentPayment):
+            return .installmentPayments(makeInstallmentPayment(from: installmentPayment))
         }
     }
     
@@ -89,6 +91,17 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
             return .googlePay
         case .payPal:
             return .payPal
+        }
+    }
+    
+    private func makeInstallmentPayment(from installmentPayment: InstallmentPayment) -> Domain.PaymentMethod.InstallmentPayment {
+        Domain.PaymentMethod.InstallmentPayment(kind: makeInstallmentPaymentKind(from: installmentPayment))
+    }
+    
+    private func makeInstallmentPaymentKind(from installmentPayment: InstallmentPayment) -> Domain.PaymentMethod.InstallmentPayment.Kind {
+        switch installmentPayment {
+        case .ratyPekao:
+            return .ratyPekao
         }
     }
 }

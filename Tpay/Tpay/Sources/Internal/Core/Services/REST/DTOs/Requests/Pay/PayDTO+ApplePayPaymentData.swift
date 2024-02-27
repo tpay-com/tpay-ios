@@ -2,7 +2,7 @@
 //  Copyright © 2023 Tpay. All rights reserved.
 //
 
-extension PayDTO {
+extension PayWithInstantRedirectionDTO {
     
     typealias ApplePayPaymentData = String
 }

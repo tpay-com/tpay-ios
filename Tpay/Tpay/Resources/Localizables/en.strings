@@ -62,6 +62,8 @@
 
 "digital_wallets" = "Mobile wallets";
 
+"raty_pekao" = "Raty Pekao";
+
 // MARK: - Pay with card scene
 
 "pay_with_card_headline" = "Add card";
@@ -101,6 +103,12 @@
 // MARK: - Pay with BLIK alias scene
 
 "pay_with_blik_alias_note" = "You do not have to enter the BLIK code - you shop in a previously remembered store. ";
+
+// MARK: - Pay with Raty Pekao scene
+
+"pay_with_raty_pekao_scene_headline" = "Choose installment option";
+
+"pay_with_raty_pekao_scene_action_button_title" = "Continue";
 
 // MARK: - Processing payment scene
 

@@ -10,7 +10,11 @@ final class PayerDTO_Tests: XCTestCase {
     
     // MARK: - Properties
     
-    let jsonEncoder = JSONEncoder()
+    private lazy var jsonEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        return encoder
+    }()
     
     // MARK: - Tests
     
@@ -19,7 +23,7 @@ final class PayerDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"phone":"stubPhone","city":"stubCity","country":"stubCountry","address":"stubAddress","code":"stubPostalCode","email":"stubEmail","name":"stubName"}
+        {"address":"stubAddress","city":"stubCity","code":"stubPostalCode","country":"stubCountry","email":"stubEmail","name":"stubName","phone":"stubPhone"}
         """
         
         expect(sut) == expectedPayload

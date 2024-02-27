@@ -10,12 +10,12 @@ extension TransactionsController {
                 
         // MARK: - Properties
      
-        let dto: PayDTO
+        let dto: PayWithInstantRedirectionDTO
         let resource: NetworkResource
         
         // MARK: - Initializers
         
-        init(transactionId: String, dto: PayDTO) {
+        init(transactionId: String, dto: PayWithInstantRedirectionDTO) {
             self.dto = dto
             resource = NetworkResource(url: URL(safeString: "/transactions/" + transactionId + "/pay"),
                                        method: .post,

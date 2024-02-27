@@ -10,7 +10,11 @@ final class NewTransactionDTO_Tests: XCTestCase {
     
     // MARK: - Properties
     
-    let jsonEncoder = JSONEncoder()
+    private lazy var jsonEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        return encoder
+    }()
     
     // MARK: - Tests
     
@@ -25,7 +29,7 @@ final class NewTransactionDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"amount":4.2,"pay":{"groupId":-1},"lang":"pl","hiddenDescription":"stubHiddenDescription","description":"stubDescription","payer":{"email":"stubEmail","name":"stubName"},"callbacks":{"payerUrls":{"success":"https:\\/\\/stub.com\\/success","error":"https:\\/\\/stub.com\\/error"}}}
+        {"amount":4.2,"callbacks":{"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"description":"stubDescription","hiddenDescription":"stubHiddenDescription","lang":"pl","pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
         """
         
         expect(sut) == expectedPayload
@@ -42,7 +46,7 @@ final class NewTransactionDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"amount":4.2,"pay":{"groupId":-1},"callbacks":{"payerUrls":{"success":"https:\\/\\/stub.com\\/success","error":"https:\\/\\/stub.com\\/error"}},"payer":{"email":"stubEmail","name":"stubName"}}
+        {"amount":4.2,"callbacks":{"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
         """
         
         expect(sut) == expectedPayload
@@ -55,7 +59,7 @@ private extension NewTransactionDTO_Tests {
         static let amount = Decimal(4.20)
         static let description = "stubDescription"
         static let hiddenDescription = "stubHiddenDescription"
-        static let pay = PayDTO(groupId: .unknown, method: nil, blikPaymentData: nil, cardPaymentData: nil, recursive: nil)
+        static let pay = PayWithInstantRedirectionDTO(channelId: .empty, method: nil, blikPaymentData: nil, cardPaymentData: nil, recursive: nil)
         static let payer = PayerDTO(email: "stubEmail", name: "stubName", phone: nil, address: nil, postalCode: nil, city: nil, country: nil)
         static let callbacks = NewTransactionDTO.Callbacks(successUrl: .init(safeString: "https://stub.com/success"),
                                                            errorURL: .init(safeString: "https://stub.com/error"))

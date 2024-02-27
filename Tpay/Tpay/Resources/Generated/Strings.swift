@@ -103,6 +103,10 @@ internal enum Strings {
   internal static var payWithCode: String { Strings.tr("pl", "pay_with_code") }
   /// Zapłać za pomocą
   internal static var payWithHeadline: String { Strings.tr("pl", "pay_with_headline") }
+  /// Przejdź dalej
+  internal static var payWithRatyPekaoSceneActionButtonTitle: String { Strings.tr("pl", "pay_with_raty_pekao_scene_action_button_title") }
+  /// Wybierz wariant rat
+  internal static var payWithRatyPekaoSceneHeadline: String { Strings.tr("pl", "pay_with_raty_pekao_scene_headline") }
   /// E-mail
   internal static var payerEmail: String { Strings.tr("pl", "payer_email") }
   /// Imię i nazwisko
@@ -127,6 +131,8 @@ internal enum Strings {
   internal static var processingPaymentTitle: String { Strings.tr("pl", "processing_payment_title") }
   /// Umieść kartę w ramce
   internal static var putCardInDetectionArea: String { Strings.tr("pl", "put_card_in_detection_area") }
+  /// Raty Pekao
+  internal static var ratyPekao: String { Strings.tr("pl", "raty_pekao") }
   /// Zapamiętaj sklep i włącz płatność one-click
   internal static var registerBlikAliasNote: String { Strings.tr("pl", "register_blik_alias_note") }
   /// <span>Płacąc, akceptujesz <a href='%@'><b>regulamin.</b></a></span>

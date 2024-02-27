@@ -4,7 +4,7 @@
 
 extension Domain.PaymentMethod {
     
-    struct Bank: Equatable {
+    struct Bank: Equatable, Hashable {
         
         // MARK: - Properties
         

@@ -7,6 +7,7 @@ final class DefaultPaymentMethodsService: PaymentMethodsService {
     // MARK: - Properties
     
     var paymentMethods: [Domain.PaymentMethod] { paymentDataStore.paymentMethods }
+    var paymentChannels: [Domain.PaymentChannel] { paymentDataStore.paymentChannels }
     
     private let configurationManager: ConfigurationManager
     private let paymentDataStore: PaymentDataStore
@@ -39,6 +40,11 @@ final class DefaultPaymentMethodsService: PaymentMethodsService {
         completion(.success(()))
     }
     
+    func store(paymentChannels: [Domain.PaymentChannel], completion: @escaping Completion) {
+        paymentDataStore.set(paymentChannels: paymentChannels)
+        completion(.success(()))
+    }
+    
     // MARK: - Private
     
     private func compare(merchantMethods: [Domain.PaymentMethod], with availablePaymentMethods: [Domain.PaymentMethod]) -> [Domain.PaymentMethod] {
@@ -47,13 +53,16 @@ final class DefaultPaymentMethodsService: PaymentMethodsService {
         for method in merchantMethods {
             switch method {
             case .pbl:
-                let allBanks = availablePaymentMethods.allBankMethods()
+                let allBanks = availablePaymentMethods.allBanks().wrapped()
                 allBanks.forEach { bankMethod in result.append(bankMethod, if: !result.contains(bankMethod)) }
             case .digitalWallet(let wallet):
                 let allWallets = availablePaymentMethods.allWallets()
                 if let availableWallet = allWallets.first(where: { $0.kind == wallet.kind }) {
                     result.append(.digitalWallet(availableWallet))
                 }
+            case .installmentPayments:
+                let all = availablePaymentMethods.allInstallmentPayments().wrapped()
+                all.forEach { iPayment in result.append(iPayment, if: !result.contains(iPayment)) }
             default:
                 guard availablePaymentMethods.contains(method) else { continue }
                 result.append(method, if: !result.contains(method))
@@ -88,5 +97,4 @@ final class DefaultPaymentMethodsService: PaymentMethodsService {
             }
         }
     }
-    
 }

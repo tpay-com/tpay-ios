@@ -55,6 +55,7 @@ internal enum Asset {
     internal static let mastercardLogo = ImageAsset(name: "mastercardLogo")
     internal static let ocr = ImageAsset(name: "ocr")
     internal static let pciLogo = ImageAsset(name: "pciLogo")
+    internal static let ratyPekaoLogo = ImageAsset(name: "ratyPekaoLogo")
     internal static let rightArrow = ImageAsset(name: "rightArrow")
     internal static let time = ImageAsset(name: "time")
     internal static let tpayLogoDark = ImageAsset(name: "tpayLogoDark")

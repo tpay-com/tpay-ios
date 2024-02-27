@@ -26,6 +26,13 @@ final class DefaultPaymentDataService: PaymentDataService {
     
     // MARK: - API
     
+    func fetchChannels(then: @escaping Completion) {
+        let request = TransactionsController.Channels()
+        networkingService.execute(request: request)
+            .onSuccess { [weak self] response in self?.handle(response, completion: then) }
+            .onError { error in then(.failure(error)) }
+    }
+    
     func fetchBankGroups(then: @escaping Completion) {
         let request = TransactionsController.BankGroups()
         networkingService.execute(request: request)
@@ -62,6 +69,7 @@ final class DefaultPaymentDataService: PaymentDataService {
             }
             .onError { error in then(.failure(error)) }
     }
+    
     // MARK: - Private
     
     private func handle(_ response: TransactionsController.BankGroups.Response, completion: @escaping Completion) {
@@ -71,8 +79,30 @@ final class DefaultPaymentDataService: PaymentDataService {
             .invoke(completion: completion)
     }
     
+    private func handle(_ response: TransactionsController.Channels.Response, completion: @escaping Completion) {
+        let availablePaymentMethods = paymentMethods(from: response)
+        let paymentChannels = paymentChannels(from: response)
+        Invocation.Queue()
+            .append(method: paymentMethodsService.store, with: availablePaymentMethods)
+            .append(method: paymentMethodsService.store, with: paymentChannels)
+            .invoke(completion: completion)
+    }
+    
     private func paymentMethods(from response: TransactionsController.BankGroups.Response) -> [Domain.PaymentMethod] {
         let paymentMethods = response.bankGroups.compactMap { [weak self] in self?.transportationMapper.makePaymentMethod(from: $0) }
         return paymentMethods
+    }
+    
+    private func paymentMethods(from response: TransactionsController.Channels.Response) -> [Domain.PaymentMethod] {
+        let paymentMethods = response.channels
+            .filter(\.isAvailable)
+            .compactMap { [weak self] in self?.transportationMapper.makePaymentMethod(from: $0) }
+        return paymentMethods
+    }
+    
+    private func paymentChannels(from response: TransactionsController.Channels.Response) -> [Domain.PaymentChannel] {
+        let paymentChannels = response.channels
+            .compactMap { [weak self] in self?.transportationMapper.makePaymentChannel(from: $0) }
+        return paymentChannels
     }
 }

@@ -16,7 +16,7 @@ Select "Up to Next Major" with "1.0.0"
 use_frameworks!
 
 target :MyTarget do
-  pod 'Tpay'
+  pod 'TpaySDK'
 end
 ```
 

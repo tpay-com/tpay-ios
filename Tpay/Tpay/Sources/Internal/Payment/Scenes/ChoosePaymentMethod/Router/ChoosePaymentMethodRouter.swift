@@ -10,6 +10,7 @@ protocol ChoosePaymentMethodRouter: AnyObject {
     var showBLIKFlow: Observable<Void> { get }
     var showPBLFlow: Observable<Void> { get }
     var showDigitalWalletsFlow: Observable<Void> { get }
+    var showRatyPekaoFlow: Observable<Void> { get }
     
     // MARK: - Methods
     
@@ -17,4 +18,5 @@ protocol ChoosePaymentMethodRouter: AnyObject {
     func showBLIK()
     func showPBL()
     func showDigitalWallets()
+    func showRatyPekao()
 }

@@ -12,7 +12,7 @@ struct NewTransactionDTO: Encodable {
     let hiddenDescription: String?
     let language: Language?
     
-    let pay: PayDTO
+    let pay: PayWithInstantRedirectionDTO
     let payer: PayerDTO
     
     let callbacks: Callbacks

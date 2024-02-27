@@ -10,7 +10,11 @@ final class NewCardDTO_Tests: XCTestCase {
     
     // MARK: - Properties
     
-    let jsonEncoder = JSONEncoder()
+    private lazy var jsonEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        return encoder
+    }()
     
     // MARK: - Tests
     
@@ -22,7 +26,7 @@ final class NewCardDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"redirectUrl":{"success":"https:\\/\\/stub.com\\/success","error":"https:\\/\\/stub.com\\/error"},"callbackUrl":"https:\\/\\/stub.com","card":"stubCard","payer":{"email":"stubEmail","name":"stubName"}}
+        {"callbackUrl":"https:\\/\\/stub.com","card":"stubCard","payer":{"email":"stubEmail","name":"stubName"},"redirectUrl":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}}
         """
         
         expect(sut) == expectedPayload

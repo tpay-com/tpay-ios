@@ -2,7 +2,7 @@
 //  Copyright © 2022 Tpay. All rights reserved.
 //
 
-extension PayDTO {
+extension PayWithInstantRedirectionDTO {
     
     struct BlikPaymentData: Encodable {
         
@@ -13,7 +13,7 @@ extension PayDTO {
     }
 }
 
-extension PayDTO.BlikPaymentData {
+extension PayWithInstantRedirectionDTO.BlikPaymentData {
     
     struct Alias: Encodable {
         
@@ -27,7 +27,7 @@ extension PayDTO.BlikPaymentData {
     }
 }
 
-extension PayDTO.BlikPaymentData.Alias {
+extension PayWithInstantRedirectionDTO.BlikPaymentData.Alias {
     
     enum AliasType: String, Encodable {
         

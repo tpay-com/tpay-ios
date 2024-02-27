@@ -34,11 +34,12 @@ final class DefaultChoosePaymentMethodViewModel: ChoosePaymentMethodViewModel {
         case .blik: router.showBLIK()
         case .pbl: router.showPBL()
         case .digitalWallet: router.showDigitalWallets()
+        case .installmentPayments: router.showRatyPekao()
         case .unknown: break
         }
     }
     
     func getPaymentMethods() -> [Domain.PaymentMethod] {
-        model.getPaymentMethods()
+        model.getPaymentMethods().sorted(by: \.order)
     }
 }

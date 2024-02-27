@@ -2,7 +2,7 @@
 //  Copyright © 2022 Tpay. All rights reserved.
 //
 
-extension PayDTO {
+extension PayWithInstantRedirectionDTO {
     
     struct CardPaymentData: Encodable {
         
@@ -15,7 +15,7 @@ extension PayDTO {
     }
 }
 
-extension PayDTO.CardPaymentData {
+extension PayWithInstantRedirectionDTO.CardPaymentData {
     
     private enum CodingKeys: String, CodingKey {
         

@@ -176,6 +176,10 @@ extension DefaultScreenlessTransactionService_Tests {
             then(.success(()))
         }
         
+        func fetchChannels(then: @escaping Completion) {
+            then(.success(()))
+        }
+        
         func getAvailableBanks(then: @escaping (Result<[Tpay.Domain.PaymentMethod.Bank], Error>) -> Void) {
             then(.success(Stub.domainBanks))
         }
@@ -227,6 +231,10 @@ extension DefaultScreenlessTransactionService_Tests {
         func invokePayment(for transaction: Tpay.Domain.Transaction,
                            with applePay: Tpay.Domain.ApplePayToken,
                            then: @escaping Tpay.OngoingTransactionResultHandler) {
+            then(.success(Stub.transactionWithId))
+        }
+        
+        func invokePayment(for transaction: Domain.Transaction, with installmentPayment: Domain.PaymentMethod.InstallmentPayment, then: @escaping OngoingTransactionResultHandler) {
             then(.success(Stub.transactionWithId))
         }
         

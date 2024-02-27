@@ -47,35 +47,37 @@ extension Resource {
         let key = overrideCacheKey ?? cacheKey
         return downloadURL.isFileURL ?
             .provider(LocalFileImageDataProvider(fileURL: downloadURL, cacheKey: key)) :
-            .network(ImageResource(downloadURL: downloadURL, cacheKey: key))
+            .network(KF.ImageResource(downloadURL: downloadURL, cacheKey: key))
     }
 }
 
-/// ImageResource is a simple combination of `downloadURL` and `cacheKey`.
-/// When passed to image view set methods, Kingfisher will try to download the target
-/// image from the `downloadURL`, and then store it with the `cacheKey` as the key in cache.
-struct ImageResource: Resource {
+extension KF {
+    /// ImageResource is a simple combination of `downloadURL` and `cacheKey`.
+    /// When passed to image view set methods, Kingfisher will try to download the target
+    /// image from the `downloadURL`, and then store it with the `cacheKey` as the key in cache.
+    struct ImageResource: Resource {
 
-    // MARK: - Initializers
+        // MARK: - Initializers
 
-    /// Creates an image resource.
-    ///
-    /// - Parameters:
-    ///   - downloadURL: The target image URL from where the image can be downloaded.
-    ///   - cacheKey: The cache key. If `nil`, Kingfisher will use the `absoluteString` of `downloadURL` as the key.
-    ///               Default is `nil`.
-    init(downloadURL: URL, cacheKey: String? = nil) {
-        self.downloadURL = downloadURL
-        self.cacheKey = cacheKey ?? downloadURL.cacheKey
+        /// Creates an image resource.
+        ///
+        /// - Parameters:
+        ///   - downloadURL: The target image URL from where the image can be downloaded.
+        ///   - cacheKey: The cache key. If `nil`, Kingfisher will use the `absoluteString` of `downloadURL` as the key.
+        ///               Default is `nil`.
+        init(downloadURL: URL, cacheKey: String? = nil) {
+            self.downloadURL = downloadURL
+            self.cacheKey = cacheKey ?? downloadURL.cacheKey
+        }
+
+        // MARK: Protocol Conforming
+        
+        /// The key used in cache.
+        let cacheKey: String
+
+        /// The target image URL.
+        let downloadURL: URL
     }
-
-    // MARK: Protocol Conforming
-    
-    /// The key used in cache.
-    let cacheKey: String
-
-    /// The target image URL.
-    let downloadURL: URL
 }
 
 /// URL conforms to `Resource` in Kingfisher.

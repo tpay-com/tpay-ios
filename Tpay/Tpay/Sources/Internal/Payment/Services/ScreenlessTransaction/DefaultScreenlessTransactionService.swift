@@ -341,6 +341,8 @@ final class DefaultScreenlessTransactionService: ScreenlessTransactionService {
             return .card
         case .digitalWallet(let wallet):
             return .digitalWallet(try makeWallet(from: wallet.kind))
+        case .installmentPayments:
+            return .installmentPayments(.ratyPekao)
         case .unknown:
             throw ScreenlessTransactionError.unknownPaymentMethod
         }

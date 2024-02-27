@@ -4,7 +4,7 @@
 
 extension Domain {
     
-    enum PaymentMethod: Equatable {
+    enum PaymentMethod: Equatable, Hashable {
         
         // MARK: - Cases
         
@@ -12,6 +12,7 @@ extension Domain {
         case pbl(Bank)
         case card
         case digitalWallet(DigitalWallet)
+        case installmentPayments(InstallmentPayment)
         
         case unknown
     }
@@ -19,15 +20,20 @@ extension Domain {
 
 extension Domain.PaymentMethod {
     
-    static func ==(lhs: Domain.PaymentMethod, rhs: Domain.PaymentMethod) -> Bool {
-        switch (lhs, rhs) {
-        case (.blik, .blik), (.card, .card), (.unknown, .unknown): return true
-        case (.pbl, .pbl(Domain.PaymentMethod.Bank.any)), (.pbl(Domain.PaymentMethod.Bank.any), .pbl): return true
-        case let (.pbl(lhsValue), .pbl(rhsValue)): return lhsValue == rhsValue
-        case (.digitalWallet, .digitalWallet(Domain.PaymentMethod.DigitalWallet.any)),
-            (.digitalWallet(Domain.PaymentMethod.DigitalWallet.any), .digitalWallet): return true
-        case let (.digitalWallet(lhsValue), .digitalWallet(rhsValue)): return lhsValue == rhsValue
-        default: return false
+    var order: Int {
+        switch self {
+        case .blik:
+            return 2
+        case .pbl:
+            return 4
+        case .card:
+            return 1
+        case .digitalWallet:
+            return 5
+        case .installmentPayments:
+            return 3
+        case .unknown:
+            return .max
         }
     }
 }
