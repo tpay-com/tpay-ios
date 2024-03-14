@@ -76,6 +76,8 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
             return .mastercard
         case .visa:
             return .visa
+        case let .other(brand):
+            return .other(brand)
         }
     }
     
