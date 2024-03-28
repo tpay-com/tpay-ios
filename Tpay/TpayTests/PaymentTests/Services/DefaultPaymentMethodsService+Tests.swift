@@ -156,12 +156,12 @@ private extension DefaultPaymentMethodsService_Tests {
     
     enum Stub {
         static let availablePaymentMethods: [Domain.PaymentMethod] = [.card, .blik] + availableBanks + availableWallets
-        static let availableWallets: [Domain.PaymentMethod] = [.digitalWallet(.init(kind: .applePay)), .digitalWallet(.init(kind: .googlePay)), .digitalWallet(.init(kind: .payPal))]
+        static let availableWallets: [Domain.PaymentMethod] = [.digitalWallet(.init(kind: .applePay))]
         static let availableBanks: [Domain.PaymentMethod] = [.pbl(Domain.PaymentMethod.Bank(id: "1", name: "1", imageUrl: nil)),
             .pbl(Domain.PaymentMethod.Bank(id: "2", name: "2", imageUrl: nil))]
         
         static let allMerchantMethods: [PaymentMethod] = PaymentMethod.allCases
-        static let allMerchantWallets = [DigitalWallet.applePay, DigitalWallet.googlePay, DigitalWallet.payPal]
+        static let allMerchantWallets = [DigitalWallet.applePay]
         static let authorization = Merchant.Authorization(clientId: "clientId", clientSecret: "clientSecret")
         static let applePayConfiguration = Merchant.WalletConfiguration.ApplePayConfiguration(merchantIdentifier: "merchantId")
         static var cardsConfiguration: Merchant.CardsAPI? = {

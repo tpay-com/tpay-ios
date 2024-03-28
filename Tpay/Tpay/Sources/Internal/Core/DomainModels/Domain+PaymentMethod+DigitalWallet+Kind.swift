@@ -10,7 +10,6 @@ extension Domain.PaymentMethod.DigitalWallet {
 
         case applePay
         case googlePay
-        case payPal
         
         case unknown
     }

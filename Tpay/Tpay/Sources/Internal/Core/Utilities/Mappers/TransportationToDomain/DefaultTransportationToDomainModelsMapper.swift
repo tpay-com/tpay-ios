@@ -41,8 +41,13 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
     }
     
     func makePaymentChannel(from dto: ChannelDTO) -> Domain.PaymentChannel {
-        let amountConstraints = dto.constraints?.compactMap { makeAmountConstraint(from: $0) } ?? []
-        return Domain.PaymentChannel(id: dto.id, associatedGroupId: dto.groupId, amountConstraints: amountConstraints)
+        let constraints = dto.constraints?.compactMap { makeDomainPaymentChannelConstraint(from: $0) }
+        return Domain.PaymentChannel(id: dto.id,
+                                     name: dto.name,
+                                     fullName: dto.fullName,
+                                     imageUrl: URL(string: dto.imageUrl),
+                                     associatedGroupId: dto.groupId,
+                                     constraints: constraints)
     }
     
     func makeOngoingTransaction(from dto: TransactionDTO) -> Domain.OngoingTransaction {
@@ -142,8 +147,6 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
             return .applePay
         case .googlePay:
             return .googlePay
-        case .payPal:
-            return .payPal
         default:
             return .unknown
         }
@@ -158,18 +161,12 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
         }
     }
     
-    private func makeAmountConstraint(from dto: ChannelDTO.Constraint) -> AmountConstraint? {
-        guard dto.field == .amount else {
+    private func makeDomainPaymentChannelConstraint(from dto: ChannelDTO.Constraint) -> Domain.PaymentChannel.Constraint? {
+        guard let field = Domain.PaymentChannel.Constraint.Field(rawValue: dto.field),
+              let type = Domain.PaymentChannel.Constraint.ConstraintType(rawValue: dto.type) else {
             return nil
         }
-        switch (dto.type, Double(dto.value)) {
-        case (.min, .some(let minValue)):
-            return Domain.PaymentChannel.MinAmountConstraint(minValue: minValue)
-        case (.max, .some(let maxValue)):
-            return Domain.PaymentChannel.MaxAmountConstraint(maxValue: maxValue)
-        default:
-            return nil
-        }
+        return Domain.PaymentChannel.Constraint(field: field, type: type, value: dto.value)
     }
 }
 
@@ -178,6 +175,6 @@ private extension BankGroupId {
     // MARK: - Properties
     
     static var bankIds: [BankGroupId] = [.alior, .pekao, .pko, .inteligo, .mBank, .ing, .millennium, .santander, .citibank, .creditAgricole, .velo, .pocztowy, .bankiSpoldzielcze, .bnpParibas, .neo, .nest, .plus]
-    static var digitalWallets: [BankGroupId] = [.applePay, .googlePay, .payPal]
+    static var digitalWallets: [BankGroupId] = [.applePay, .googlePay]
     static var installmentPayments: [BankGroupId] = [.ratyPekao]
 }

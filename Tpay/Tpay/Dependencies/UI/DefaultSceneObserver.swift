@@ -50,7 +50,7 @@ extension DefaultSceneObserver {
         }
         
         deinit {
-            print("DefaultSceneObserver.ClosureContainer deinited")
+            Logger.debug("DefaultSceneObserver.ClosureContainer deinited")
         }
         
     }

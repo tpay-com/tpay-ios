@@ -33,51 +33,7 @@ final class DefaultPaymentDataService: PaymentDataService {
             .onError { error in then(.failure(error)) }
     }
     
-    func fetchBankGroups(then: @escaping Completion) {
-        let request = TransactionsController.BankGroups()
-        networkingService.execute(request: request)
-            .onSuccess { [weak self] response in self?.handle(response, completion: then) }
-            .onError { error in then(.failure(error)) }
-    }
-    
-    func getAvailableBanks(then: @escaping (Result<[Domain.PaymentMethod.Bank], Error>) -> Void) {
-        let request = TransactionsController.BankGroups()
-        networkingService.execute(request: request)
-            .onSuccess { [weak self] response in
-                let banks = self?.paymentMethods(from: response).allBanks() ?? []
-                then(.success(banks))
-            }
-            .onError { error in then(.failure(error)) }
-    }
-    
-    func getAvailableDigitalWallets(then: @escaping (Result<[Domain.PaymentMethod.DigitalWallet], Error>) -> Void) {
-        let request = TransactionsController.BankGroups()
-        networkingService.execute(request: request)
-            .onSuccess { [weak self] response in
-                let banks = self?.paymentMethods(from: response).allWallets() ?? []
-                then(.success(banks))
-            }
-            .onError { error in then(.failure(error)) }
-    }
-    
-    func getAvailablePaymentMethods(then: @escaping (Result<[Domain.PaymentMethod], Error>) -> Void) {
-        let request = TransactionsController.BankGroups()
-        networkingService.execute(request: request)
-            .onSuccess { [weak self] response in
-                let paymentMethods = self?.paymentMethods(from: response) ?? []
-                then(.success(paymentMethods))
-            }
-            .onError { error in then(.failure(error)) }
-    }
-    
     // MARK: - Private
-    
-    private func handle(_ response: TransactionsController.BankGroups.Response, completion: @escaping Completion) {
-        let availablePaymentMethods = paymentMethods(from: response)
-        Invocation.Queue()
-            .append(method: paymentMethodsService.store, with: availablePaymentMethods)
-            .invoke(completion: completion)
-    }
     
     private func handle(_ response: TransactionsController.Channels.Response, completion: @escaping Completion) {
         let availablePaymentMethods = paymentMethods(from: response)
@@ -86,11 +42,6 @@ final class DefaultPaymentDataService: PaymentDataService {
             .append(method: paymentMethodsService.store, with: availablePaymentMethods)
             .append(method: paymentMethodsService.store, with: paymentChannels)
             .invoke(completion: completion)
-    }
-    
-    private func paymentMethods(from response: TransactionsController.BankGroups.Response) -> [Domain.PaymentMethod] {
-        let paymentMethods = response.bankGroups.compactMap { [weak self] in self?.transportationMapper.makePaymentMethod(from: $0) }
-        return paymentMethods
     }
     
     private func paymentMethods(from response: TransactionsController.Channels.Response) -> [Domain.PaymentMethod] {

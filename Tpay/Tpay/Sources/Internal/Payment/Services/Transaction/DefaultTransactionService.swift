@@ -10,6 +10,7 @@ final class DefaultTransactionService: TransactionService {
     private let mapper: TransportationToDomainModelsMapper
     private let encryptor: CardEncryptor
     private let merchant: Merchant
+    private let callbacksConfiguration: CallbacksConfiguration
     private let transactionValidator: TransactionValidator
     private let paymentMethodsService: PaymentMethodsService
     
@@ -23,7 +24,8 @@ final class DefaultTransactionService: TransactionService {
         self.init(networkingService: resolver.resolve(),
                   mapper: DefaultTransportationToDomainModelsMapper(),
                   encryptor: DefaultCardEncryptor(using: resolver),
-                  merchant: merchant,
+                  merchant: merchant, 
+                  callbacksConfiguration: configurationProvider.callbacksConfiguration,
                   transactionValidator: DefaultTransactionValidator(),
                   paymentMethodsService: resolver.resolve())
     }
@@ -32,12 +34,14 @@ final class DefaultTransactionService: TransactionService {
          mapper: TransportationToDomainModelsMapper,
          encryptor: CardEncryptor,
          merchant: Merchant,
+         callbacksConfiguration: CallbacksConfiguration,
          transactionValidator: TransactionValidator,
          paymentMethodsService: PaymentMethodsService) {
         self.networkingService = networkingService
         self.mapper = mapper
         self.encryptor = encryptor
         self.merchant = merchant
+        self.callbacksConfiguration = callbacksConfiguration
         self.transactionValidator = transactionValidator
         self.paymentMethodsService = paymentMethodsService
     }
@@ -103,6 +107,10 @@ final class DefaultTransactionService: TransactionService {
         executeCreateTransactionRequest(with: dto, then: then)
     }
     
+    func getPaymentStatus(for ongoingTransaction: Domain.OngoingTransaction, then: @escaping OngoingTransactionResultHandler) {
+        executeGetSpecifiedTransactionRequest(for: ongoingTransaction.transactionId, then: then)
+    }
+    
     func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with blik: Domain.Blik.OneClick, then: @escaping OngoingTransactionResultHandler) {
         do {
             let dto = try makePayDTO(from: blik)
@@ -116,6 +124,17 @@ final class DefaultTransactionService: TransactionService {
     
     private func executeCreateTransactionRequest(with dto: NewTransactionDTO, then: @escaping OngoingTransactionResultHandler) {
         let request = TransactionsController.CreateTransaction(dto: dto)
+        networkingService.execute(request: request)
+            .onSuccess { [weak self] transactionDto in
+                guard let self = self else { return }
+                let ongoingTransaction = self.mapper.makeOngoingTransaction(from: transactionDto)
+                self.validate(transaction: ongoingTransaction, then: then)
+            }
+            .onError { error in then(.failure(error)) }
+    }
+    
+    private func executeGetSpecifiedTransactionRequest(for transactionId: String, then: @escaping OngoingTransactionResultHandler) {
+        let request = TransactionsController.SpecifiedTransaction(with: transactionId)
         networkingService.execute(request: request)
             .onSuccess { [weak self] transactionDto in
                 guard let self = self else { return }
@@ -297,8 +316,9 @@ final class DefaultTransactionService: TransactionService {
     }
     
     private func makeCallbacks() -> NewTransactionDTO.Callbacks {
-        .init(successUrl: merchant.successCallbackUrl,
-              errorURL: merchant.errorCallbackUrl)
+        .init(successUrl: callbacksConfiguration.successRedirectUrl,
+              errorUrl: callbacksConfiguration.errorRedirectUrl,
+              notificationUrl: callbacksConfiguration.notificationsUrl)
     }
     
     private func makeAliasType(for type: Domain.Blik.AliasType) -> PayWithInstantRedirectionDTO.BlikPaymentData.Alias.AliasType {

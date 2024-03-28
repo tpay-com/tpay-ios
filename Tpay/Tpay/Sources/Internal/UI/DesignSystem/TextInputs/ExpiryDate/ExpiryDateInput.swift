@@ -29,6 +29,7 @@ final class ExpiryDateInput: UIView {
     var placeholder: String? {
         didSet {
             placeholderLabel.text = placeholder
+            adjustPlaceholderColor()
         }
     }
     
@@ -103,7 +104,8 @@ final class ExpiryDateInput: UIView {
     
     private func setupState() {
         textField.textFieldState = state
-        
+        adjustPlaceholderColor()
+
         switch state {
         case .error:
             isUserInteractionEnabled = true
@@ -158,6 +160,7 @@ final class ExpiryDateInput: UIView {
                 self?.state = .enabled
             } else {
                 self?.state = .filled
+                self?.adjustPlaceholderColor()
             }
         }
     }
@@ -185,6 +188,18 @@ final class ExpiryDateInput: UIView {
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn) { [weak self] in
             self?.placeholderLabel.alpha = 0.0
             self?.layoutIfNeeded()
+        }
+    }
+    
+    private func adjustPlaceholderColor() {
+        
+        switch state {
+        case .active:
+            placeholderLabel.textColor = .Colors.Primary._500.color
+        case .error:
+            placeholderLabel.textColor = .Colors.Semantic.error.color
+        default:
+            placeholderLabel.textColor = .Colors.Neutral._500.color
         }
     }
 }

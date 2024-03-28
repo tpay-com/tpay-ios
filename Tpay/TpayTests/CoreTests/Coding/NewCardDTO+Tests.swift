@@ -37,7 +37,7 @@ private extension NewCardDTO_Tests {
     
     enum Stub {
         static let payer = PayerDTO(email: "stubEmail", name: "stubName", phone: nil, address: nil, postalCode: nil, city: nil, country: nil)
-        static let callback = "https://stub.com"
+        static let callback = URL(safeString: "https://stub.com")
         static let redirect = NewCardDTO.Redirects(successUrl: .init(safeString: "https://stub.com/success"),
                                                    errorURL: .init(safeString: "https://stub.com/error"))
         static let card = "stubCard"

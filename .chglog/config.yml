@@ -1,10 +1,18 @@
-template: CHANGELOG.tpl.md
-info:
+options:
   header:
     pattern: "^(\\w*)\\:\\s(.*)$"
     pattern_maps:
-      - Type
-      - Subject
+    - Type
+    - Subject
+  commits:
+    filters:
+      Type:
+      - feat
+      - fix
+  commit_groups:
+    title_maps:
+      feat: Features
+      fix: Bug Fixes
   notes:
     keywords:
-      - BREAKING CHANGE
+    - BREAKING CHANGE

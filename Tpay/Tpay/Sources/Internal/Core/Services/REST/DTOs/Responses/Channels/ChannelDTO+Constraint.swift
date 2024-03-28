@@ -8,26 +8,8 @@ extension ChannelDTO {
     
     struct Constraint: Decodable {
         
-        let field: Field
-        let type: ConstraintType
+        let field: String
+        let type: String
         let value: String
-    }
-}
-
-extension ChannelDTO.Constraint {
-    
-    enum Field: String, Decodable {
-        
-        case amount
-        
-        case applePaySession = "ApplePaySession"
-    }
-    
-    enum ConstraintType: String, Decodable {
-        
-        case min
-        case max
-        
-        case isSupported = "supported"
     }
 }

@@ -17,11 +17,13 @@ public struct BlikAlias<RegistrationStatus>: Equatable {
     }
 }
 
-@_documentation(visibility: internal)
-public enum Registered { }
+public protocol AliasRegistrationStatus { }
 
 @_documentation(visibility: internal)
-public enum NotRegistered { }
+public enum Registered: AliasRegistrationStatus { }
+
+@_documentation(visibility: internal)
+public enum NotRegistered: AliasRegistrationStatus { }
 
 /// Represents an already registered BLIK alias in the system.
 

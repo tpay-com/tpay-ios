@@ -21,11 +21,10 @@ final class DefaultProcessingPaymentWithUrlModel: ProcessingPaymentWithUrlModel 
     init(transaction: Domain.OngoingTransaction, resolver: ServiceResolver) {
         guard let continueUrl = transaction.continueUrl else { preconditionFailure("Continue url should be available here") }
         let configurationProvider: ConfigurationProvider = resolver.resolve()
-        guard let merchant = configurationProvider.merchant else { preconditionFailure("Merchant is not configured") }
         
         self.continueUrl = continueUrl
-        self.successUrl = merchant.successCallbackUrl
-        self.errorUrl = merchant.errorCallbackUrl
+        self.successUrl = configurationProvider.callbacksConfiguration.successRedirectUrl
+        self.errorUrl = configurationProvider.callbacksConfiguration.errorRedirectUrl
         transactionObserver = DefaultTransactionObserver(transaction: transaction, resolver: resolver)
     }
     

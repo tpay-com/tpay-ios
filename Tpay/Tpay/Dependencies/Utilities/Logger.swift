@@ -13,7 +13,7 @@ enum Logger {
     /// - LSSupportsOpeningDocumentsInPlace and set value as true
     static var isWritingToFileEnabled: Bool = false
     
-    static var isLoggingEnabled: Bool = true
+    static var isLoggingEnabled: Bool = false
     static var projectName: String = .empty
 
     static var currentDate: String {

@@ -20,6 +20,10 @@ final class DefaultConfigurationManager: ConfigurationManager {
         configurationHolder.merchant = merchant
     }
     
+    func set(callbacksConfiguration: CallbacksConfiguration) {
+        configurationHolder.callbacksConfiguration = callbacksConfiguration
+    }
+    
     func set(merchantDetailsProvider: MerchantDetailsProvider) {
         configurationHolder.merchantDetailsProvider = merchantDetailsProvider
     }
@@ -40,6 +44,10 @@ final class DefaultConfigurationManager: ConfigurationManager {
     
     var merchant: Merchant? {
         configurationHolder.merchant
+    }
+    
+    var callbacksConfiguration: CallbacksConfiguration {
+        configurationHolder.callbacksConfiguration ?? .default
     }
     
     var merchantDetailsProvider: MerchantDetailsProvider? {

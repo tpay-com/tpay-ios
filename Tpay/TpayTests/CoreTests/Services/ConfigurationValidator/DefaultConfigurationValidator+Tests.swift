@@ -94,6 +94,7 @@ private extension DefaultConfigurationValidator_Tests {
         // MARK: - Properties
         
         var merchant: Merchant?
+        var callbacksConfiguration: CallbacksConfiguration
         var merchantDetailsProvider: MerchantDetailsProvider?
         var paymentMethods: [PaymentMethod]
         var preferredLanguage: Language
@@ -102,11 +103,13 @@ private extension DefaultConfigurationValidator_Tests {
         // MARK: - Initialzers
         
         init(merchant: Merchant?,
+             callbacksConfiguration: CallbacksConfiguration = .default,
              merchantDetailsProvider: MerchantDetailsProvider?,
              paymentMethods: [PaymentMethod] = PaymentMethod.allCases,
              preferredLanguage: Language = .en,
              supportedLanguages: [Language] = Language.allCases) {
             self.merchant = merchant
+            self.callbacksConfiguration = callbacksConfiguration
             self.merchantDetailsProvider = merchantDetailsProvider
             self.paymentMethods = paymentMethods
             self.preferredLanguage = preferredLanguage

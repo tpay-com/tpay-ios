@@ -9,6 +9,7 @@ extension DefaultConfigurationManager {
         // MARK: - Properties
         
         var merchant: Merchant?
+        var callbacksConfiguration: CallbacksConfiguration?
         var merchantDetailsProvider: MerchantDetailsProvider?
         var paymentMethods: [PaymentMethod]?
         
@@ -19,6 +20,7 @@ extension DefaultConfigurationManager {
         
         func clear() {
             merchant = nil
+            callbacksConfiguration = nil
             merchantDetailsProvider = nil
             paymentMethods = nil
             preferredLanguage = nil

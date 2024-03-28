@@ -67,6 +67,8 @@ class TextField: UITextField {
     func setupState() {
         layer.borderColor = textFieldState.borderColor.cgColor
         backgroundColor = textFieldState.backgroundColor
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? .empty,
+                                                   attributes: [.foregroundColor: textFieldState.foregroundColor])
         
         switch textFieldState {
         case .disabled:

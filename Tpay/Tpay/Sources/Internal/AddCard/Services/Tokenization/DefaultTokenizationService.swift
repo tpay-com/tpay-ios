@@ -9,6 +9,7 @@ final class DefaultTokenizationService: TokenizationService {
     private let networkingService: NetworkingService
     private let encryptor: CardEncryptor
     private let merchant: Merchant
+    private let callbacksConfiguration: CallbacksConfiguration
     private let mapper: TransportationToDomainModelsMapper
     
     // MARK: - Initializers
@@ -21,14 +22,20 @@ final class DefaultTokenizationService: TokenizationService {
         self.init(networkingService: resolver.resolve(),
                   encryptor: DefaultCardEncryptor(using: resolver),
                   merchant: merchant,
-                  mapper: DefaultTransportationToDomainModelsMapper())
+                  mapper: DefaultTransportationToDomainModelsMapper(),
+                  callbacksConfiguration: configurationProvider.callbacksConfiguration)
     }
     
-    init(networkingService: NetworkingService, encryptor: CardEncryptor, merchant: Merchant, mapper: TransportationToDomainModelsMapper) {
+    init(networkingService: NetworkingService,
+         encryptor: CardEncryptor,
+         merchant: Merchant,
+         mapper: TransportationToDomainModelsMapper,
+         callbacksConfiguration: CallbacksConfiguration) {
         self.networkingService = networkingService
         self.encryptor = encryptor
         self.merchant = merchant
         self.mapper = mapper
+        self.callbacksConfiguration = callbacksConfiguration
     }
     
     // MARK: - API
@@ -51,7 +58,10 @@ final class DefaultTokenizationService: TokenizationService {
     
     private func makeNewCardDTO(from card: Domain.Card, payer: Domain.Payer) throws -> NewCardDTO {
         let encrypted = try encryptor.encrypt(card: card).data.base64EncodedString()
-        return NewCardDTO(payer: makePayerDTO(from: payer), callback: merchant.domain, redirect: makeRedirects(), card: encrypted)
+        return NewCardDTO(payer: makePayerDTO(from: payer),
+                          callback: callbacksConfiguration.notificationsUrl ?? .init(safeString: merchant.domain),
+                          redirect: makeRedirects(),
+                          card: encrypted)
     }
     
     private func makePayerDTO(from payer: Domain.Payer) -> PayerDTO {
@@ -65,7 +75,7 @@ final class DefaultTokenizationService: TokenizationService {
     }
     
     private func makeRedirects() -> NewCardDTO.Redirects {
-        .init(successUrl: merchant.successCallbackUrl,
-              errorURL: merchant.errorCallbackUrl)
+        .init(successUrl: callbacksConfiguration.successRedirectUrl,
+              errorURL: callbacksConfiguration.errorRedirectUrl)
     }
 }

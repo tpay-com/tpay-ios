@@ -25,13 +25,6 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
         Domain.PaymentInfo(amount: transaction.amount, title: transaction.description)
     }
     
-    func makeCard(from cardDetails: PaymentData.Card.CardDetails) -> Domain.Card {
-        Domain.Card(number: cardDetails.number,
-                    expiryDate: Domain.Card.ExpiryDate(month: cardDetails.expiryDate.month, year: cardDetails.expiryDate.year),
-                    securityCode: cardDetails.securityCode,
-                    shouldTokenize: cardDetails.shouldSave)
-    }
-    
     func makePayer(from payer: Payer) -> Domain.Payer {
         Domain.Payer(name: payer.name,
                      email: payer.email,
@@ -64,10 +57,6 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
         }
     }
     
-    func makeBank(from bank: PaymentData.Bank) -> Domain.PaymentMethod.Bank {
-        Domain.PaymentMethod.Bank(id: bank.id, name: bank.name, imageUrl: bank.imageUrl)
-    }
-    
     // MARK: - Private
     
     private func makeCardBrand(from brand: CardToken.Brand) -> Domain.CardToken.Brand {
@@ -89,10 +78,6 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
         switch wallet {
         case .applePay:
             return .applePay
-        case .googlePay:
-            return .googlePay
-        case .payPal:
-            return .payPal
         }
     }
     
@@ -105,5 +90,94 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
         case .ratyPekao:
             return .ratyPekao
         }
+    }
+    
+    // MARK: - Headless models
+    
+    func makeDomainTransaction(from headlessModelsTransaction: Headless.Models.Transaction) throws -> Domain.Transaction {
+        guard let payer = headlessModelsTransaction.payerContext?.payer else {
+            throw Headless.Models.PaymentError.missingPayer
+        }
+        return Domain.Transaction(paymentInfo: .init(amount: headlessModelsTransaction.amount,
+                                                     title: headlessModelsTransaction.description),
+                                  payer: makePayer(from: payer))
+    }
+    
+    func makeDomainOngoingTransaction(from headlessModelsOngoingTransaction: Headless.Models.OngoingTransaction) -> Domain.OngoingTransaction {
+        Domain.OngoingTransaction(transactionId: headlessModelsOngoingTransaction.id, status: .unknown, continueUrl: nil, paymentErrors: nil)
+    }
+    
+    func makeDomainCard(from headlessModelsCard: Headless.Models.Card) -> Domain.Card {
+        let expiryDate = Domain.Card.ExpiryDate(month: headlessModelsCard.expiryDate.month,
+                                                year: headlessModelsCard.expiryDate.year)
+        return Domain.Card(number: headlessModelsCard.number,
+                           expiryDate: expiryDate,
+                           securityCode: headlessModelsCard.securityCode,
+                           shouldTokenize: headlessModelsCard.shouldTokenize)
+    }
+    
+    func makeDomainBlikRegular(from headlessModelsBlik: Headless.Models.Blik.Regular) -> Domain.Blik.Regular {
+        guard let alias = headlessModelsBlik.aliasToBeRegistered,
+              let mappedAlias = Helpers.makeDomainBlikAlias(from: alias) else {
+            return Domain.Blik.Regular(token: headlessModelsBlik.token, alias: nil)
+        }
+        return Domain.Blik.Regular(token: headlessModelsBlik.token, alias: mappedAlias)
+    }
+    
+    func makeDomainBlikOneClick(from headlessModelsBlikOneClick: Headless.Models.Blik.OneClick) throws -> Domain.Blik.OneClick {
+        guard let alias = Helpers.makeDomainBlikAlias(from: headlessModelsBlikOneClick.registeredAlias) else {
+            throw Headless.Models.PaymentError.missingRegisteredBlikAlias
+        }
+        return Domain.Blik.OneClick(alias: alias)
+    }
+    
+    func makeDomainBlikOneClickWithApplication(from headlessModelsAmbiguousBlikAlias: Headless.Models.Blik.AmbiguousBlikAlias) throws -> Domain.Blik.OneClick {
+        guard let alias = Helpers.makeDomainBlikAlias(from: headlessModelsAmbiguousBlikAlias) else {
+            throw Headless.Models.PaymentError.missingRegisteredBlikAlias
+        }
+        return Domain.Blik.OneClick(alias: alias)
+    }
+    
+    func makeDomainApplePayToken(from headlessModelsApplePay: Headless.Models.ApplePay) -> Domain.ApplePayToken {
+        Domain.ApplePayToken(token: headlessModelsApplePay.token)
+    }
+}
+
+private extension DefaultAPIToDomainModelsMapper {
+    
+    enum Helpers {
+        
+        static func makeDomainBlikAlias(from headlessModelsNotRegisteredBlikAlias: Headless.Models.NotRegisteredBlikAlias) -> Domain.Blik.Regular.Alias? {
+            guard let uid = headlessModelsNotRegisteredBlikAlias.uidValue else {
+                return nil
+            }
+            return Domain.Blik.Regular.Alias(value: uid, type: .uId)
+        }
+        
+        static func makeDomainBlikAlias(from headlessModelsNotRegisteredBlikAlias: Headless.Models.RegisteredBlikAlias) -> Domain.Blik.OneClick.Alias? {
+            guard let uid = headlessModelsNotRegisteredBlikAlias.uidValue else {
+                return nil
+            }
+            return Domain.Blik.OneClick.Alias(value: uid, type: .uId)
+        }
+        
+        static func makeDomainBlikAlias(from headlessModelsAmbiguousBlikAlias: Headless.Models.Blik.AmbiguousBlikAlias) -> Domain.Blik.OneClick.Alias? {
+            guard let uid = headlessModelsAmbiguousBlikAlias.registeredAlias.uidValue else {
+                return nil
+            }
+            let application = Domain.Blik.OneClick.Alias.Application(name: headlessModelsAmbiguousBlikAlias.application.key,
+                                                                     key: headlessModelsAmbiguousBlikAlias.application.name)
+            return Domain.Blik.OneClick.Alias(value: uid, type: .uId, application: application)
+        }
+    }
+}
+
+private extension BlikAlias where RegistrationStatus: AliasRegistrationStatus {
+    
+    var uidValue: String? {
+        if case let .uid(uid) = self.value {
+            return uid
+        }
+        return nil
     }
 }

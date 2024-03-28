@@ -7,6 +7,7 @@ protocol ConfigurationProvider {
     // MARK: - Properties
 
     var merchant: Merchant? { get }
+    var callbacksConfiguration: CallbacksConfiguration { get }
     var merchantDetailsProvider: MerchantDetailsProvider? { get }
     var paymentMethods: [PaymentMethod] { get }
     var preferredLanguage: Language { get }

@@ -37,8 +37,6 @@ public enum TpayModule {
         ModuleContainer.instance.resolver.resolve()
     }
     
-    private static let screenlessTransactionService = DefaultScreenlessTransactionService(using: ModuleContainer.instance.resolver)
-    
     private static let disposer = Disposer()
     
     // MARK: - API
@@ -56,6 +54,18 @@ public enum TpayModule {
                                                                      password: merchant.authorization.clientSecret))
         
         networkingConfigurationStore.store(configuration: NetworkingServiceConfiguration(scheme: merchant.scheme, host: merchant.host))
+        return TpayModule.self
+    }
+    
+    /// Configures the Tpay module with callback details.
+    ///
+    /// - Parameter callbacks: The callbacks configuration details.
+    /// - Returns: The TpayModule type.
+    /// - Throws: Any configuration-related errors that might occur.
+    
+    @discardableResult
+    public static func configure(callbacks: CallbacksConfiguration) throws -> TpayModule.Type {
+        configurationSetter.set(callbacksConfiguration: callbacks)
         return TpayModule.self
     }
     
@@ -111,6 +121,18 @@ public enum TpayModule {
         return TpayModule.self
     }
     
+    /// Sets the debug logging status for the TpayModule.
+    ///
+    /// - Parameter enabled: A boolean value indicating whether debug logging should be enabled (`true`) or disabled (`false`).
+    /// - Returns: The configured type of `TpayModule`.
+    /// - Note: Enabling debug logging can be helpful for development and debugging purposes. However, it is recommended to disable debug logs in production environments for security and performance reasons.
+
+    @discardableResult
+    public static func setDebugLogs(enabled: Bool) -> TpayModule.Type {
+        Logger.isLoggingEnabled = enabled
+        return TpayModule.self
+    }
+    
     /// Checks the current configuration for validity.
     ///
     /// - Returns: A ConfigurationCheckResult indicating whether the configuration is valid or not.
@@ -137,60 +159,6 @@ public enum TpayModule {
             .add(to: disposer)
         
         return TpayModule.self
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func payment(with cardPaymentData: PaymentData.Card,
-                               amount: Double,
-                               payer: Payer,
-                               then: @escaping (Result<TransactionId, Error>) -> Void) {
-        screenlessTransactionService.invokePayment(with: cardPaymentData, amount: amount, payer: payer, then: then)
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func payment(with blikPaymentData: PaymentData.Blik,
-                               amount: Double,
-                               payer: Payer,
-                               then: @escaping (Result<TransactionId, Error>) -> Void) {
-        screenlessTransactionService.invokePayment(with: blikPaymentData, amount: amount, payer: payer, then: then)
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func payment(with bank: PaymentData.Bank,
-                               amount: Double,
-                               payer: Payer,
-                               then: @escaping (Result<TransactionUrl, Error>) -> Void) {
-        screenlessTransactionService.invokePayment(with: bank, amount: amount, payer: payer, then: then)
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func payment(with digitalWallet: PaymentData.DigitalWallet,
-                               amount: Double,
-                               payer: Payer,
-                               then: @escaping (Result<TransactionId, Error>) -> Void) {
-        screenlessTransactionService.invokePayment(with: digitalWallet, amount: amount, payer: payer, then: then)
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func getAvailableBanks(completion: @escaping (Result<[PaymentData.Bank], Error>) -> Void) {
-        screenlessTransactionService.getAvailableBanks(completion: completion)
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func getAvailablePaymentMethods(completion: @escaping (Result<[PaymentMethod], Error>) -> Void) {
-        screenlessTransactionService.getAvailablePaymentMethods(completion: completion)
-    }
-    
-    // TODO: Extract to a separate entity, so it does not mix with the main module configuration
-    @_documentation(visibility: internal)
-    public static func getAvailableDigitalWallets(completion: @escaping (Result<[DigitalWallet], Error>) -> Void) {
-        screenlessTransactionService.getAvailableDigitalWallets(completion: completion)
     }
     
     // MARK: - Private

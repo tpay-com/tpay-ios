@@ -37,5 +37,14 @@ extension TextField {
                 return DesignSystem.Colors.Neutral.white.color
             }
         }
+        
+        var foregroundColor: UIColor {
+            switch self {
+            case .error:
+                return DesignSystem.Colors.Semantic.error.color
+            default:
+                return DesignSystem.Colors.Neutral._500.color
+            }
+        }
     }
 }

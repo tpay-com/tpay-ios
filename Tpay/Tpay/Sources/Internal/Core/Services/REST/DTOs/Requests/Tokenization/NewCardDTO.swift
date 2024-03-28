@@ -7,7 +7,7 @@ struct NewCardDTO: Encodable {
     // MARK: - Properties
     
     let payer: PayerDTO
-    let callback: String
+    let callback: URL
     let redirect: Redirects
     let card: String
 }

@@ -30,7 +30,7 @@ final class DefaultNavigationController: NavigationController {
     }
     
     deinit {
-        print("DefaultNavigationController deinited")
+        Logger.debug("DefaultNavigationController deinited")
     }
     
     // MARK: - API

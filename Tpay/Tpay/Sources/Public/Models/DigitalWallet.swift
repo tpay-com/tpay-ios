@@ -9,6 +9,4 @@ public enum DigitalWallet: CaseIterable, Equatable {
     // MARK: - Cases
     
     case applePay
-    case googlePay
-    case payPal
 }

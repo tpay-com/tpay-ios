@@ -19,7 +19,7 @@ final class PaymentChannels_Tests: XCTestCase {
     
     func test_TestAvailabilityAgainst_MinConstraint() {
         let sut = Stub.makeStubPaymentChannel(with: [
-            Domain.PaymentChannel.MinAmountConstraint(minValue: 0.25)
+            Domain.PaymentChannel.Constraint(field: .amount, type: .min, value: "0.25")
         ])
         
         expect(sut.testAvailabilityAgainst(paymentInfo: Stub.makeStubPaymentInfo(with: 0.2))) == false
@@ -29,7 +29,7 @@ final class PaymentChannels_Tests: XCTestCase {
     
     func test_TestAvailabilityAgainst_MaxConstraint() {
         let sut = Stub.makeStubPaymentChannel(with: [
-            Domain.PaymentChannel.MaxAmountConstraint(maxValue: 0.25)
+            Domain.PaymentChannel.Constraint(field: .amount, type: .max, value: "0.25")
         ])
         
         expect(sut.testAvailabilityAgainst(paymentInfo: Stub.makeStubPaymentInfo(with: 0.2))) == true
@@ -39,8 +39,8 @@ final class PaymentChannels_Tests: XCTestCase {
     
     func test_TestAvailabilityAgainst_MinMaxConstraints() {
         let sut = Stub.makeStubPaymentChannel(with: [
-            Domain.PaymentChannel.MinAmountConstraint(minValue: 0.2),
-            Domain.PaymentChannel.MaxAmountConstraint(maxValue: 0.25)
+            Domain.PaymentChannel.Constraint(field: .amount, type: .min, value: "0.2"),
+            Domain.PaymentChannel.Constraint(field: .amount, type: .max, value: "0.25")
         ])
         
         expect(sut.testAvailabilityAgainst(paymentInfo: Stub.makeStubPaymentInfo(with: 0.2))) == true
@@ -60,8 +60,8 @@ private extension PaymentChannels_Tests {
             .init(amount: amount, title: .empty)
         }
         
-        static func makeStubPaymentChannel(with amountConstraints: [AmountConstraint]) -> Domain.PaymentChannel {
-            .init(id: .empty, associatedGroupId: .unknown, amountConstraints: amountConstraints)
+        static func makeStubPaymentChannel(with constraints: [Domain.PaymentChannel.Constraint]) -> Domain.PaymentChannel {
+            .init(id: .empty, name: .empty, fullName: .empty, imageUrl: nil, associatedGroupId: .unknown, constraints: constraints)
         }
     }
 }

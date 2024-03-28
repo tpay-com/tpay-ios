@@ -9,7 +9,9 @@ extension NewTransactionDTO {
         // MARK: - Properties
         
         let successUrl: URL
-        let errorURL: URL
+        let errorUrl: URL
+        
+        let notificationUrl: URL?
         
         // MARK: - Encodable
         
@@ -18,7 +20,10 @@ extension NewTransactionDTO {
 
             var payerUrls = container.nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .payerUrls)
             try payerUrls.encode(successUrl, forKey: .success)
-            try payerUrls.encode(errorURL, forKey: .error)
+            try payerUrls.encode(errorUrl, forKey: .error)
+            
+            var notification = container.nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .notification)
+            try notification.encode(notificationUrl, forKey: .url)
         }
     }
 }
@@ -31,6 +36,8 @@ private extension NewTransactionDTO.Callbacks {
         
         case success
         case error
+        
+        case url
     }
     
     enum CodingKeys: String, CodingKey {
@@ -38,5 +45,6 @@ private extension NewTransactionDTO.Callbacks {
         // MARK: - Cases
         
         case payerUrls
+        case notification
     }
 }

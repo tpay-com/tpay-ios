@@ -29,7 +29,7 @@ final class NewTransactionDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"amount":4.2,"callbacks":{"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"description":"stubDescription","hiddenDescription":"stubHiddenDescription","lang":"pl","pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
+        {"amount":4.2,"callbacks":{"notification":{"url":null},"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"description":"stubDescription","hiddenDescription":"stubHiddenDescription","lang":"pl","pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
         """
         
         expect(sut) == expectedPayload
@@ -46,7 +46,7 @@ final class NewTransactionDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"amount":4.2,"callbacks":{"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
+        {"amount":4.2,"callbacks":{"notification":{"url":null},"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
         """
         
         expect(sut) == expectedPayload
@@ -62,6 +62,7 @@ private extension NewTransactionDTO_Tests {
         static let pay = PayWithInstantRedirectionDTO(channelId: .empty, method: nil, blikPaymentData: nil, cardPaymentData: nil, recursive: nil)
         static let payer = PayerDTO(email: "stubEmail", name: "stubName", phone: nil, address: nil, postalCode: nil, city: nil, country: nil)
         static let callbacks = NewTransactionDTO.Callbacks(successUrl: .init(safeString: "https://stub.com/success"),
-                                                           errorURL: .init(safeString: "https://stub.com/error"))
+                                                           errorUrl: .init(safeString: "https://stub.com/error"),
+                                                           notificationUrl: nil)
     }
 }

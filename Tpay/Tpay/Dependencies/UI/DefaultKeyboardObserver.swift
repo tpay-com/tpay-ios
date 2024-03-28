@@ -87,7 +87,7 @@ extension DefaultKeyboardObserver {
         }
         
         deinit {
-            print("DefaultKeyboardObserver.ClosureContainer deinited")
+            Logger.debug("DefaultKeyboardObserver.ClosureContainer deinited")
         }
         
     }
