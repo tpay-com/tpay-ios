@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name         = "Tpay-SDK"
   s.module_name  = "Tpay" 
-  s.version      = "1.0.0"
+  s.version      = "1.1.0"
   s.summary      = "Tpay-SDK for iOS"
 
   s.description  = <<-DESC

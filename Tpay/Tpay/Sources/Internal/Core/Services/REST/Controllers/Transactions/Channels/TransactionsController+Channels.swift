@@ -10,6 +10,6 @@ extension TransactionsController {
         
         // MARK: - Properties
         
-        let resource = NetworkResource(url: URL(staticString: "/transactions/channels"), method: .get, contentType: .none, authorization: .bearer)
+        let resource = NetworkResource(url: URL(staticString: "/transactions/channels"), method: .get, contentType: .none, authorization: .bearer, queryParameters: Query(imageSize: .medium))
     }
 }

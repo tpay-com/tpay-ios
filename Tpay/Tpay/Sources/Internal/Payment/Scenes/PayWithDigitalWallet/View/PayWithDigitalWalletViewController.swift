@@ -39,6 +39,8 @@ final class PayWithDigitalWalletViewController: UIViewController {
         
         bindViewWithViewModel()
         bindViewModelWithView()
+        
+        preselectSoleWallet()
     }
     
     // MARK: - Private
@@ -73,5 +75,11 @@ final class PayWithDigitalWalletViewController: UIViewController {
     private func selectDigitalWallet(at indexPath: IndexPath) {
         let digitalWallet = viewModel.digitalWallets[indexPath.row]
         viewModel.select(digitalWallet: digitalWallet)
+    }
+    
+    private func preselectSoleWallet() {
+        guard viewModel.digitalWallets.count == 1, let first = viewModel.digitalWallets.first else { return }
+        contentView.preselectFirstItem()
+        viewModel.select(digitalWallet: first)
     }
 }

@@ -2,6 +2,7 @@
 //  Copyright © 2022 Tpay. All rights reserved.
 //
 
+import Foundation
 import WebKit
 
 extension WKWebView {
@@ -30,11 +31,11 @@ extension WKWebView {
 extension WKWebView.RedirectsTracker: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        switch navigationResponse.response.url {
-        case .some(successUrl):
+        switch navigationResponse.response.url?.normalized {
+        case .some(successUrl.normalized):
             onRedirectToSuccessUrl.on(.next(()))
             decisionHandler(.cancel)
-        case .some(errorUrl):
+        case .some(errorUrl.normalized):
             onRedirectToErrorUrl.on(.next(()))
             decisionHandler(.cancel)
         default:

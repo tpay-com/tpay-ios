@@ -1,5 +1,10 @@
 # Changelog
 
+<a name="1.1.0"></a>
+## [1.1.0]
+### Features
+- WebView component for processing transactions generated externally
+
 <a name="1.0.0"></a>
 ## [1.0.0]
 ### Features

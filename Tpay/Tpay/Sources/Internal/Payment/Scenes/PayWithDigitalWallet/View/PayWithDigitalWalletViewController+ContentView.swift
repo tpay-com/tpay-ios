@@ -75,6 +75,10 @@ extension PayWithDigitalWalletViewController {
             }
         }
         
+        func preselectFirstItem() {
+            collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
+        }
+        
         // MARK: - PinnableContentProvider
         
         func adjustAfterPinning() {

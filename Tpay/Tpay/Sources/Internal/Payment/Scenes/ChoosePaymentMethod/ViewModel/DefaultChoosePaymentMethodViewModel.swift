@@ -20,7 +20,7 @@ final class DefaultChoosePaymentMethodViewModel: ChoosePaymentMethodViewModel {
         self.model = model
         self.router = router
         
-        initialPaymentMethod = .card
+        initialPaymentMethod = .digitalWallet(.any)
     }
     
     // MARK: - API

@@ -25,13 +25,13 @@ extension Domain.PaymentMethod {
         case .blik:
             return 2
         case .pbl:
-            return 4
+            return 3
         case .card:
             return 1
         case .digitalWallet:
-            return 5
+            return 0
         case .installmentPayments:
-            return 3
+            return 4
         case .unknown:
             return .max
         }
