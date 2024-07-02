@@ -43,6 +43,10 @@ protocol HeadlessTransactionService: AnyObject {
                        with installment: Headless.Models.InstallmentPayment,
                        completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws
     
+    func invokePayPoPayment(for transaction: Headless.Models.Transaction,
+                            using paymentChannel: Headless.Models.PaymentChannel,
+                            completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws
+    
     func getPaymentStatus(for ongoingTransaction: Headless.Models.OngoingTransaction,
                           completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void)
     

@@ -51,6 +51,8 @@ final class DefaultChoosePaymentMethodModel: ChoosePaymentMethodModel {
                 paymentMethods.append(.digitalWallet(.any), if: !paymentMethods.contains(.digitalWallet(.any)))
             case .installmentPayments:
                 paymentMethods.append(.installmentPayments(.any), if: !paymentMethods.contains(.installmentPayments(.any)))
+            case .payPo:
+                paymentMethods.append(.payPo, if: !paymentMethods.contains(.payPo))
             case .unknown:
                 break
             }

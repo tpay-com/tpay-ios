@@ -24,6 +24,7 @@ extension ChoosePaymentMethodViewController.ContentView.CollectionView {
         override var isSelected: Bool {
             didSet {
                 setupColors()
+                updateHighlight()
             }
         }
         
@@ -83,6 +84,29 @@ extension ChoosePaymentMethodViewController.ContentView.CollectionView {
                 .width.greaterThanOrEqualTo(constant: 122)
                 .height.equalTo(constant: 80)
                 .activate()
+        }
+        
+        private func updateHighlight() {
+            isSelected ? imageView.highlight() : imageView.unhighlight()
+        }
+    }
+}
+
+private extension UIImageView {
+    
+    func highlight() {
+        switch image {
+        case Asset.Icons.payPoLogo.image:
+            self.image = Asset.Icons.payPoLogoHighlighted.image
+        default: break
+        }
+    }
+    
+    func unhighlight() {
+        switch image {
+        case Asset.Icons.payPoLogoHighlighted.image:
+            self.image = Asset.Icons.payPoLogo.image
+        default: break
         }
     }
 }

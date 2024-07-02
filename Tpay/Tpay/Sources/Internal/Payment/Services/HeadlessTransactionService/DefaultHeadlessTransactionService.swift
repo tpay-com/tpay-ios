@@ -103,6 +103,12 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         try invokePayment(for: transaction, using: InstallmentPaymentInvoker(transactionService: transactionService, paymentChannel: paymentChannel), completion: completion)
     }
     
+    func invokePayPoPayment(for transaction: any Headless.Models.Transaction,
+                       using paymentChannel: Headless.Models.PaymentChannel,
+                       completion: @escaping (Result<any Headless.Models.PaymentResult, any Error>) -> Void) throws {
+        try invokePayment(for: transaction, using: PayPoPaymentInvoker(transactionService: transactionService), completion: completion)
+    }
+    
     func getPaymentStatus(for ongoingTransaction: Headless.Models.OngoingTransaction, completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) {
         let ongoingTransaction = apiToDomainModelsMapper.makeDomainOngoingTransaction(from: ongoingTransaction)
         var updatedTransaction: Domain.OngoingTransaction?
@@ -285,6 +291,18 @@ private final class InstallmentPaymentInvoker: PaymentInvoker {
     
     func invokePayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler) {
         transactionService.invokePayment(for: transaction, with: installmentPayment, then: then)
+    }
+}
+
+private final class PayPoPaymentInvoker: PaymentInvoker {
+    private let transactionService: TransactionService
+    
+    init(transactionService: TransactionService) {
+        self.transactionService = transactionService
+    }
+    
+    func invokePayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler) {
+        transactionService.invokePayment(for: transaction, with: transaction.payer, then: then)
     }
 }
 

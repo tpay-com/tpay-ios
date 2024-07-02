@@ -90,7 +90,7 @@ public enum Headless {
         try headlessTransactionService.invokePayment(for: transaction, using: paymentChannel, with: blik, completion: completion)
     }
     
-    /// Initiates a payment for a given transaction and payment channel. This method is dedicated for `pbl` and `instalmentPayments` channels.
+    /// Initiates a payment for a given transaction and payment channel. This method is dedicated for `pbl`, `instalmentPayments` and `payPo` channels.
     ///
     /// - Parameters:
     ///   - transaction: The transaction for which the payment is initiated.
@@ -106,6 +106,8 @@ public enum Headless {
             try headlessTransactionService.invokePayment(for: transaction, using: paymentChannel, with: Models.Bank(), completion: completion)
         case .installmentPayments:
             try headlessTransactionService.invokePayment(for: transaction, using: paymentChannel, with: Models.InstallmentPayment(), completion: completion)
+        case .payPo:
+            try headlessTransactionService.invokePayPoPayment(for: transaction, using: paymentChannel, completion: completion)
         default:
             throw Models.PaymentError.inappropriatePaymentKind
         }
@@ -180,6 +182,7 @@ extension Headless {
         public typealias CardToken = Tpay.CardToken
         public typealias PaymentResult = Tpay.PaymentResult
         public typealias Transaction = Tpay.Transaction
+        public typealias Payer = Tpay.Payer
         public typealias RegisteredBlikAlias = Tpay.RegisteredBlikAlias
         public typealias NotRegisteredBlikAlias = Tpay.NotRegisteredBlikAlias
         
@@ -195,6 +198,7 @@ extension Headless {
             case applePay
             case googlePay
             case installmentPayments
+            case payPo
         }
         
         /// Possible errors that may occur during headless payment operations.

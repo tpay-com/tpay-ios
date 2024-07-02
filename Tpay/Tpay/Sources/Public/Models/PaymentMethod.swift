@@ -13,10 +13,11 @@ public enum PaymentMethod: CaseIterable, Equatable {
     case pbl
     case digitalWallet(DigitalWallet)
     case installmentPayments(InstallmentPayment)
+    case payPo
     
     // MARK: - CaseIterable
     
     public static var allCases: [PaymentMethod] {
-        [.card, .blik, .pbl, .digitalWallet(.applePay), .installmentPayments(.ratyPekao)]
+        [.card, .blik, .pbl, .digitalWallet(.applePay), .installmentPayments(.ratyPekao), .payPo]
     }
 }

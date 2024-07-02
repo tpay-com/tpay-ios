@@ -13,6 +13,7 @@ extension Domain {
         case card
         case digitalWallet(DigitalWallet)
         case installmentPayments(InstallmentPayment)
+        case payPo
         
         case unknown
     }
@@ -32,6 +33,8 @@ extension Domain.PaymentMethod {
             return 0
         case .installmentPayments:
             return 4
+        case .payPo:
+            return 5
         case .unknown:
             return .max
         }

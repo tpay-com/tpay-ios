@@ -107,6 +107,15 @@ final class DefaultTransactionService: TransactionService {
         executeCreateTransactionRequest(with: dto, then: then)
     }
     
+    func invokePayment(for transaction: Domain.Transaction, with payPoPayer: Domain.Payer, then: @escaping OngoingTransactionResultHandler) {
+        do {
+            let dto = try makeNewTransactionDTO(from: transaction, with: payPoPayer)
+            executeCreateTransactionRequest(with: dto, then: then)
+        } catch {
+            then(.failure(error))
+        }
+    }
+    
     func getPaymentStatus(for ongoingTransaction: Domain.OngoingTransaction, then: @escaping OngoingTransactionResultHandler) {
         executeGetSpecifiedTransactionRequest(for: ongoingTransaction.transactionId, then: then)
     }
@@ -225,6 +234,16 @@ final class DefaultTransactionService: TransactionService {
                           callbacks: makeCallbacks())
     }
     
+    private func makeNewTransactionDTO(from transaction: Domain.Transaction, with payPoPayer: Domain.Payer) throws -> NewTransactionDTO {
+        NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
+                          description: transaction.paymentInfo.title,
+                          hiddenDescription: nil,
+                          language: makeLanguage(from: Language.current),
+                          pay: try makePayDTOForPayPo(),
+                          payer: makePayerDTO(from: payPoPayer),
+                          callbacks: makeCallbacks())
+    }
+    
     private func makeLanguage(from language: Language) -> NewTransactionDTO.Language {
         switch language {
         case .pl:
@@ -281,6 +300,14 @@ final class DefaultTransactionService: TransactionService {
     
     private func makePayDTO(from installmentPayment: Domain.PaymentMethod.InstallmentPayment) -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: installmentPayment.id, method: .sale, blikPaymentData: nil, cardPaymentData: nil, recursive: nil)
+    }
+    
+    private func makePayDTOForPayPo() throws -> PayWithInstantRedirectionDTO {
+        PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .payPo),
+                                     method: .sale,
+                                     blikPaymentData: nil,
+                                     cardPaymentData: nil,
+                                     recursive: nil)
     }
     
     private func makePayerDTO(from payer: Domain.Payer) -> PayerDTO {

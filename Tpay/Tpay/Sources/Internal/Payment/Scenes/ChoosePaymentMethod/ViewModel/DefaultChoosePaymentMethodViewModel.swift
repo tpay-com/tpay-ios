@@ -35,6 +35,7 @@ final class DefaultChoosePaymentMethodViewModel: ChoosePaymentMethodViewModel {
         case .pbl: router.showPBL()
         case .digitalWallet: router.showDigitalWallets()
         case .installmentPayments: router.showRatyPekao()
+        case .payPo: router.showPayPo()
         case .unknown: break
         }
     }

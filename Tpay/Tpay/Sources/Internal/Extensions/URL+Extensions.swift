@@ -26,7 +26,7 @@ extension URL {
 
         components.host = host
         components.scheme = scheme
-        components.path = .slash
+        components.path = components.path.hasSuffix(.slash) ? components.path : components.path.appending(String.slash)
 
         return components
     }

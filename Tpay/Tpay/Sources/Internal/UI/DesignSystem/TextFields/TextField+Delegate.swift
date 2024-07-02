@@ -13,6 +13,7 @@ extension TextField {
         private var _beginEditing: (() -> Void)?
         private var _endEditing: ((String?) -> Void)?
         private var _shouldChangeCharactersIn: ((UITextField, NSRange, String) -> Bool)?
+        private var _textFieldDidChangeSelection: ((UITextField) -> Void)?
         
         // MARK: - API
         
@@ -26,6 +27,10 @@ extension TextField {
         
         func shouldChangeCharactersIn(_ handler: ((UITextField, NSRange, String) -> Bool)?) {
             _shouldChangeCharactersIn = handler
+        }
+        
+        func textFieldDidChangeSelection(_ handler: ((UITextField) -> Void)?) {
+            _textFieldDidChangeSelection = handler
         }
     }
 }
@@ -42,5 +47,9 @@ extension TextField.Delegate: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         _shouldChangeCharactersIn?(textField, range, string) ?? true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        _textFieldDidChangeSelection?(textField)
     }
 }

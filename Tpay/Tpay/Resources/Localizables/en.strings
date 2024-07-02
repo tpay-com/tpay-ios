@@ -22,6 +22,10 @@
 
 "blik_code_is_invalid" = "BLIK code is incorrect";
 
+"postal_code_is_invalid" = "Postal code is invalid";
+
+"value_is_invalid" = "Value is invalid";
+
 "cancel" = "Cancel";
 
 "something_went_wrong" = "Something went wrong. Please, try again.";
@@ -63,6 +67,8 @@
 "digital_wallets" = "Mobile wallets";
 
 "raty_pekao" = "Raty Pekao";
+
+"pay_po" = "PayPo";
 
 // MARK: - Pay with card scene
 
@@ -109,6 +115,22 @@
 "pay_with_raty_pekao_scene_headline" = "Choose installment option";
 
 "pay_with_raty_pekao_scene_action_button_title" = "Continue";
+
+// MARK: - Pay with PayPo scene
+
+"pay_with_pay_po_scene_headline" = "Buy Now Pay Later";
+
+"pay_with_pay_po_scene_action_button_title" = "Pay with PayPo";
+
+"pay_po_payer_street_address" = "Enter home address";
+
+"pay_po_payer_postal_code_address" = "Postal code";
+
+"pay_po_payer_city_address" = "City";
+
+"pay_po_payer_country_address" = "Country";
+
+"countries_poland" = "Poland";
 
 // MARK: - Processing payment scene
 

@@ -20,6 +20,8 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
             return .pbl(makeBank(from: dto))
         case _ where BankGroupId.installmentPayments.contains(groupId):
             return .installmentPayments(makeInstallmentPayment(from: dto))
+        case .payPo:
+            return .payPo
         default: return .unknown
         }
     }
@@ -36,6 +38,8 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
             return .digitalWallet(makeDigitalWallet(from: dto))
         case _ where BankGroupId.bankIds.contains(groupId):
             return .pbl(makeBank(from: dto))
+        case .payPo:
+            return .payPo
         default: return .unknown
         }
     }

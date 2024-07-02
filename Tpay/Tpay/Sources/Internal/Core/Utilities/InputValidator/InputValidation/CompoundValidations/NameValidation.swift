@@ -13,5 +13,6 @@ final class NameValidation: CompoundValidation<String> {
         add(InputValidation(of: .empty, using: MinLengthValidator(with: 3, error: invalidLength)))
         add(InputValidation(of: .empty, using: MaxLengthValidator(with: 255, error: invalidLength)))
         add(InputValidation(of: .empty, using: AlphanumericValidator(error: invalidName)))
+        add(InputValidation(of: .empty, using: NoEmojisValidator(error: invalidName)))
     }
 }

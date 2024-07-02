@@ -208,6 +208,8 @@ private extension [Domain.PaymentMethod] {
                 if case .installmentPayments = $0 { return false }
                 return true
             }
+        case .payPo:
+            return self.filter { $0 != payment }
         case .unknown:
             return self.filter { $0 != payment }
         }

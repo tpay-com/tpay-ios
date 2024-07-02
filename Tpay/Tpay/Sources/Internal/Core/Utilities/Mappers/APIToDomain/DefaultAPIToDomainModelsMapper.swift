@@ -18,6 +18,8 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
             return .digitalWallet(makeWallet(from: wallet))
         case let .installmentPayments(installmentPayment):
             return .installmentPayments(makeInstallmentPayment(from: installmentPayment))
+        case .payPo:
+            return .payPo
         }
     }
     

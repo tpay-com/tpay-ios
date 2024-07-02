@@ -4,6 +4,9 @@ How to start.
 
 To start using the Tpay SDK, you'll primarily interact with the methods provided by the ``TpayModule`` API. This API encapsulates essential configuration steps, transaction management, and further interaction with the Tpay payment ecosystem.
 
+> Note:
+There is no need for Module/Marchant setup when dealing with WebView integration. 
+
 ## Merchant configuration
 
 Configuring a merchant is an essential step when integrating the Tpay SDK into your app. A merchant configuration provides the necessary details for processing payments and establishing a connection with Tpay's payment ecosystem.

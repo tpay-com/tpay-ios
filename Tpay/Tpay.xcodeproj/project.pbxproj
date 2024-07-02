@@ -171,6 +171,24 @@
 		035EC9142805E7BB002C6D54 /* ShadowEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC9132805E7BB002C6D54 /* ShadowEmitter.swift */; };
 		035EC9162805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC9152805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift */; };
 		03630B112B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */; };
+		0367C77A2C2816AE002D3C24 /* PayWithPayPoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C76E2C2816AD002D3C24 /* PayWithPayPoViewModel.swift */; };
+		0367C77B2C2816AE002D3C24 /* DefaultPayWithPayPoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C76F2C2816AD002D3C24 /* DefaultPayWithPayPoViewModel.swift */; };
+		0367C77C2C2816AE002D3C24 /* PayWithPayPoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7702C2816AD002D3C24 /* PayWithPayPoScreen.swift */; };
+		0367C77D2C2816AE002D3C24 /* PayWithPayPoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7722C2816AD002D3C24 /* PayWithPayPoModel.swift */; };
+		0367C77E2C2816AE002D3C24 /* DefaultPayWithPayPoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7732C2816AD002D3C24 /* DefaultPayWithPayPoModel.swift */; };
+		0367C77F2C2816AE002D3C24 /* PayWithPayPoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7752C2816AD002D3C24 /* PayWithPayPoViewController.swift */; };
+		0367C7802C2816AE002D3C24 /* PayWithPayPoViewController+ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7762C2816AD002D3C24 /* PayWithPayPoViewController+ContentView.swift */; };
+		0367C7812C2816AE002D3C24 /* PayWithPayPoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7782C2816AD002D3C24 /* PayWithPayPoRouter.swift */; };
+		0367C7822C2816AE002D3C24 /* DefaultPayWithPayPoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7792C2816AD002D3C24 /* DefaultPayWithPayPoRouter.swift */; };
+		0367C7842C289CFD002D3C24 /* NoEmojiValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7832C289CFD002D3C24 /* NoEmojiValidator.swift */; };
+		0367C7862C289F2A002D3C24 /* NoEmojisValidator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7852C289F2A002D3C24 /* NoEmojisValidator+Tests.swift */; };
+		0367C7882C28AB56002D3C24 /* PostalCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7872C28AB56002D3C24 /* PostalCodeValidator.swift */; };
+		0367C78A2C28ABA9002D3C24 /* PostalCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7892C28ABA9002D3C24 /* PostalCodeValidator.swift */; };
+		0367C78C2C28AD24002D3C24 /* PostalCodeValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C78B2C28AD24002D3C24 /* PostalCodeValidation.swift */; };
+		0367C78E2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C78D2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift */; };
+		0367C7902C28AE87002D3C24 /* StreetAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C78F2C28AE87002D3C24 /* StreetAddressValidation.swift */; };
+		0367C7922C28AEAD002D3C24 /* CityAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7912C28AEAD002D3C24 /* CityAddressValidation.swift */; };
+		0367C7692C25A5A6002D3C24 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */; };
 		0369EE752857546C00B972D1 /* Merchant+CardsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0369EE742857546C00B972D1 /* Merchant+CardsAPI.swift */; };
 		036C1F2528524E2400BEF66F /* BankGroupId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C1F2428524E2400BEF66F /* BankGroupId.swift */; };
 		036C1F2828537C1200BEF66F /* CardEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C1F2728537C1200BEF66F /* CardEncryptor.swift */; };
@@ -222,6 +240,8 @@
 		0375E82F281C159400DC6124 /* NetworkingServiceConfiguration+URLComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0375E82E281C159400DC6124 /* NetworkingServiceConfiguration+URLComponents.swift */; };
 		0375E831281C238900DC6124 /* BasicAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0375E830281C238900DC6124 /* BasicAuthorization.swift */; };
 		0375E833281C24C900DC6124 /* DefaultHeadersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0375E832281C24C900DC6124 /* DefaultHeadersProvider.swift */; };
+		03794DE22C2AB16D00AA8E69 /* Textfileld+Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03794DE12C2AB16D00AA8E69 /* Textfileld+Country.swift */; };
+		03794DE52C2ABCB000AA8E69 /* Textfield+PostalCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03794DE42C2ABCB000AA8E69 /* Textfield+PostalCode.swift */; };
 		037D34992A976A320094D482 /* Merchant+CardsAPI+ConfigurationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D34982A976A320094D482 /* Merchant+CardsAPI+ConfigurationError.swift */; };
 		037D349B2A976BEA0094D482 /* SecKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D349A2A976BEA0094D482 /* SecKey+Extensions.swift */; };
 		037D349D2A978B120094D482 /* SecKey+Extensions+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D349C2A978B120094D482 /* SecKey+Extensions+Tests.swift */; };
@@ -1223,6 +1243,24 @@
 		035EC9132805E7BB002C6D54 /* ShadowEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowEmitter.swift; sourceTree = "<group>"; };
 		035EC9152805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetViewController+CardView+TopShadowEmitter.swift"; sourceTree = "<group>"; };
 		03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDTO+Payments+Status.swift"; sourceTree = "<group>"; };
+		0367C76E2C2816AD002D3C24 /* PayWithPayPoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoViewModel.swift; sourceTree = "<group>"; };
+		0367C76F2C2816AD002D3C24 /* DefaultPayWithPayPoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPayWithPayPoViewModel.swift; sourceTree = "<group>"; };
+		0367C7702C2816AD002D3C24 /* PayWithPayPoScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoScreen.swift; sourceTree = "<group>"; };
+		0367C7722C2816AD002D3C24 /* PayWithPayPoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoModel.swift; sourceTree = "<group>"; };
+		0367C7732C2816AD002D3C24 /* DefaultPayWithPayPoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPayWithPayPoModel.swift; sourceTree = "<group>"; };
+		0367C7752C2816AD002D3C24 /* PayWithPayPoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoViewController.swift; sourceTree = "<group>"; };
+		0367C7762C2816AD002D3C24 /* PayWithPayPoViewController+ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PayWithPayPoViewController+ContentView.swift"; sourceTree = "<group>"; };
+		0367C7782C2816AD002D3C24 /* PayWithPayPoRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoRouter.swift; sourceTree = "<group>"; };
+		0367C7792C2816AD002D3C24 /* DefaultPayWithPayPoRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPayWithPayPoRouter.swift; sourceTree = "<group>"; };
+		0367C7832C289CFD002D3C24 /* NoEmojiValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEmojiValidator.swift; sourceTree = "<group>"; };
+		0367C7852C289F2A002D3C24 /* NoEmojisValidator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoEmojisValidator+Tests.swift"; sourceTree = "<group>"; };
+		0367C7872C28AB56002D3C24 /* PostalCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalCodeValidator.swift; sourceTree = "<group>"; };
+		0367C7892C28ABA9002D3C24 /* PostalCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalCodeValidator.swift; sourceTree = "<group>"; };
+		0367C78B2C28AD24002D3C24 /* PostalCodeValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalCodeValidation.swift; sourceTree = "<group>"; };
+		0367C78D2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostalCodeValidation+Tests.swift"; sourceTree = "<group>"; };
+		0367C78F2C28AE87002D3C24 /* StreetAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetAddressValidation.swift; sourceTree = "<group>"; };
+		0367C7912C28AEAD002D3C24 /* CityAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAddressValidation.swift; sourceTree = "<group>"; };
+		0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0369EE742857546C00B972D1 /* Merchant+CardsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Merchant+CardsAPI.swift"; sourceTree = "<group>"; };
 		036C1F2428524E2400BEF66F /* BankGroupId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankGroupId.swift; sourceTree = "<group>"; };
 		036C1F2728537C1200BEF66F /* CardEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEncryptor.swift; sourceTree = "<group>"; };
@@ -1273,6 +1311,8 @@
 		0375E82E281C159400DC6124 /* NetworkingServiceConfiguration+URLComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkingServiceConfiguration+URLComponents.swift"; sourceTree = "<group>"; };
 		0375E830281C238900DC6124 /* BasicAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAuthorization.swift; sourceTree = "<group>"; };
 		0375E832281C24C900DC6124 /* DefaultHeadersProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHeadersProvider.swift; sourceTree = "<group>"; };
+		03794DE12C2AB16D00AA8E69 /* Textfileld+Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Textfileld+Country.swift"; sourceTree = "<group>"; };
+		03794DE42C2ABCB000AA8E69 /* Textfield+PostalCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Textfield+PostalCode.swift"; sourceTree = "<group>"; };
 		037D34982A976A320094D482 /* Merchant+CardsAPI+ConfigurationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Merchant+CardsAPI+ConfigurationError.swift"; sourceTree = "<group>"; };
 		037D349A2A976BEA0094D482 /* SecKey+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecKey+Extensions.swift"; sourceTree = "<group>"; };
 		037D349C2A978B120094D482 /* SecKey+Extensions+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecKey+Extensions+Tests.swift"; sourceTree = "<group>"; };
@@ -2301,6 +2341,7 @@
 		030931E527F23817001E5687 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0367C7672C25A57F002D3C24 /* Manifests */,
 				030931E627F23831001E5687 /* Assets */,
 				030931E727F2383C001E5687 /* Fonts */,
 				030931E827F23843001E5687 /* Generated */,
@@ -3310,6 +3351,62 @@
 			path = ShadowEmitter;
 			sourceTree = "<group>";
 		};
+		0367C76C2C2816AD002D3C24 /* PayWithPayPo */ = {
+			isa = PBXGroup;
+			children = (
+				0367C76D2C2816AD002D3C24 /* ViewModel */,
+				0367C7702C2816AD002D3C24 /* PayWithPayPoScreen.swift */,
+				0367C7712C2816AD002D3C24 /* Model */,
+				0367C7742C2816AD002D3C24 /* View */,
+				0367C7772C2816AD002D3C24 /* Router */,
+			);
+			path = PayWithPayPo;
+			sourceTree = "<group>";
+		};
+		0367C76D2C2816AD002D3C24 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0367C76E2C2816AD002D3C24 /* PayWithPayPoViewModel.swift */,
+				0367C76F2C2816AD002D3C24 /* DefaultPayWithPayPoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0367C7712C2816AD002D3C24 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0367C7722C2816AD002D3C24 /* PayWithPayPoModel.swift */,
+				0367C7732C2816AD002D3C24 /* DefaultPayWithPayPoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0367C7742C2816AD002D3C24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0367C7752C2816AD002D3C24 /* PayWithPayPoViewController.swift */,
+				0367C7762C2816AD002D3C24 /* PayWithPayPoViewController+ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0367C7772C2816AD002D3C24 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				0367C7782C2816AD002D3C24 /* PayWithPayPoRouter.swift */,
+				0367C7792C2816AD002D3C24 /* DefaultPayWithPayPoRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		0367C7672C25A57F002D3C24 /* Manifests */ = {
+			isa = PBXGroup;
+			children = (
+				0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Manifests;
+			sourceTree = "<group>";
+		};
 		036C1F2628537BFE00BEF66F /* CardEncryptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -3558,6 +3655,22 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		03794DE02C2AB15D00AA8E69 /* Country */ = {
+			isa = PBXGroup;
+			children = (
+				03794DE12C2AB16D00AA8E69 /* Textfileld+Country.swift */,
+			);
+			path = Country;
+			sourceTree = "<group>";
+		};
+		03794DE32C2ABCA500AA8E69 /* PostalCode */ = {
+			isa = PBXGroup;
+			children = (
+				03794DE42C2ABCB000AA8E69 /* Textfield+PostalCode.swift */,
+			);
+			path = PostalCode;
+			sourceTree = "<group>";
+		};
 		037D7647282E4BAB00095F5E /* Polling */ = {
 			isa = PBXGroup;
 			children = (
@@ -3727,6 +3840,8 @@
 			isa = PBXGroup;
 			children = (
 				03A34A2928182B4100AC7191 /* AlphabeticValidator+Tests.swift */,
+				0367C7852C289F2A002D3C24 /* NoEmojisValidator+Tests.swift */,
+				0367C7892C28ABA9002D3C24 /* PostalCodeValidator.swift */,
 				87DFD5A528593DE60026FB13 /* CardNumberValidator+Tests.swift */,
 				03A34A2B28182C8D00AC7191 /* NotEmptyValidator+Tests.swift */,
 				032321BD281958D600FF1201 /* EmailAddressValidator+Tests.swift */,
@@ -4045,6 +4160,7 @@
 		03C0DC34280556B8004637ED /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				0367C76C2C2816AD002D3C24 /* PayWithPayPo */,
 				0345DA0F2B4B2C9D00A0F4B0 /* PayWithRatyPekao */,
 				D330E16C29C75A3F00D08109 /* ApplePay */,
 				87A5F1BF282CE943004B4B9D /* CardScanning */,
@@ -4324,6 +4440,7 @@
 			children = (
 				870A17D32861E6F100DD467D /* CardNumberValidation+Tests.swift */,
 				03DBB9D0281A868800D350DB /* EmailValidation+Tests.swift */,
+				0367C78D2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift */,
 				03DBB9D2281A8F3900D350DB /* NameValidation+Tests.swift */,
 			);
 			path = CompoundValidations;
@@ -4491,8 +4608,10 @@
 			isa = PBXGroup;
 			children = (
 				03E8B0CA2816A4D4004247C0 /* AlphabeticValidator.swift */,
+				0367C7832C289CFD002D3C24 /* NoEmojiValidator.swift */,
 				0370AAA92A5D2EBD008A03BC /* AlphanumericValidator.swift */,
 				873F3DFD2885671E0064AB5E /* BlikCodeValidator.swift */,
+				0367C7872C28AB56002D3C24 /* PostalCodeValidator.swift */,
 				03746AED283B90F5007D9716 /* CardExpiryDateValidator.swift */,
 				03746AE4283B8368007D9716 /* CardNumberValidator.swift */,
 				03746AF1283B9297007D9716 /* CardSecurityCodeValidator.swift */,
@@ -4515,6 +4634,9 @@
 				03E5FB9A2812891E00E4383B /* CompoundValidation.swift */,
 				03E5FB9C28128BAB00E4383B /* EmailValidation.swift */,
 				03E8B0CC2816A52B004247C0 /* NameValidation.swift */,
+				0367C78B2C28AD24002D3C24 /* PostalCodeValidation.swift */,
+				0367C78F2C28AE87002D3C24 /* StreetAddressValidation.swift */,
+				0367C7912C28AEAD002D3C24 /* CityAddressValidation.swift */,
 			);
 			path = CompoundValidations;
 			sourceTree = "<group>";
@@ -4852,6 +4974,8 @@
 				87D92D7E2809E29900706599 /* TextField+Constants.swift */,
 				879121F32805CEC100C749A8 /* TextField+Delegate.swift */,
 				870A6E1D27FCE2FB00161549 /* TextField+State.swift */,
+				03794DE32C2ABCA500AA8E69 /* PostalCode */,
+				03794DE02C2AB15D00AA8E69 /* Country */,
 				8769BF0C287D97FC00CD2F1A /* Blik */,
 				879121EC2805C83F00C749A8 /* CardNumber */,
 				879121ED2805C83F00C749A8 /* CVC */,
@@ -6090,6 +6214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D845822AAB32B1003C2B9E /* Roboto-Regular.ttf in Resources */,
+				0367C7692C25A5A6002D3C24 /* PrivacyInfo.xcprivacy in Resources */,
 				03D845812AAB32B1003C2B9E /* Roboto-Medium.ttf in Resources */,
 				030931EF27F23AC1001E5687 /* Icons.xcassets in Resources */,
 				032A331328084C0C0029389F /* en.strings in Resources */,
@@ -6249,6 +6374,7 @@
 				03B22D1F285C6BE2003BAECA /* DefaultProcessingPaymentWithUrlViewModel.swift in Sources */,
 				D3A2A62A2976137500310308 /* DefaultPayByLinkRouter.swift in Sources */,
 				D32D32E629812AD900EFA95F /* AddCardViewModel.swift in Sources */,
+				0367C7902C28AE87002D3C24 /* StreetAddressValidation.swift in Sources */,
 				878CB34828AAE5F20017E08D /* PayWithBlikAliasViewController.swift in Sources */,
 				030AB68A2852381A000DCAD9 /* Encryptor.swift in Sources */,
 				D37682B3297C9B7C007C80A9 /* PaymentMethods+Extensions.swift in Sources */,
@@ -6269,6 +6395,7 @@
 				03C4A8FB283FC1B90027026E /* SynchronizationService.swift in Sources */,
 				035D5513286478CE00AEE662 /* CardToken+Brand+Extensions.swift in Sources */,
 				030931F527F23B76001E5687 /* Strings.swift in Sources */,
+				0367C7812C2816AE002D3C24 /* PayWithPayPoRouter.swift in Sources */,
 				035E1BB62B4C2BDE00ABC290 /* PayWithRatyPekaoViewController+ContentView+CollectionView+Cell.swift in Sources */,
 				03B22D1D285C6BE2003BAECA /* ProcessingPaymentWithUrlScreen.swift in Sources */,
 				D39A831029F7DDFD009305F2 /* Domain+PaymentMethod+Properties.swift in Sources */,
@@ -6304,8 +6431,10 @@
 				58E9C2AD03016837B92921B5 /* TimeInterval+Constants.swift in Sources */,
 				D3500C2B2A17979400A6DB2F /* NetworkingConfigurationProvider.swift in Sources */,
 				031A897B27F586DA0028D3CC /* Recursive.swift in Sources */,
+				0367C7922C28AEAD002D3C24 /* CityAddressValidation.swift in Sources */,
 				030931CA27F1D927001E5687 /* DependenciesContainer.swift in Sources */,
 				030287A2286C63210029A926 /* BottomSection+Specification.swift in Sources */,
+				0367C77D2C2816AE002D3C24 /* PayWithPayPoModel.swift in Sources */,
 				031A896A27F4D1500028D3CC /* Payer.swift in Sources */,
 				031A899F27F59CB10028D3CC /* Payment+Delegate.swift in Sources */,
 				03C4A91D2840EE300027026E /* TransportationToDomainModelsMapper.swift in Sources */,
@@ -6344,6 +6473,7 @@
 				83FAB4122CFA2F4F414F5CE2 /* Optional+Extensions.swift in Sources */,
 				03F408E928291F2E00CE375B /* CredentialsProvider.swift in Sources */,
 				03746AEC283B8EE9007D9716 /* CardNumberValidation.swift in Sources */,
+				0367C7802C2816AE002D3C24 /* PayWithPayPoViewController+ContentView.swift in Sources */,
 				03F40907282955AE00CE375B /* TransactionsController+SpecifiedTransaction.swift in Sources */,
 				03E5FB81281173CF00E4383B /* InputValidationResult.swift in Sources */,
 				03B22D0B2859BD4B003BAECA /* Snackbar+Progress.swift in Sources */,
@@ -6443,6 +6573,7 @@
 				039B4D35283CE50E00D00C81 /* PayDTO+Recursive.swift in Sources */,
 				D3AFAB6A29B0741D000C7AB9 /* TransactionsController+InitApplePaySession.swift in Sources */,
 				03DA8FBC286DF05A00AFE828 /* SnackbarViewController+ContentView.swift in Sources */,
+				0367C77B2C2816AE002D3C24 /* DefaultPayWithPayPoViewModel.swift in Sources */,
 				0395978B282D04C900BCDCF5 /* InvalidResponse+Constants.swift in Sources */,
 				030914D928461FA600E89615 /* DefaultBodyEncoder.swift in Sources */,
 				130488F682C644718F7F1FFF /* KeyboardAware.swift in Sources */,
@@ -6502,6 +6633,7 @@
 				03DA8FB7286DA7F100AFE828 /* Snackbar+Extensions.swift in Sources */,
 				D395A448298B895400176440 /* Domain+Environment.swift in Sources */,
 				0320FDAF280419010024799E /* CallbacksDirectorAssembly.swift in Sources */,
+				0367C77A2C2816AE002D3C24 /* PayWithPayPoViewModel.swift in Sources */,
 				29881B10D9A4A41B99F983EE /* DefaultNavigationController+NavigationControllerDelegate.swift in Sources */,
 				D5CFB123024177586C14D848 /* DefaultViewControllerPresenter+TransitioningDelegate.swift in Sources */,
 				D3BD4403299C46EB00C862D4 /* DefaultFailureRouter.swift in Sources */,
@@ -6542,11 +6674,13 @@
 				0345DA1D2B4B2C9D00A0F4B0 /* DefaultPayWithRatyPekaoViewModel.swift in Sources */,
 				8735C78028576FC5007F3976 /* CardNumberDetectionModels.swift in Sources */,
 				036C1F2D28537DEF00BEF66F /* CardDataSerializer.swift in Sources */,
+				0367C77F2C2816AE002D3C24 /* PayWithPayPoViewController.swift in Sources */,
 				D3598CFA29C129BF003CB417 /* DefaultPayWithDigitalWalletModel.swift in Sources */,
 				870D472F28A232A400F04AA7 /* FlowLayout+FullWidth.swift in Sources */,
 				03B22D22285C6BE2003BAECA /* ProcessingPaymentWithUrlViewController.swift in Sources */,
 				D3C5CC64298A530200F8BBCE /* NewCardDTO.swift in Sources */,
 				03B22D31285C7699003BAECA /* DefaultTransactionObserver.swift in Sources */,
+				0367C78C2C28AD24002D3C24 /* PostalCodeValidation.swift in Sources */,
 				8710399D282309AE00FB4695 /* ListDataAdapter.swift in Sources */,
 				0345DA042B4B0F2D00A0F4B0 /* Domain+PaymentMethod+InstallmentPayment+Kind.swift in Sources */,
 				6FCAC5C1F5BCFA7E0106D4E8 /* AnySection+AnyItem.swift in Sources */,
@@ -6573,6 +6707,7 @@
 				03C4A8FF283FD44B0027026E /* PaymentDataService.swift in Sources */,
 				03E5FBB12812A4C900E4383B /* InputValidationError+Extensions.swift in Sources */,
 				D3BD43F7299C46EA00C862D4 /* SuccessViewController+ContentView+SuccessIcon.swift in Sources */,
+				0367C7882C28AB56002D3C24 /* PostalCodeValidator.swift in Sources */,
 				487D42821707B5F83CE47AF6 /* DefaultUserApplicationsInteractor.swift in Sources */,
 				9E84E8A2EED6C7975EF68E37 /* SceneObserver.swift in Sources */,
 				8769C755280EEF10007C2B60 /* SecondaryButton+Accessory.swift in Sources */,
@@ -6596,6 +6731,7 @@
 				D3598CFE29C12A4D003CB417 /* PayWithDigitalWalletViewModel.swift in Sources */,
 				03F40911282A420000CE375B /* NetworkTask.swift in Sources */,
 				03F408D8282909D300CE375B /* DefaultJSONSerializer.swift in Sources */,
+				03794DE52C2ABCB000AA8E69 /* Textfield+PostalCode.swift in Sources */,
 				03B22D25285C6BE2003BAECA /* DefaultProcessingPaymentWithUrlRouter.swift in Sources */,
 				03C4A9152840EB170027026E /* Domain+PaymentMethod.swift in Sources */,
 				036C61F9B2A0ECA1C0237185 /* NSAttributedString+Builder+TextAttribute.swift in Sources */,
@@ -6607,6 +6743,7 @@
 				03ACF5F22A7292BB003D9E5E /* TransactionValidator.swift in Sources */,
 				937F1A80B62F4C187284D794 /* ListSection.swift in Sources */,
 				D312C50D297E8985009697FD /* BanksServiceAssembly.swift in Sources */,
+				0367C77C2C2816AE002D3C24 /* PayWithPayPoScreen.swift in Sources */,
 				03959773282C038C00BCDCF5 /* ResponseDTO.swift in Sources */,
 				FC0AE8DEE19E4DD8FB5FD0C8 /* AnySection.swift in Sources */,
 				030AB692285238DB000DCAD9 /* EncryptedData.swift in Sources */,
@@ -6767,6 +6904,7 @@
 				A0FDB047221D5105E5270C95 /* DefaultLayoutResult.swift in Sources */,
 				03D0D22D280EC323001949FD /* SheetViewController+LanguageSwitch+Accessory.swift in Sources */,
 				03C4A90A2840C1F40027026E /* AuthenticationService.swift in Sources */,
+				0367C7822C2816AE002D3C24 /* DefaultPayWithPayPoRouter.swift in Sources */,
 				030931CD27F1D927001E5687 /* Assembler.swift in Sources */,
 				8769C753280EDDE1007C2B60 /* SecondaryButton+Constants.swift in Sources */,
 				879121F02805C9FF00C749A8 /* CVC.swift in Sources */,
@@ -6892,6 +7030,7 @@
 				031A898427F58A300028D3CC /* MerchantDetailsProvider.swift in Sources */,
 				D3A2A630297613AA00310308 /* DefaultPaymentDataStore.swift in Sources */,
 				03746AE0283B5F40007D9716 /* DefaultPriceToStringConverter.swift in Sources */,
+				0367C7842C289CFD002D3C24 /* NoEmojiValidator.swift in Sources */,
 				87E1F3872898173C00A51FC3 /* PayWithAmbiguousBlikAliasesRouter.swift in Sources */,
 				03A7E50327FF2FE100C6E1D1 /* UIScrollView+Extensions.swift in Sources */,
 				879121F42805CEC100C749A8 /* TextField+Delegate.swift in Sources */,
@@ -6923,6 +7062,7 @@
 				87E1F3882898173C00A51FC3 /* DefaultPayWithAmbiguousBlikAliasesRouter.swift in Sources */,
 				03CBBE6027F732ED000B2E8A /* Button.swift in Sources */,
 				038C77A2284F8FB60038F3AB /* DefaultProcessingPaymentViewModel.swift in Sources */,
+				0367C77E2C2816AE002D3C24 /* DefaultPayWithPayPoModel.swift in Sources */,
 				03C2BD0F283E0CE8006383BF /* Domain.swift in Sources */,
 				A9E4FFFCEA634B65D6051702 /* HeadlessTransactionService.swift in Sources */,
 				A9E4FE6D0FB453F6D5F0CDF0 /* DefaultHeadlessTransactionService.swift in Sources */,
@@ -7068,6 +7208,7 @@
 				5FBB1A8E0C1F28EF5B584FCB /* WKInterfaceImage+Kingfisher.swift in Sources */,
 				E02489CA2F5184EBDCD8C7E8 /* ImageDrawing.swift in Sources */,
 				FAF5180E84A493FDC9209460 /* KingfisherManager.swift in Sources */,
+				03794DE22C2AB16D00AA8E69 /* Textfileld+Country.swift in Sources */,
 				5158E0075689B611F0E91E78 /* FormatIndicatedCacheSerializer.swift in Sources */,
 				DE37E8BF9B801698BFA27D6A /* ImageTransition.swift in Sources */,
 				F27994EF7455D08DC3AB2122 /* NSTextAttachment+Kingfisher.swift in Sources */,
@@ -7169,6 +7310,7 @@
 				03A34A2A28182B4100AC7191 /* AlphabeticValidator+Tests.swift in Sources */,
 				0375E82D281C0E0500DC6124 /* DefaultRequestFactory+Tests.swift in Sources */,
 				0380C95F2800945A003565C5 /* DefaultConfigurationManager+Tests.swift in Sources */,
+				0367C78A2C28ABA9002D3C24 /* PostalCodeValidator.swift in Sources */,
 				036C1F332853801400BEF66F /* DefaultCardSerializer+Tests.swift in Sources */,
 				037D764F282E690A00095F5E /* Poller+Tests.swift in Sources */,
 				037D7656282E97BE00095F5E /* TransactionStatusPoller+Tests.swift in Sources */,
@@ -7214,6 +7356,8 @@
 				E4AB7CB41BA3F151417C9842 /* ReplayAsPublisherTests.swift in Sources */,
 				CBD35B84D76BCDDCD22EDCEA /* NotificationCenterExtensions.swift in Sources */,
 				A664AE7BAEBD97F7D1C92F73 /* DisposerTests.swift in Sources */,
+				0367C78E2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift in Sources */,
+				0367C7862C289F2A002D3C24 /* NoEmojisValidator+Tests.swift in Sources */,
 				3F8D86FCAA8A8CC9472128B5 /* ReplayTests.swift in Sources */,
 				7EC9405B0173C1F632A42D77 /* UniqueAsPublisherTests.swift in Sources */,
 				D379650729795CBC00F4DC79 /* DefaultBanksService+Tests.swift in Sources */,
@@ -7381,7 +7525,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpay.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
@@ -7411,7 +7555,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpay.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;

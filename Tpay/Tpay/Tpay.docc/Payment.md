@@ -127,6 +127,24 @@ Headless.getPaymentStatus(for: paymentResult.ongoingTransaction) { statusResult 
 }
 ```
 
+## Payment WebView 
+
+You can easily handle externally generated transactions with a WebView component.
+In order to generate a tranaction, please follow `Transactions` section under [OpenAPI documentation](https://openapi.tpay.com).
+
+```swift
+let transaction = ExternallyGeneratedTransaction(transactionPaymentUrl: transactionPaymentUrl,  // retrieved from POST /transactions
+                                                 onSuccessRedirectUrl: onSuccessUrl,            // must match the one sent on transaction create
+                                                 onErrorRedirectUrl: onErrorUrl)                // must match the one sent on transaction create
+
+let paymentWebView = Payment.WebView(transaction: transaction, delegate: delegate)
+do {
+    try paymentWebView?.present(from: self)
+} catch {
+    // Handle configuration errors or other exceptions
+}
+```
+
 ## Topics
 
 - ``Headless``
@@ -135,6 +153,7 @@ Headless.getPaymentStatus(for: paymentResult.ongoingTransaction) { statusResult 
 
 - ``Payment/Sheet``
 - ``Payment/Button``
+- ``Payment/WebView``
 
 ### Protocols
 

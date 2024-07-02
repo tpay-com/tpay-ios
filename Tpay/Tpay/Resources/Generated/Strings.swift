@@ -51,6 +51,8 @@ internal enum Strings {
   internal static var choosePaymentMethod: String { Strings.tr("pl", "choose_payment_method") }
   /// Zamknij
   internal static var close: String { Strings.tr("pl", "close") }
+  /// Polska
+  internal static var countriesPoland: String { Strings.tr("pl", "countries_poland") }
   /// Portfel elektroniczny
   internal static var digitalWallets: String { Strings.tr("pl", "digital_wallets") }
   /// Nieprawidłowy adres email
@@ -93,6 +95,16 @@ internal enum Strings {
   internal static var openApplicationSettings: String { Strings.tr("pl", "open_application_settings") }
   /// Wybierz swój bank
   internal static var payByLinkHeadline: String { Strings.tr("pl", "pay_by_link_headline") }
+  /// PayPo
+  internal static var payPo: String { Strings.tr("pl", "pay_po") }
+  /// Miasto
+  internal static var payPoPayerCityAddress: String { Strings.tr("pl", "pay_po_payer_city_address") }
+  /// Państwo
+  internal static var payPoPayerCountryAddress: String { Strings.tr("pl", "pay_po_payer_country_address") }
+  /// Kod pocztowy
+  internal static var payPoPayerPostalCodeAddress: String { Strings.tr("pl", "pay_po_payer_postal_code_address") }
+  /// Wpisz adres zamieszkania
+  internal static var payPoPayerStreetAddress: String { Strings.tr("pl", "pay_po_payer_street_address") }
   /// Nie musisz podawać kodu BLIK - robisz zakupy w zapisanym wcześniej sklepie.
   internal static var payWithBlikAliasNote: String { Strings.tr("pl", "pay_with_blik_alias_note") }
   /// Dodaj kartę
@@ -103,6 +115,10 @@ internal enum Strings {
   internal static var payWithCode: String { Strings.tr("pl", "pay_with_code") }
   /// Zapłać za pomocą
   internal static var payWithHeadline: String { Strings.tr("pl", "pay_with_headline") }
+  /// Płacę z PayPo
+  internal static var payWithPayPoSceneActionButtonTitle: String { Strings.tr("pl", "pay_with_pay_po_scene_action_button_title") }
+  /// Kup teraz zapłać później
+  internal static var payWithPayPoSceneHeadline: String { Strings.tr("pl", "pay_with_pay_po_scene_headline") }
   /// Przejdź dalej
   internal static var payWithRatyPekaoSceneActionButtonTitle: String { Strings.tr("pl", "pay_with_raty_pekao_scene_action_button_title") }
   /// Wybierz wariant rat
@@ -125,6 +141,8 @@ internal enum Strings {
   internal static var paymentSuccessTitle: String { Strings.tr("pl", "payment_success_title") }
   /// Przelew
   internal static var pbl: String { Strings.tr("pl", "pbl") }
+  /// Nieprawidłowy kod pocztowy
+  internal static var postalCodeIsInvalid: String { Strings.tr("pl", "postal_code_is_invalid") }
   /// Jeszcze chwila. Czekamy na odpowiedź Twojego banku
   internal static var processingPaymentMessage: String { Strings.tr("pl", "processing_payment_message") }
   /// Przetwarzanie płatności
@@ -171,6 +189,8 @@ internal enum Strings {
   internal static var transactionAttemptErrorTitle: String { Strings.tr("pl", "transaction_attempt_error_title") }
   /// Spróbuj ponownie
   internal static var tryAgain: String { Strings.tr("pl", "try_again") }
+  /// Wartość jest niepoprawna
+  internal static var valueIsInvalid: String { Strings.tr("pl", "value_is_invalid") }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

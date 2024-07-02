@@ -22,6 +22,10 @@
 
 "blik_code_is_invalid" = "Nieprawidłowy kod BLIK";
 
+"postal_code_is_invalid" = "Nieprawidłowy kod pocztowy";
+
+"value_is_invalid" = "Wartość jest niepoprawna";
+
 "cancel" = "Anuluj";
 
 "close" = "Zamknij";
@@ -63,6 +67,8 @@
 "digital_wallets" = "Portfel elektroniczny";
 
 "raty_pekao" = "Raty Pekao";
+
+"pay_po" = "PayPo";
 
 // MARK: - Pay with card scene
 
@@ -109,6 +115,22 @@
 "pay_with_raty_pekao_scene_headline" = "Wybierz wariant rat";
 
 "pay_with_raty_pekao_scene_action_button_title" = "Przejdź dalej";
+
+// MARK: - Pay with PayPo scene
+
+"pay_with_pay_po_scene_headline" = "Kup teraz zapłać później";
+
+"pay_with_pay_po_scene_action_button_title" = "Płacę z PayPo";
+
+"pay_po_payer_street_address" = "Wpisz adres zamieszkania";
+
+"pay_po_payer_postal_code_address" = "Kod pocztowy";
+
+"pay_po_payer_city_address" = "Miasto";
+
+"pay_po_payer_country_address" = "Państwo";
+
+"countries_poland" = "Polska";
 
 // MARK: - Processing payment scene
 

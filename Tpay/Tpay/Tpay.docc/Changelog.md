@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="1.2.0"></a>
+## [1.2.0]
+### Features
+- PayPo payment method
+
+<a name="1.1.1"></a>
+## [1.1.1]
+### Improvements
+- privacy manifest provided
+
 <a name="1.1.0"></a>
 ## [1.1.0]
 ### Features

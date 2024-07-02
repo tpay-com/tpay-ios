@@ -43,3 +43,24 @@ extension BlikCodeValidation {
         self.init(requiredValue: .requiredValue, invalidBlikCode: .invalidBlikCode)
     }
 }
+
+extension StreetAddressValidation {
+    
+    convenience init() {
+        self.init(requiredValue: .requiredValue, invalidLength: .invalidLength, invalidStreetAddress: .invalidValue)
+    }
+}
+
+extension PostalCodeValidation {
+    
+    convenience init() {
+        self.init(requiredValue: .requiredValue, invalidPostalCode: .invalidPostalCode)
+    }
+}
+
+extension CityAddressValidation {
+    
+    convenience init() {
+        self.init(requiredValue: .requiredValue, invalidLength: .invalidLength, invalidCityAddress: .invalidValue)
+    }
+}

@@ -43,6 +43,8 @@ private extension PaymentMethodsService {
             return digitalWallet.id
         case .installmentPayments(let installmentPayment):
             return installmentPayment.id
+        case .payPo:
+            return try channelId(for: BankGroupId.payPo)
         case .unknown:
             throw PaymentMethodsServiceError.noPaymentChannelAssociatedWithBankGroupId
         }

@@ -13,5 +13,7 @@ extension InputValidationError {
     static var invalidCardExpiryDate: InputValidationError { InputValidationError(description: Strings.cardExpiryDateIsInvalid) }
     static var invalidCardSecurityCode: InputValidationError { InputValidationError(description: Strings.cardSecurityCodeIsInvalid) }
     static var invalidBlikCode: InputValidationError { InputValidationError(description: Strings.blikCodeIsInvalid) }
-
+    
+    static var invalidPostalCode: InputValidationError { InputValidationError(description: Strings.postalCodeIsInvalid) }
+    static var invalidValue: InputValidationError { InputValidationError(description: Strings.valueIsInvalid) }
 }

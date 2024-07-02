@@ -94,6 +94,10 @@ final class SetupPaymentFlow: ModuleFlow {
             .subscribe(onNext: { [weak self, unowned screen] in self?.showDigitalWalletsFlow(using: screen) })
             .add(to: disposer)
         
+        screen.router.showPayPoFlow
+            .subscribe(onNext: { [weak self, unowned screen] in self?.showPayPoFlow(using: screen) })
+            .add(to: disposer)
+        
         screenManager.show(screen)
     }
     
@@ -341,6 +345,24 @@ final class SetupPaymentFlow: ModuleFlow {
         
         subScene.router.onApplePay
             .subscribe(onNext: { [weak self] _ in self?.presentApplePayScreen(using: subScene) })
+            .add(to: disposer)
+        
+        subScene.router.onError
+            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .add(to: disposer)
+        
+        screen.present(sub: subScene)
+    }
+    
+    private func showPayPoFlow(using screen: ChoosePaymentMethodScreen) {
+        guard let transaction = transactionBuilder.build() else {
+            assertionFailure("Cannot construct transaction object")
+            return
+        }
+        let subScene = PayWithPayPoScreen(for: transaction, using: resolver)
+        
+        subScene.router.onTransactionCreated
+            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
             .add(to: disposer)
         
         subScene.router.onError
