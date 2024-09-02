@@ -8,6 +8,11 @@ public protocol PaymentDelegate: AnyObject {
     
     // MARK: - API
     
+    /// Notifies the delegate when a payment is created.
+    /// - Parameter transactionId: The unique identifier for the created transaction.
+    
+    func onPaymentCreated(transactionId: TransactionId)
+    
     /// Notifies the delegate when a payment is successfully completed.
     /// - Parameter transactionId: The unique identifier for the completed transaction.
     

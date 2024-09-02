@@ -7,6 +7,7 @@ final class PaymentCoordinator {
     // MARK: - Events
     
     var closeModule: Observable<Void> { sheetViewController.closeButtonTapped }
+    let paymentCreated = Observable<TransactionId>()
     let paymentCompleted = Observable<TransactionId>()
     let paymentFailed = Observable<TransactionId>()
     let errorOccurred = Observable<ModuleError>()
@@ -96,7 +97,10 @@ final class PaymentCoordinator {
             .add(to: disposer)
         
         setupPaymentFlow.transactionCreated
-            .subscribe(queue: .main, onNext: { [weak self] transaction in self?.startProcessingFlow(for: transaction) })
+            .subscribe(queue: .main, onNext: { [weak self] transaction in
+                self?.paymentCreated.on(.next(transaction.transactionId))
+                self?.startProcessingFlow(for: transaction)
+            })
             .add(to: disposer)
         
         setupPaymentFlow.errorOcurred

@@ -76,6 +76,12 @@ extension Payment {
                 })
                 .add(to: disposer)
             
+            coordinator?.paymentCreated
+                .subscribe(onNext: { [weak self] transactionId in
+                    self?.delegate?.onPaymentCreated(transactionId: transactionId)
+                })
+                .add(to: disposer)
+            
             coordinator?.paymentCompleted
                 .subscribe(onNext: { [weak self] transactionId in
                     self?.delegate?.onPaymentCompleted(transactionId: transactionId)

@@ -171,6 +171,7 @@
 		035EC9142805E7BB002C6D54 /* ShadowEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC9132805E7BB002C6D54 /* ShadowEmitter.swift */; };
 		035EC9162805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035EC9152805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift */; };
 		03630B112B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */; };
+		0367C7692C25A5A6002D3C24 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */; };
 		0367C77A2C2816AE002D3C24 /* PayWithPayPoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C76E2C2816AD002D3C24 /* PayWithPayPoViewModel.swift */; };
 		0367C77B2C2816AE002D3C24 /* DefaultPayWithPayPoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C76F2C2816AD002D3C24 /* DefaultPayWithPayPoViewModel.swift */; };
 		0367C77C2C2816AE002D3C24 /* PayWithPayPoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7702C2816AD002D3C24 /* PayWithPayPoScreen.swift */; };
@@ -188,7 +189,6 @@
 		0367C78E2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C78D2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift */; };
 		0367C7902C28AE87002D3C24 /* StreetAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C78F2C28AE87002D3C24 /* StreetAddressValidation.swift */; };
 		0367C7922C28AEAD002D3C24 /* CityAddressValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367C7912C28AEAD002D3C24 /* CityAddressValidation.swift */; };
-		0367C7692C25A5A6002D3C24 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */; };
 		0369EE752857546C00B972D1 /* Merchant+CardsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0369EE742857546C00B972D1 /* Merchant+CardsAPI.swift */; };
 		036C1F2528524E2400BEF66F /* BankGroupId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C1F2428524E2400BEF66F /* BankGroupId.swift */; };
 		036C1F2828537C1200BEF66F /* CardEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C1F2728537C1200BEF66F /* CardEncryptor.swift */; };
@@ -1243,6 +1243,7 @@
 		035EC9132805E7BB002C6D54 /* ShadowEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowEmitter.swift; sourceTree = "<group>"; };
 		035EC9152805FA3C002C6D54 /* SheetViewController+CardView+TopShadowEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetViewController+CardView+TopShadowEmitter.swift"; sourceTree = "<group>"; };
 		03630B102B03F9EB00C10941 /* TransactionDTO+Payments+Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionDTO+Payments+Status.swift"; sourceTree = "<group>"; };
+		0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0367C76E2C2816AD002D3C24 /* PayWithPayPoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoViewModel.swift; sourceTree = "<group>"; };
 		0367C76F2C2816AD002D3C24 /* DefaultPayWithPayPoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPayWithPayPoViewModel.swift; sourceTree = "<group>"; };
 		0367C7702C2816AD002D3C24 /* PayWithPayPoScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithPayPoScreen.swift; sourceTree = "<group>"; };
@@ -1260,7 +1261,6 @@
 		0367C78D2C28AD6F002D3C24 /* PostalCodeValidation+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostalCodeValidation+Tests.swift"; sourceTree = "<group>"; };
 		0367C78F2C28AE87002D3C24 /* StreetAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetAddressValidation.swift; sourceTree = "<group>"; };
 		0367C7912C28AEAD002D3C24 /* CityAddressValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAddressValidation.swift; sourceTree = "<group>"; };
-		0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0369EE742857546C00B972D1 /* Merchant+CardsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Merchant+CardsAPI.swift"; sourceTree = "<group>"; };
 		036C1F2428524E2400BEF66F /* BankGroupId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankGroupId.swift; sourceTree = "<group>"; };
 		036C1F2728537C1200BEF66F /* CardEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEncryptor.swift; sourceTree = "<group>"; };
@@ -3351,6 +3351,14 @@
 			path = ShadowEmitter;
 			sourceTree = "<group>";
 		};
+		0367C7672C25A57F002D3C24 /* Manifests */ = {
+			isa = PBXGroup;
+			children = (
+				0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Manifests;
+			sourceTree = "<group>";
+		};
 		0367C76C2C2816AD002D3C24 /* PayWithPayPo */ = {
 			isa = PBXGroup;
 			children = (
@@ -3397,14 +3405,6 @@
 				0367C7792C2816AD002D3C24 /* DefaultPayWithPayPoRouter.swift */,
 			);
 			path = Router;
-			sourceTree = "<group>";
-		};
-		0367C7672C25A57F002D3C24 /* Manifests */ = {
-			isa = PBXGroup;
-			children = (
-				0367C7682C25A5A6002D3C24 /* PrivacyInfo.xcprivacy */,
-			);
-			path = Manifests;
 			sourceTree = "<group>";
 		};
 		036C1F2628537BFE00BEF66F /* CardEncryptor */ = {
@@ -7525,7 +7525,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpay.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
@@ -7555,7 +7555,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpay.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;

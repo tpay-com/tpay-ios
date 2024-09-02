@@ -15,6 +15,7 @@ extension Payment.SwiftUI {
         
         private let transaction: Transaction
         
+        private let onPaymentCreated: ((TransactionId) -> Void)?
         private let onPaymentCompleted: ((TransactionId) -> Void)?
         private let onPaymentCancelled: ((TransactionId) -> Void)?
         private let onErrorOccured: ((ModuleError) -> Void)?
@@ -23,11 +24,13 @@ extension Payment.SwiftUI {
         // MARK: - Initializers
         
         init(transaction: Transaction,
+             onPaymentCreated: ((TransactionId) -> Void)? = nil,
              onPaymentCompleted: ((TransactionId) -> Void)? = nil,
              onPaymentCancelled: ((TransactionId) -> Void)? = nil,
              onErrorOccured: ((ModuleError) -> Void)? = nil,
              onDismissed: (() -> Void)? = nil) {
             self.transaction = transaction
+            self.onPaymentCreated = onPaymentCreated
             self.onPaymentCompleted = onPaymentCompleted
             self.onPaymentCancelled = onPaymentCancelled
             self.onErrorOccured = onErrorOccured
@@ -99,6 +102,12 @@ extension Payment.SwiftUI {
                     .subscribe(onNext: { [weak self] in
                         self?.coordinator?.stop()
                         self?.dismiss()
+                    })
+                    .add(to: disposer)
+                
+                coordinator?.paymentCreated
+                    .subscribe(onNext: { [weak self] transactionId in
+                        self?.parent.onPaymentCreated?(transactionId)
                     })
                     .add(to: disposer)
                 
