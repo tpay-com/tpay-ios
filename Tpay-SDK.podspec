@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.platform = :ios, "12.0"
   s.swift_version = "5.3"
-  s.source = { :http => "TO_BE_REPLACED_DURING_CI_BUILD", :flatten => true }
+  s.source = { :http => "https://github.com/tpay-com/tpay-ios/releases/download/1.3.0/Tpay.xcframework.zip", :flatten => true }
   s.vendored_frameworks = "Tpay.xcframework"
   
 end
