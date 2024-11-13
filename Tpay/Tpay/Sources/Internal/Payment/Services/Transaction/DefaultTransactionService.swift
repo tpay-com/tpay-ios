@@ -167,7 +167,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with card: Domain.Card) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: card),
                           payer: makePayerDTO(from: transaction.payer),
@@ -177,7 +177,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with cardToken: Domain.CardToken) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: cardToken),
                           payer: makePayerDTO(from: transaction.payer),
@@ -187,7 +187,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with blik: Domain.Blik.Regular) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: blik),
                           payer: makePayerDTO(from: transaction.payer),
@@ -197,7 +197,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with blik: Domain.Blik.OneClick) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: blik),
                           payer: makePayerDTO(from: transaction.payer),
@@ -207,7 +207,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with pbl: Domain.PaymentMethod.Bank) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: pbl),
                           payer: makePayerDTO(from: transaction.payer),
@@ -217,7 +217,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with applePay: Domain.ApplePayToken) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: applePay),
                           payer: makePayerDTO(from: transaction.payer),
@@ -227,7 +227,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with installmentPayments: Domain.PaymentMethod.InstallmentPayment) -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: makePayDTO(from: installmentPayments),
                           payer: makePayerDTO(from: transaction.payer),
@@ -237,7 +237,7 @@ final class DefaultTransactionService: TransactionService {
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with payPoPayer: Domain.Payer) throws -> NewTransactionDTO {
         NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
                           description: transaction.paymentInfo.title,
-                          hiddenDescription: nil,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTOForPayPo(),
                           payer: makePayerDTO(from: payPoPayer),

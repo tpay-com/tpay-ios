@@ -12,13 +12,20 @@ public struct SingleTransaction: Transaction {
     
     public let amount: Double
     public let description: String
+    public let hiddenDescription: String?
     public let payerContext: PayerContext?
     
     // MARK: - Initializers
     
-    public init(amount: Double, description: String, payerContext: PayerContext? = nil) {
+    public init(
+        amount: Double,
+        description: String,
+        hiddenDescription: String? = nil,
+        payerContext: PayerContext? = nil
+    ) {
         self.amount = amount
         self.description = description
+        self.hiddenDescription = hiddenDescription
         self.payerContext = payerContext
     }
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+<a name="1.3.1"></a>
+## [1.3.1]
+### Improvements
+- a possibility to pass a hiddenDescription when creating a transaction
+
 <a name="1.3.0"></a>
 ## [1.3.0]
 ### Features

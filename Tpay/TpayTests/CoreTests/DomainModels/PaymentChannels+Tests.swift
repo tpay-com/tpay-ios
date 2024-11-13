@@ -57,7 +57,7 @@ private extension PaymentChannels_Tests {
         // MARK: - Factories
         
         static func makeStubPaymentInfo(with amount: Double) -> Domain.PaymentInfo {
-            .init(amount: amount, title: .empty)
+            .init(amount: amount, title: .empty, hiddenDescription: nil)
         }
         
         static func makeStubPaymentChannel(with constraints: [Domain.PaymentChannel.Constraint]) -> Domain.PaymentChannel {

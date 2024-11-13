@@ -8,5 +8,6 @@ public protocol Transaction {
     
     var amount: Double { get }
     var description: String { get }
+    var hiddenDescription: String? { get }
     var payerContext: PayerContext? { get }
 }

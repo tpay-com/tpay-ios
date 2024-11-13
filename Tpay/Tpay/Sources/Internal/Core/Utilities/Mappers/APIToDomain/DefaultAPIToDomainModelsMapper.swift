@@ -24,7 +24,11 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
     }
     
     func makePaymentInfo(from transaction: Transaction) -> Domain.PaymentInfo {
-        Domain.PaymentInfo(amount: transaction.amount, title: transaction.description)
+        Domain.PaymentInfo(
+            amount: transaction.amount,
+            title: transaction.description,
+            hiddenDescription: transaction.hiddenDescription
+        )
     }
     
     func makePayer(from payer: Payer) -> Domain.Payer {
@@ -101,7 +105,8 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
             throw Headless.Models.PaymentError.missingPayer
         }
         return Domain.Transaction(paymentInfo: .init(amount: headlessModelsTransaction.amount,
-                                                     title: headlessModelsTransaction.description),
+                                                     title: headlessModelsTransaction.description,
+                                                     hiddenDescription: headlessModelsTransaction.hiddenDescription),
                                   payer: makePayer(from: payer))
     }
     

@@ -16,8 +16,8 @@ let package = Package(
     targets: [
       .binaryTarget(
         name: "Tpay",
-        url: "https://github.com/tpay-com/tpay-ios/releases/download/1.3.0/Tpay.xcframework.zip",
-        checksum: "b9dc6933418de59a96fea2f9050c6a204128310ddc0c1ef8f0277eaeb04a8081"
+        url: "TO_BE_REPLACED_DURING_CI_BUILD",
+        checksum: "TO_BE_REPLACED_DURING_CI_BUILD"
       )
     ]
 )

@@ -10,5 +10,6 @@ extension Domain {
         
         let amount: Double
         let title: String
+        let hiddenDescription: String?
     }
 }

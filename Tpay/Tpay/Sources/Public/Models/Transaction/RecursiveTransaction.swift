@@ -27,5 +27,6 @@ public struct RecursiveTransaction: Transaction, Recursive {
     
     public var amount: Double { transaction.amount }
     public var description: String { transaction.description }
+    public var hiddenDescription: String? { transaction.hiddenDescription }
     public var payerContext: PayerContext? { transaction.payerContext }
 }
