@@ -22,7 +22,10 @@ public protocol PaymentDelegate: AnyObject {
     /// - Parameter transactionId: The unique identifier for the cancelled transaction.
     
     func onPaymentCancelled(transactionId: TransactionId)
-    
+
+    /// Notifies the delegate when a payment is closed by the user.
+    func onPaymentClosed()
+
     /// Notifies the delegate when an error occurs during the payment process.
     /// - Parameter error: The error object describing the encountered issue.
 

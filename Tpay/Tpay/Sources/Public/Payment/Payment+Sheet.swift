@@ -71,6 +71,7 @@ extension Payment {
         private func startObservingEvents() {
             coordinator?.closeModule
                 .subscribe(onNext: { [weak self] in
+                    self?.delegate?.onPaymentClosed()
                     self?.coordinator?.stop()
                     self?.dismiss()
                 })

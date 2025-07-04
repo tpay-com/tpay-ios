@@ -51,7 +51,7 @@ final class SetupPaymentFlow: ModuleFlow {
     }
     
     func stop() { }
-    
+
     // MARK: - Private
     
     private func presentSetupPayerDetailsScreen() {

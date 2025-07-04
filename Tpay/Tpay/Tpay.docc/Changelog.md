@@ -1,5 +1,10 @@
 # Changelog
 
+<a name="1.3.2"></a>
+## [1.3.2]
+### Improvements
+- dismissing payment sheet correctly 
+
 <a name="1.3.1"></a>
 ## [1.3.1]
 ### Improvements
