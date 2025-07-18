@@ -19,7 +19,6 @@ final class PaymentCoordinator {
     private let transaction: Transaction
     private let presenter: ViewControllerPresenter
     private let resolver = ModuleContainer.instance.resolver
-    private let setupPaymentFlow: SetupPaymentFlow
 
     private let synchronizationService: SynchronizationService
     
@@ -40,7 +39,6 @@ final class PaymentCoordinator {
         sheetViewController = SheetViewController()
         presenter = ContentViewControllerPresenter(sheetViewController: sheetViewController)
         synchronizationService = resolver.resolve()
-        setupPaymentFlow = SetupPaymentFlow(for: transaction, with: presenter, using: resolver)
     }
     
     deinit {
@@ -92,6 +90,8 @@ final class PaymentCoordinator {
     }
     
     private func startPaymentFlow() {
+        let setupPaymentFlow = SetupPaymentFlow(for: transaction, with: presenter, using: resolver)
+
         setupPaymentFlow.showPayerDetails
             .subscribe(onNext: { [weak self] payerDetails in self?.sheetViewController.set(payerDetails: payerDetails) })
             .add(to: disposer)

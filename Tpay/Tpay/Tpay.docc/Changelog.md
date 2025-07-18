@@ -1,5 +1,10 @@
 # Changelog
 
+<a name="1.3.3"></a>
+## [1.3.3]
+### Improvements
+- Fix for changing language
+
 <a name="1.3.2"></a>
 ## [1.3.2]
 ### Improvements
