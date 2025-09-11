@@ -3,11 +3,14 @@
 //
 
 final class DefaultTokenizationService: TokenizationService {
+    private enum DefaultTokenizationServiceError: Error {
+        case missingCardEncryptor
+    }
     
     // MARK: - Properties
     
     private let networkingService: NetworkingService
-    private let encryptor: CardEncryptor
+    private let encryptor: CardEncryptor?
     private let merchant: Merchant
     private let callbacksConfiguration: CallbacksConfiguration
     private let mapper: TransportationToDomainModelsMapper
@@ -27,7 +30,7 @@ final class DefaultTokenizationService: TokenizationService {
     }
     
     init(networkingService: NetworkingService,
-         encryptor: CardEncryptor,
+         encryptor: CardEncryptor?,
          merchant: Merchant,
          mapper: TransportationToDomainModelsMapper,
          callbacksConfiguration: CallbacksConfiguration) {
@@ -57,7 +60,10 @@ final class DefaultTokenizationService: TokenizationService {
     // MARK: - Private
     
     private func makeNewCardDTO(from card: Domain.Card, payer: Domain.Payer) throws -> NewCardDTO {
-        let encrypted = try encryptor.encrypt(card: card).data.base64EncodedString()
+        guard let encrypted = try encryptor?.encrypt(card: card).data.base64EncodedString() else {
+            throw DefaultTokenizationServiceError.missingCardEncryptor
+        }
+        
         return NewCardDTO(payer: makePayerDTO(from: payer),
                           callback: callbacksConfiguration.notificationsUrl ?? .init(safeString: merchant.domain),
                           redirect: makeRedirects(),

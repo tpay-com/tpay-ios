@@ -5,6 +5,9 @@
 import Security
 
 final class DefaultEncryptor: Encryptor {
+    private enum DefaultEncryptorError: Error {
+        case missingPublicKey 
+    }
     
     // MARK: - Properties
     
@@ -12,13 +15,13 @@ final class DefaultEncryptor: Encryptor {
     
     // MARK: - Initializers
    
-    convenience init(using resolver: ServiceResolver) {
-        self.init(configurationProvider: resolver.resolve())
+    convenience init(using resolver: ServiceResolver) throws {
+        try self.init(configurationProvider: resolver.resolve())
     }
     
-    convenience init(configurationProvider: ConfigurationProvider) {
+    convenience init(configurationProvider: ConfigurationProvider) throws {
         guard let publicKey = configurationProvider.merchant?.cardsConfiguration?.publicKey else {
-            preconditionFailure("Cannot initialize encryptor - no public key found")
+            throw DefaultEncryptorError.missingPublicKey
         }
         self.init(publicKey: publicKey)
     }

@@ -9,4 +9,7 @@ extension String {
     var isNotEmpty: Bool { isEmpty == false }
     var base64: String { Data(utf8).base64EncodedString() }
     var isNewLine: Bool { self == String.newLine }
+    var pointer: UnsafeRawPointer {
+        return UnsafeRawPointer(self.withCString { $0 })
+    }
 }

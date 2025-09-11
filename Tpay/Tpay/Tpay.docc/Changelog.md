@@ -1,5 +1,12 @@
 # Changelog
 
+<a name="1.3.4"></a>
+## [1.3.4]
+### Improvements
+- Update swift-tools version to 6.0
+### Bug fixes
+- Fix crashing app issue when no payment methods are provided
+
 <a name="1.3.3"></a>
 ## [1.3.3]
 ### Improvements

@@ -8,7 +8,7 @@ final class DefaultTransactionService: TransactionService {
     
     private let networkingService: NetworkingService
     private let mapper: TransportationToDomainModelsMapper
-    private let encryptor: CardEncryptor
+    private let encryptor: CardEncryptor?
     private let merchant: Merchant
     private let callbacksConfiguration: CallbacksConfiguration
     private let transactionValidator: TransactionValidator
@@ -32,7 +32,7 @@ final class DefaultTransactionService: TransactionService {
     
     init(networkingService: NetworkingService,
          mapper: TransportationToDomainModelsMapper,
-         encryptor: CardEncryptor,
+         encryptor: CardEncryptor?,
          merchant: Merchant,
          callbacksConfiguration: CallbacksConfiguration,
          transactionValidator: TransactionValidator,
@@ -315,7 +315,7 @@ final class DefaultTransactionService: TransactionService {
     }
     
     private func makeCardPaymentData(from card: Domain.Card) throws -> PayWithInstantRedirectionDTO.CardPaymentData {
-        let encrypted = try encryptor.encrypt(card: card).data.base64EncodedString()
+        let encrypted = try encryptor?.encrypt(card: card).data.base64EncodedString()
         return PayWithInstantRedirectionDTO.CardPaymentData(card: encrypted, token: nil, shouldSave: card.shouldTokenize)
     }
     

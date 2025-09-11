@@ -12,11 +12,11 @@ extension UIView {
     }
 
     private var tapObservable: Observable<Void> {
-        if let observable = objc_getAssociatedObject(self, &UIView.observableKey) as? Observable<Void> {
+        if let observable = objc_getAssociatedObject(self, UIView.observableKey.pointer) as? Observable<Void> {
             return observable
         }
         let observable = Observable<Void>()
-        objc_setAssociatedObject(self, &UIView.observableKey, observable, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(self, UIView.observableKey.pointer, observable, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
         let tap = UITapGestureRecognizer()
         addGestureRecognizer(tap)
@@ -55,11 +55,11 @@ extension UIView {
     }
 
     var disposer: Disposer {
-        if let disposer = objc_getAssociatedObject(self, &UIView.disposerKey) as? Disposer {
+        if let disposer = objc_getAssociatedObject(self, UIView.disposerKey.pointer) as? Disposer {
             return disposer
         }
         let disposer = Disposer()
-        objc_setAssociatedObject(self, &UIView.disposerKey, disposer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(self, UIView.disposerKey.pointer, disposer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return disposer
     }
 }

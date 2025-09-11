@@ -20,7 +20,7 @@ extension Domain.Blik.OneClick {
         
         let value: String
         let type: Domain.Blik.AliasType
-        private (set) var application: Application?
+        private(set) var application: Application?
         
         mutating func specified(using application: Application) -> Self {
             self.application = application

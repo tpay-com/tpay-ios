@@ -11,8 +11,15 @@ final class DefaultCardEncryptor: CardEncryptor {
     
     // MARK: - Initializers
     
-    convenience init(using resolver: ServiceResolver) {
-        self.init(encryptor: DefaultEncryptor(using: resolver), serializer: DefaultCardDataSerializer(using: resolver))
+    convenience init?(using resolver: ServiceResolver) {
+        do {
+            try self.init(
+                encryptor: DefaultEncryptor(using: resolver),
+                serializer: DefaultCardDataSerializer(using: resolver)
+            )
+        } catch {
+            return nil
+        }
     }
     
     init(encryptor: Encryptor, serializer: CardDataSerializer) {

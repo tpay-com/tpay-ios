@@ -64,3 +64,6 @@ extension ListDataAdapter: UICollectionViewDelegate {
     }
 
 }
+
+// MARK: - Sendable Conformance 
+extension AnyHashable: @unchecked @retroactive Sendable {}

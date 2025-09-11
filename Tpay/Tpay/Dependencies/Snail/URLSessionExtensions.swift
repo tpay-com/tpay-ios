@@ -22,11 +22,11 @@ extension URLSession {
     private static var disposerKey = "com.compass.Snail.URLSession.Disposer"
 
     var disposer: Disposer {
-        if let disposer = objc_getAssociatedObject(self, &URLSession.disposerKey) as? Disposer {
+        if let disposer = objc_getAssociatedObject(self, URLSession.disposerKey) as? Disposer {
             return disposer
         }
         let disposer = Disposer()
-        objc_setAssociatedObject(self, &URLSession.disposerKey, disposer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(self, URLSession.disposerKey, disposer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return disposer
     }
 

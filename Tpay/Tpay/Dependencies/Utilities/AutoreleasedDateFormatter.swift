@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class AutoreleasedDateFormatter: DateFormatter {
+final class AutoreleasedDateFormatter: DateFormatter, @unchecked Sendable {
 
     // MARK: - API
 
