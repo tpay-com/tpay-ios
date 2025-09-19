@@ -10,7 +10,7 @@ on:
 jobs:
   publish_release:
     if: github.event.pull_request.merged && (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/'))
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
 
     - name: Extract version from branch name (for release branches)

@@ -141,7 +141,7 @@ internal struct ImageAsset {
 }
 
 internal extension AssetImageTypeAlias {
-  @available(iOS 9.0, tvOS 9.0, watchOS 9.0, *)
+  @available(iOS 1.0, tvOS 1.0, watchOS 1.0, *)
   @available(OSX, deprecated,
     message: "This initializer is unsafe on macOS, please use the ImageAsset.image property")
   convenience init!(asset: ImageAsset) {
