@@ -9,7 +9,7 @@ on:
 
 jobs:
   create_release:
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
 
     - name: Checkout Source
