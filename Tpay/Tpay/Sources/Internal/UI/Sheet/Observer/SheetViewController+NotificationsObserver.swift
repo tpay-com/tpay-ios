@@ -13,8 +13,8 @@ extension SheetViewController {
         // MARK: - Initialization
         
         init() {
-            NotificationCenter.default.addObserver(self, selector: #selector(handleState(notification:)), name: Notifications.moduleIsBusy, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(handleState(notification:)), name: Notifications.moduleIsIdle, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleState(notification:)), name: UINotifications.moduleIsBusy, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(handleState(notification:)), name: UINotifications.moduleIsIdle, object: nil)
         }
         
         deinit {
@@ -24,10 +24,10 @@ extension SheetViewController {
         
         // MARK: - Private
         
-        @objc private func handleState(notification: Notification) {
-            if notification.name == Notifications.moduleIsBusy {
+        @objc private func handleState(notification: Foundation.Notification) {
+            if notification.name == UINotifications.moduleIsBusy {
                 state.on(.next(.busy))
-            } else if notification.name == Notifications.moduleIsIdle {
+            } else if notification.name == UINotifications.moduleIsIdle {
                 state.on(.next(.idle))
             }
         }

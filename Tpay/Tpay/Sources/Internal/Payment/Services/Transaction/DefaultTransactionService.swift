@@ -171,7 +171,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: card),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with cardToken: Domain.CardToken) throws -> NewTransactionDTO {
@@ -181,7 +181,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: cardToken),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with blik: Domain.Blik.Regular) throws -> NewTransactionDTO {
@@ -191,7 +191,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: blik),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with blik: Domain.Blik.OneClick) throws -> NewTransactionDTO {
@@ -201,7 +201,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: blik),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with pbl: Domain.PaymentMethod.Bank) throws -> NewTransactionDTO {
@@ -211,7 +211,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: pbl),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with applePay: Domain.ApplePayToken) throws -> NewTransactionDTO {
@@ -221,7 +221,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTO(from: applePay),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with installmentPayments: Domain.PaymentMethod.InstallmentPayment) -> NewTransactionDTO {
@@ -231,7 +231,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: makePayDTO(from: installmentPayments),
                           payer: makePayerDTO(from: transaction.payer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with payPoPayer: Domain.Payer) throws -> NewTransactionDTO {
@@ -241,7 +241,7 @@ final class DefaultTransactionService: TransactionService {
                           language: makeLanguage(from: Language.current),
                           pay: try makePayDTOForPayPo(),
                           payer: makePayerDTO(from: payPoPayer),
-                          callbacks: makeCallbacks())
+                          callbacks: makeCallbacks(from: transaction))
     }
     
     private func makeLanguage(from language: Language) -> NewTransactionDTO.Language {
@@ -342,10 +342,11 @@ final class DefaultTransactionService: TransactionService {
         PayWithInstantRedirectionDTO.BlikPaymentData.Alias(value: alias.value, type: makeAliasType(for: alias.type), label: nil, key: alias.application?.key)
     }
     
-    private func makeCallbacks() -> NewTransactionDTO.Callbacks {
+    private func makeCallbacks(from transaction: Domain.Transaction) -> NewTransactionDTO.Callbacks {
         .init(successUrl: callbacksConfiguration.successRedirectUrl,
               errorUrl: callbacksConfiguration.errorRedirectUrl,
-              notificationUrl: callbacksConfiguration.notificationsUrl)
+              notificationUrl: transaction.notification?.url ?? callbacksConfiguration.notificationsUrl,
+              notificationEmail: transaction.notification?.email ?? callbacksConfiguration.notificationEmail)
     }
     
     private func makeAliasType(for type: Domain.Blik.AliasType) -> PayWithInstantRedirectionDTO.BlikPaymentData.Alias.AliasType {

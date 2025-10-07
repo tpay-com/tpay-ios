@@ -40,7 +40,7 @@ final class DefaultKeyboardObserver: KeyboardObserver {
     // MARK: - Actions
     
     @objc
-    private func keyboardAppearing(_ notification: Notification) {
+    private func keyboardAppearing(_ notification: Foundation.Notification) {
         guard let userInfo = notification.userInfo else { return }
         
         guard let frame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
@@ -56,7 +56,7 @@ final class DefaultKeyboardObserver: KeyboardObserver {
     }
     
     @objc
-    private func keyboardDisappearing(_ notification: Notification) {
+    private func keyboardDisappearing(_ notification: Foundation.Notification) {
         guard let userInfo = notification.userInfo else { return }
         
         guard let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }

@@ -3,8 +3,8 @@
 import Foundation
 
 extension NotificationCenter {
-    func observeEvent(_ name: Notification.Name?, object: AnyObject? = nil) -> Observable<Notification> {
-        let observable = Observable<Notification>()
+    func observeEvent(_ name: Foundation.Notification.Name?, object: AnyObject? = nil) -> Observable<Foundation.Notification> {
+        let observable = Observable<Foundation.Notification>()
         addObserver(forName: name, object: object, queue: nil) { notification in
             observable.on(.next(notification))
         }

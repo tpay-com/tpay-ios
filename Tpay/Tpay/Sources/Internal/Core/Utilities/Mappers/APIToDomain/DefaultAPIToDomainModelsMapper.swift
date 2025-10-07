@@ -107,7 +107,8 @@ final class DefaultAPIToDomainModelsMapper: APIToDomainModelsMapper {
         return Domain.Transaction(paymentInfo: .init(amount: headlessModelsTransaction.amount,
                                                      title: headlessModelsTransaction.description,
                                                      hiddenDescription: headlessModelsTransaction.hiddenDescription),
-                                  payer: makePayer(from: payer))
+                                  payer: makePayer(from: payer),
+                                  notification: headlessModelsTransaction.notification)
     }
     
     func makeDomainOngoingTransaction(from headlessModelsOngoingTransaction: Headless.Models.OngoingTransaction) -> Domain.OngoingTransaction {

@@ -7,7 +7,7 @@ extension UIView {
     private static var observableKey = "com.compass.Snail.UIView.ObservableKey"
     private static var disposerKey = "com.compass.Snail.UIView.Disposer"
 
-    func observe(event: Notification.Name) -> Observable<Notification> {
+    func observe(event: Foundation.Notification.Name) -> Observable<Foundation.Notification> {
         return NotificationCenter.default.observeEvent(event)
     }
 

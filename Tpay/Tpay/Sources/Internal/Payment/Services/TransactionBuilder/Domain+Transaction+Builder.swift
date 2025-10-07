@@ -2,6 +2,8 @@
 //  Copyright © 2022 Tpay. All rights reserved.
 //
 
+import Foundation
+
 extension Domain.Transaction {
     
     final class Builder {
@@ -10,6 +12,7 @@ extension Domain.Transaction {
         
         private let paymentInfo: Domain.PaymentInfo
         private var payer: Domain.Payer?
+        public var notification: Notification?
         
         // MARK: - Initializers
         
@@ -27,7 +30,11 @@ extension Domain.Transaction {
             guard let payer = payer else {
                 return nil
             }
-            return Domain.Transaction(paymentInfo: paymentInfo, payer: payer)
+            return Domain.Transaction(
+                paymentInfo: paymentInfo,
+                payer: payer,
+                notification: notification
+            )
         }
     }
 }

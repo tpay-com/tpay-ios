@@ -103,7 +103,7 @@ class BottomSection: UIView, ShadowEmitter {
     }
     
     func set(isProcessing: Bool) {
-        let notificationName = isProcessing ? SheetViewController.Notifications.moduleIsBusy : SheetViewController.Notifications.moduleIsIdle
+        let notificationName = isProcessing ? SheetViewController.UINotifications.moduleIsBusy : SheetViewController.UINotifications.moduleIsIdle
         NotificationCenter.default.post(name: notificationName, object: nil)
         actionButton.set(occupationState: isProcessing ? .busy : .idle)
     }

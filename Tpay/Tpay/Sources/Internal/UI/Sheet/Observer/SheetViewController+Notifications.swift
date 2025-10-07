@@ -3,10 +3,10 @@
 //
 
 extension SheetViewController {
-    
-    enum Notifications {
-        
-        static let moduleIsBusy = Notification.Name("moduleIsBusy")
-        static let moduleIsIdle = Notification.Name("moduleIsIdle")
+
+    enum UINotifications {
+
+        static let moduleIsBusy = Foundation.Notification.Name("moduleIsBusy")
+        static let moduleIsIdle = Foundation.Notification.Name("moduleIsIdle")
     }
 }

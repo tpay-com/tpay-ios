@@ -63,6 +63,7 @@ private extension NewTransactionDTO_Tests {
         static let payer = PayerDTO(email: "stubEmail", name: "stubName", phone: nil, address: nil, postalCode: nil, city: nil, country: nil)
         static let callbacks = NewTransactionDTO.Callbacks(successUrl: .init(safeString: "https://stub.com/success"),
                                                            errorUrl: .init(safeString: "https://stub.com/error"),
-                                                           notificationUrl: nil)
+                                                           notificationUrl: nil,
+                                                           notificationEmail: nil)
     }
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+<a name="1.3.5"></a>
+## [1.3.5]
+### Improvements
+- Implementation of missing notification in the transaction
+
 <a name="1.3.4"></a>
 ## [1.3.4]
 ### Improvements

@@ -342,6 +342,7 @@
 		03B22D5E28609585003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D5D28609585003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView.swift */; };
 		03B22D6128609CA2003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D6028609CA2003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift */; };
 		03B714A42B960E3800EBBEF9 /* CallbacksConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B714A32B960E3800EBBEF9 /* CallbacksConfiguration.swift */; };
+		D3NOTIFY001234567890EFGH /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3NOTIFY001234567890ABCD /* Notification.swift */; };
 		03B797D627F7118500211413 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B797D527F7118500211413 /* DesignSystem.swift */; };
 		03BC27FF284FB0C200955C35 /* DefaultProcessingPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC27FE284FB0C200955C35 /* DefaultProcessingPaymentModel.swift */; };
 		03BD0C6C27FC69A400BB0BDC /* Label+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD0C6B27FC69A400BB0BDC /* Label+Builder.swift */; };
@@ -1415,6 +1416,7 @@
 		03B22D5D28609585003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWithCardTokenViewController+ContentView+CollectionView.swift"; sourceTree = "<group>"; };
 		03B22D6028609CA2003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift"; sourceTree = "<group>"; };
 		03B714A32B960E3800EBBEF9 /* CallbacksConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbacksConfiguration.swift; sourceTree = "<group>"; };
+		D3NOTIFY001234567890ABCD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		03B797D527F7118500211413 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		03BC27FE284FB0C200955C35 /* DefaultProcessingPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProcessingPaymentModel.swift; sourceTree = "<group>"; };
 		03BD0C6B27FC69A400BB0BDC /* Label+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label+Builder.swift"; sourceTree = "<group>"; };
@@ -2652,6 +2654,7 @@
 			children = (
 				038F4F392A67DC5C0020B27E /* AutomaticPaymentMethods.swift */,
 				03B714A32B960E3800EBBEF9 /* CallbacksConfiguration.swift */,
+				D3NOTIFY001234567890ABCD /* Notification.swift */,
 				A9E4F48EF42D0F7135DF7A02 /* BlikToken.swift */,
 				031A897127F4D2C20028D3CC /* CertificatePinningConfiguration.swift */,
 				031A898A27F58B3F0028D3CC /* ConfigurationCheckResult.swift */,
@@ -7283,6 +7286,7 @@
 				6A80B9E40EC0D7ECA8E35F4A /* DefaultLayoutResult+ResultYAxisLayout.swift in Sources */,
 				DBC51D11C91C30C42355253A /* DefaultConstraintsContainer.swift in Sources */,
 				03B714A42B960E3800EBBEF9 /* CallbacksConfiguration.swift in Sources */,
+				D3NOTIFY001234567890EFGH /* Notification.swift in Sources */,
 				87D92D812809EAD100706599 /* TextInput+Constants.swift in Sources */,
 				D3B562D529A4E64F0072FD93 /* CardTokenPaymentScreen.swift in Sources */,
 				031A897627F4D3550028D3CC /* Theme.swift in Sources */,

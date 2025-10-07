@@ -30,7 +30,7 @@ import AppKit
 import UIKit
 #endif
 
-extension Notification.Name {
+extension Foundation.Notification.Name {
     /// This notification will be sent when the disk cache got cleaned either there are cached files expired or the
     /// total size exceeding the max allowed size. The manually invoking of `clearDiskCache` method will not trigger
     /// this notification.
@@ -40,7 +40,7 @@ extension Notification.Name {
     /// `KingfisherDiskCacheCleanedHashKey` key in `userInfo` of the notification object you received.
     /// By checking the array, you could know the hash codes of files are removed.
     static let KingfisherDidCleanDiskCache =
-        Notification.Name("com.onevcat.Kingfisher.KingfisherDidCleanDiskCache")
+        Foundation.Notification.Name("com.onevcat.Kingfisher.KingfisherDidCleanDiskCache")
 }
 
 /// Key for array of cleaned hashes in `userInfo` of `KingfisherDidCleanDiskCacheNotification`.
@@ -180,7 +180,7 @@ class ImageCache {
         let ioQueueName = "com.onevcat.Kingfisher.ImageCache.ioQueue.\(UUID().uuidString)"
         ioQueue = DispatchQueue(label: ioQueueName)
 
-        let notifications: [(Notification.Name, Selector)]
+        let notifications: [(Foundation.Notification.Name, Selector)]
         #if !os(macOS) && !os(watchOS)
         notifications = [
             (UIApplication.didReceiveMemoryWarningNotification, #selector(clearMemoryCache)),

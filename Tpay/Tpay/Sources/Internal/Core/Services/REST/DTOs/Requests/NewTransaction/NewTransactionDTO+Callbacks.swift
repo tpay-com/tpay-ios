@@ -12,6 +12,7 @@ extension NewTransactionDTO {
         let errorUrl: URL
         
         let notificationUrl: URL?
+        let notificationEmail: String?
         
         // MARK: - Encodable
         
@@ -24,6 +25,7 @@ extension NewTransactionDTO {
             
             var notification = container.nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .notification)
             try notification.encode(notificationUrl, forKey: .url)
+            try notification.encode(notificationEmail, forKey: .email)
         }
     }
 }
@@ -38,6 +40,7 @@ private extension NewTransactionDTO.Callbacks {
         case error
         
         case url
+        case email
     }
     
     enum CodingKeys: String, CodingKey {

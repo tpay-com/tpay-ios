@@ -5,21 +5,24 @@
 import Foundation
 
 public struct CallbacksConfiguration {
-    
+
     // MARK: - Properties
-    
+
     let successRedirectUrl: URL
     let errorRedirectUrl: URL
     let notificationsUrl: URL?
-    
+    let notificationEmail: String?
+
     // MARK: - Initializers
-    
+
     public init(successRedirectUrl: URL? = nil,
                 errorRedirectUrl: URL? = nil,
-                notificationsUrl: URL? = nil) {
+                notificationsUrl: URL? = nil,
+                notificationEmail: String? = nil) {
         self.successRedirectUrl = successRedirectUrl ?? Defaults.successRedirectUrl
         self.errorRedirectUrl = errorRedirectUrl ?? Defaults.errorRedirectUrl
         self.notificationsUrl = notificationsUrl
+        self.notificationEmail = notificationEmail
     }
 }
 

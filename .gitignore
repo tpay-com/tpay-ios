@@ -106,3 +106,4 @@ Precompiled/
 # Additions
 .idea/
 .DS_Store
+docs/*
