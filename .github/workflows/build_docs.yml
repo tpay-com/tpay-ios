@@ -1,0 +1,37 @@
+name: Rebuild docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_release:
+    runs-on: macos-15
+    steps:
+
+    - name: Checkout Source
+      uses: actions/checkout@v2
+
+    - name: Set up ruby env
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+        bundler-cache: true
+
+    - name: Config Git
+      run: |
+        git config user.name "Tpay Auto Commit"
+        git config user.email devs@tpay.com
+
+    - name: Install pods
+      run: bundle exec pod install
+
+    - name: Update docs
+      env:
+        HOSTING_BASE_PATH: ${{ github.event.repository.name }}
+      run: |
+        sh scripts/generate_docs.sh
+        git add docs/
+        git commit --message "Update docs"
+
+    - name: Push to master
+      run: git push origin master
