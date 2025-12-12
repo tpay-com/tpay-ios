@@ -33,3 +33,6 @@ public struct Notification {
         self.email = email
     }
 }
+
+/// Typealias for React Native (fix for issue with colliding Notification and Foundation.Notification)
+public typealias NotificationConfiguration = Notification

@@ -96,11 +96,14 @@ public enum Headless {
     ///   - transaction: The transaction for which the payment is initiated.
     ///   - paymentChannel: The payment channel through which the payment is processed.
     ///   - completion: A closure to be called upon completion with the result containing payment status.
+    ///   - allowedPaymentKinds: Optional parameter for allowed payment kinds (default: `[.pbl, .installmentPayments, .payPo]`). If another payment kind is provided, like `card` user will have to fill-up the card data under payment url.
     /// - Throws: An error of type `Models.PaymentError` if the payment kind is inappropriate or missing required data.
     
     public static func invokePayment(for transaction: Models.Transaction,
                                      using paymentChannel: Models.PaymentChannel,
+                                     allowedPaymentKinds paymentKinds: [Models.PaymentKind] = [.pbl, .installmentPayments, .payPo],
                                      completion: @escaping (Result<Models.PaymentResult, Error>) -> Void) throws {
+        guard paymentKinds.contains(paymentChannel.paymentKind) else { throw Models.PaymentError.inappropriatePaymentKind }
         switch paymentChannel.paymentKind {
         case .pbl:
             try headlessTransactionService.invokePayment(for: transaction, using: paymentChannel, with: Models.Bank(), completion: completion)
@@ -109,7 +112,8 @@ public enum Headless {
         case .payPo:
             try headlessTransactionService.invokePayPoPayment(for: transaction, using: paymentChannel, completion: completion)
         default:
-            throw Models.PaymentError.inappropriatePaymentKind
+            // fallback for other payment kinds, like card without filled data
+            try headlessTransactionService.invokePayment(for: transaction, using: paymentChannel, with: Models.Bank(), completion: completion)
         }
     }
     
@@ -191,7 +195,7 @@ extension Headless {
         
         /// The possible kinds of payments supported by the module.
         
-        public enum PaymentKind {
+        public enum PaymentKind: CaseIterable {
             case card
             case blik
             case pbl
