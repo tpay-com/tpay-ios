@@ -9,9 +9,10 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
     private let authenticationService: AuthenticationService
     private let paymentDataService: PaymentDataService
     private let paymentMethodsService: PaymentMethodsService
-    private let transactionService: TransactionService
+    private var transactionService: TransactionService { transactionServiceFactory() }
     private let apiToDomainModelsMapper: APIToDomainModelsMapper
     private let domainToAPIModelsMapper: DomainToAPIModelsMapper
+    private let transactionServiceFactory: () -> TransactionService
     
     // MARK: - Initializers
     
@@ -19,7 +20,7 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         self.init(authenticationService: DefaultAuthenticationService(resolver: resolver),
                   paymentDataService: DefaultPaymentDataService(resolver: resolver),
                   paymentMethodsService: DefaultPaymentMethodsService(resolver: resolver),
-                  transactionService: DefaultTransactionService(using: resolver),
+                  transactionServiceFactory: { DefaultTransactionService(using: resolver) },
                   apiToDomainModelsMapper: DefaultAPIToDomainModelsMapper(),
                   domainToAPIModelsMapper: DefaultDomainToAPIModelsMapper())
     }
@@ -27,13 +28,13 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
     init(authenticationService: AuthenticationService,
          paymentDataService: PaymentDataService,
          paymentMethodsService: PaymentMethodsService,
-         transactionService: TransactionService,
+         transactionServiceFactory: @escaping() -> TransactionService,
          apiToDomainModelsMapper: APIToDomainModelsMapper,
          domainToAPIModelsMapper: DomainToAPIModelsMapper) {
         self.authenticationService = authenticationService
         self.paymentDataService = paymentDataService
         self.paymentMethodsService = paymentMethodsService
-        self.transactionService = transactionService
+        self.transactionServiceFactory = transactionServiceFactory
         self.apiToDomainModelsMapper = apiToDomainModelsMapper
         self.domainToAPIModelsMapper = domainToAPIModelsMapper
     }
