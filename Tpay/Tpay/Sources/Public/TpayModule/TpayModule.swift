@@ -151,7 +151,7 @@ public enum TpayModule {
     @discardableResult
     public static func register(_ transactionStatusObserver: TransactionStatusObserver,
                                 for transactionWithId: TransactionId) throws -> TpayModule.Type {
-        let transaction = Domain.OngoingTransaction(transactionId: transactionWithId, status: .unknown, continueUrl: nil, paymentErrors: nil)
+        let transaction = Domain.OngoingTransaction(transactionId: transactionWithId, status: .unknown, notification: nil, continueUrl: nil, paymentErrors: nil)
         let transactionObserver = DefaultTransactionObserver(transaction: transaction,
                                                              resolver: ModuleContainer.instance.resolver.resolve())
         transactionObserver.status

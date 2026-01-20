@@ -11,6 +11,8 @@ final class TransactionDTO: ResponseDTO {
     let posId: String
     let status: TransactionStatus
     let dates: TransactionDatesDTO
+    let notificationUrl: URL?
+    let notificationEmail: String?
     
     let amount: Double
     let currency: Currency
@@ -43,11 +45,23 @@ final class TransactionDTO: ResponseDTO {
 
         payments = try container.decodeIfPresent(Payments.self, forKey: .payments)
         
+        let notificationContainer = try? container.nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .notification)
+        notificationUrl = try? notificationContainer?.decode(URL.self, forKey: .url)
+        notificationEmail = try? notificationContainer?.decode(String.self, forKey: .email)
+        
         try super.init(from: decoder)
     }
 }
 
 extension TransactionDTO {
+    
+    enum NestedCodingKeys: String, CodingKey {
+        
+        // MARK: - Cases
+        
+        case url
+        case email
+    }
     
     private enum CodingKeys: String, CodingKey {
         
@@ -68,6 +82,7 @@ extension TransactionDTO {
         case transactionPaymentUrl
         
         case payments
+        case notification
     }
     
 }

@@ -12,7 +12,6 @@ extension Domain.Transaction {
         
         private let paymentInfo: Domain.PaymentInfo
         private var payer: Domain.Payer?
-        public var notification: Notification?
         
         // MARK: - Initializers
         
@@ -32,8 +31,7 @@ extension Domain.Transaction {
             }
             return Domain.Transaction(
                 paymentInfo: paymentInfo,
-                payer: payer,
-                notification: notification
+                payer: payer
             )
         }
     }

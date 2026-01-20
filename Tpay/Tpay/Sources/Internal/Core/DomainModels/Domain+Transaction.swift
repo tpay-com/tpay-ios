@@ -12,6 +12,5 @@ extension Domain {
 
         let paymentInfo: PaymentInfo
         let payer: Payer
-        let notification: Notification?
     }
 }

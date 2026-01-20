@@ -55,10 +55,16 @@ final class DefaultTransportationToDomainModelsMapper: TransportationToDomainMod
     }
     
     func makeOngoingTransaction(from dto: TransactionDTO) -> Domain.OngoingTransaction {
-        Domain.OngoingTransaction(transactionId: dto.transactionId,
-                                  status: makeTransactionStatus(from: dto.status),
-                                  continueUrl: URL(string: dto.transactionPaymentUrl.value(or: .empty)),
-                                  paymentErrors: makePaymentErrorsIfApplies(from: dto.payments))
+        Domain.OngoingTransaction(
+            transactionId: dto.transactionId,
+            status: makeTransactionStatus(from: dto.status),
+            notification: .init(
+                url: dto.notificationUrl,
+                email: dto.notificationEmail
+            ),
+            continueUrl: URL(string: dto.transactionPaymentUrl.value(or: .empty)),
+            paymentErrors: makePaymentErrorsIfApplies(from: dto.payments)
+        )
     }
     
     func makeOngoingTokenization(from dto: TokenizedCardDTO) -> Domain.OngoingTokenization {

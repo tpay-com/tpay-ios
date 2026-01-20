@@ -14,7 +14,6 @@ public struct SingleTransaction: Transaction {
     public let description: String
     public let hiddenDescription: String?
     public let payerContext: PayerContext?
-    public let notification: Notification?
 
     // MARK: - Initializers
 
@@ -22,13 +21,11 @@ public struct SingleTransaction: Transaction {
         amount: Double,
         description: String,
         hiddenDescription: String? = nil,
-        payerContext: PayerContext? = nil,
-        notification: Notification? = nil
+        payerContext: PayerContext? = nil
     ) {
         self.amount = amount
         self.description = description
         self.hiddenDescription = hiddenDescription
         self.payerContext = payerContext
-        self.notification = notification
     }
 }

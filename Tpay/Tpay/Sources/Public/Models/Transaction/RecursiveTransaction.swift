@@ -29,5 +29,4 @@ public struct RecursiveTransaction: Transaction, Recursive {
     public var description: String { transaction.description }
     public var hiddenDescription: String? { transaction.hiddenDescription }
     public var payerContext: PayerContext? { transaction.payerContext }
-    public var notification: Notification? { transaction.notification }
 }

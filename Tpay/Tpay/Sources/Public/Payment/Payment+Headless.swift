@@ -229,6 +229,7 @@ extension Headless {
         
         public struct OngoingTransaction {
             public let id: String
+            public let notification: Notification?
         }
         
         /// Represents a payment channel through which a payment can be processed.
@@ -274,7 +275,12 @@ extension Headless {
             let securityCode: String
             let shouldTokenize: Bool
             
-            public init(number: String, expiryDate: ExpiryDate, securityCode: String, shouldTokenize: Bool) {
+            public init(
+                number: String,
+                expiryDate: ExpiryDate,
+                securityCode: String,
+                shouldTokenize: Bool
+            ) {
                 self.number = number
                 self.expiryDate = expiryDate
                 self.securityCode = securityCode
@@ -302,7 +308,10 @@ extension Headless {
                 let token: String
                 let aliasToBeRegistered: NotRegisteredBlikAlias?
                 
-                public init(token: String, aliasToBeRegistered: NotRegisteredBlikAlias?) {
+                public init(
+                    token: String,
+                    aliasToBeRegistered: NotRegisteredBlikAlias?
+                ) {
                     self.token = token
                     self.aliasToBeRegistered = aliasToBeRegistered
                 }
@@ -326,7 +335,10 @@ extension Headless {
                 let registeredAlias: RegisteredBlikAlias
                 let application: Application
                 
-                public init(registeredAlias: RegisteredBlikAlias, application: Application) {
+                public init(
+                    registeredAlias: RegisteredBlikAlias,
+                    application: Application
+                ) {
                     self.registeredAlias = registeredAlias
                     self.application = application
                 }

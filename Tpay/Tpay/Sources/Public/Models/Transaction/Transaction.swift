@@ -12,5 +12,4 @@ public protocol Transaction {
     var description: String { get }
     var hiddenDescription: String? { get }
     var payerContext: PayerContext? { get }
-    var notification: Notification? { get }
 }

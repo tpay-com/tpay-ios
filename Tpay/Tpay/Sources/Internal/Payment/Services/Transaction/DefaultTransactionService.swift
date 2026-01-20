@@ -253,17 +253,17 @@ final class DefaultTransactionService: TransactionService {
         }
     }
     
-    private func makePayDTO(from card: Domain.Card) throws -> PayWithInstantRedirectionDTO {
+    private func makePayDTO(from card: Domain.Card, payMethod: PayWithInstantRedirectionDTO.Method = .sale) throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .card),
-                                     method: .sale,
+                                     method: payMethod,
                                      blikPaymentData: nil,
                                      cardPaymentData: try makeCardPaymentData(from: card),
                                      recursive: nil)
     }
     
-    private func makePayDTO(from cardToken: Domain.CardToken) throws -> PayWithInstantRedirectionDTO {
+    private func makePayDTO(from cardToken: Domain.CardToken, payMethod: PayWithInstantRedirectionDTO.Method = .sale) throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .card),
-                                     method: .sale,
+                                     method: payMethod,
                                      blikPaymentData: nil,
                                      cardPaymentData: makeCardPaymentData(from: cardToken),
                                      recursive: nil)
@@ -271,7 +271,7 @@ final class DefaultTransactionService: TransactionService {
     
     private func makePayDTO(from blik: Domain.Blik.Regular) throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .blik),
-                                     method: .sale,
+                                     method: nil,
                                      blikPaymentData: makeBlikPaymentData(from: blik),
                                      cardPaymentData: nil,
                                      recursive: nil)
@@ -279,7 +279,7 @@ final class DefaultTransactionService: TransactionService {
     
     private func makePayDTO(from blik: Domain.Blik.OneClick) throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .blik),
-                                     method: .sale,
+                                     method: nil,
                                      blikPaymentData: makeBlikPaymentData(from: blik),
                                      cardPaymentData: nil,
                                      recursive: nil)
@@ -287,7 +287,7 @@ final class DefaultTransactionService: TransactionService {
     
     private func makePayDTO(from bank: Domain.PaymentMethod.Bank) throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: bank.id,
-                                     method: .sale,
+                                     method: nil,
                                      blikPaymentData: nil,
                                      cardPaymentData: nil,
                                      recursive: nil)
@@ -299,12 +299,16 @@ final class DefaultTransactionService: TransactionService {
     }
     
     private func makePayDTO(from installmentPayment: Domain.PaymentMethod.InstallmentPayment) -> PayWithInstantRedirectionDTO {
-        PayWithInstantRedirectionDTO(channelId: installmentPayment.id, method: .sale, blikPaymentData: nil, cardPaymentData: nil, recursive: nil)
+        PayWithInstantRedirectionDTO(channelId: installmentPayment.id,
+                                     method: nil,
+                                     blikPaymentData: nil,
+                                     cardPaymentData: nil,
+                                     recursive: nil)
     }
     
     private func makePayDTOForPayPo() throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .payPo),
-                                     method: .sale,
+                                     method: nil,
                                      blikPaymentData: nil,
                                      cardPaymentData: nil,
                                      recursive: nil)
@@ -345,8 +349,8 @@ final class DefaultTransactionService: TransactionService {
     private func makeCallbacks(from transaction: Domain.Transaction) -> NewTransactionDTO.Callbacks {
         .init(successUrl: callbacksConfiguration.successRedirectUrl,
               errorUrl: callbacksConfiguration.errorRedirectUrl,
-              notificationUrl: transaction.notification?.url ?? callbacksConfiguration.notificationsUrl,
-              notificationEmail: transaction.notification?.email ?? callbacksConfiguration.notificationEmail)
+              notificationUrl: callbacksConfiguration.notificationsUrl,
+              notificationEmail: callbacksConfiguration.notificationEmail)
     }
     
     private func makeAliasType(for type: Domain.Blik.AliasType) -> PayWithInstantRedirectionDTO.BlikPaymentData.Alias.AliasType {

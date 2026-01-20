@@ -77,7 +77,7 @@ private extension DefaultDomainToAPIModelsMapper {
         }
         
         static func makeHeadlessModelsStandardPaymentResult(from domainOngoingTransaction: Domain.OngoingTransaction) -> Headless.Models.PaymentResult {
-            let headlessOngoingTransaction = Headless.Models.OngoingTransaction(id: domainOngoingTransaction.transactionId)
+            let headlessOngoingTransaction = Headless.Models.OngoingTransaction(id: domainOngoingTransaction.transactionId, notification: domainOngoingTransaction.notification)
             return Headless.Models.StandardPaymentResult(ongoingTransaction: headlessOngoingTransaction,
                                                          status: Helpers.makeHeadlessModelsTransactionStatus(from: domainOngoingTransaction.status),
                                                          continueUrl: domainOngoingTransaction.continueUrl)
@@ -85,7 +85,7 @@ private extension DefaultDomainToAPIModelsMapper {
         
         static func makeHeadlessModelsBlikPaymentResultWithAmbiguousAlias(from domainOngoingTransaction: Domain.OngoingTransaction,
                                                                           applications: [Domain.Blik.OneClick.Alias.Application]) -> Headless.Models.PaymentResult {
-            let headlessOngoingTransaction = Headless.Models.OngoingTransaction(id: domainOngoingTransaction.transactionId)
+            let headlessOngoingTransaction = Headless.Models.OngoingTransaction(id: domainOngoingTransaction.transactionId, notification: domainOngoingTransaction.notification)
             let applications = applications.map { makeHeadlessModelsAmbiguousBlikAliasApplication(from: $0) }
             
             return Headless.Models.BlikPaymentResultWithAmbiguousAliases(ongoingTransaction: headlessOngoingTransaction,

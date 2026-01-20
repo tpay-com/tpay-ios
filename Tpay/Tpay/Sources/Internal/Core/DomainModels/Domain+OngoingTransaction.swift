@@ -10,6 +10,7 @@ extension Domain {
         
         let transactionId: String
         let status: Status
+        let notification: Notification?
         
         let continueUrl: URL?
         let paymentErrors: [PaymentError]?
