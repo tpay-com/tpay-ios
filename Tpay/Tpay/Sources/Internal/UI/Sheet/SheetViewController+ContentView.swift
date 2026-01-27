@@ -11,6 +11,7 @@ extension SheetViewController {
         // MARK: - Events
         
         var languageSelected: Observable<Language> { languageSwitch.languageSelected }
+        var onLanguageSwitchTap: Observable<Void> { languageSwitch.onTap }
         var closeButtonTapped: Observable<Void> { cardView.closeButtonTapped }
         var changePayerDetails: Observable<Void> { payerDetailsView.changePayerDetails }
         

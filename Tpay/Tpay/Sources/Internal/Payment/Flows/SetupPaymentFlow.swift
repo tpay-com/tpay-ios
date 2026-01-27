@@ -8,6 +8,7 @@ final class SetupPaymentFlow: ModuleFlow {
     
     let showPayerDetails = Observable<Domain.Payer>()
     let showLanguageSwitch = Observable<Void>()
+    let onPayerUpdate = Observable<Domain.Payer>()
     
     let transactionCreated = Observable<Domain.OngoingTransaction>()
     let errorOcurred = Observable<Error>()
@@ -31,13 +32,16 @@ final class SetupPaymentFlow: ModuleFlow {
     
     // MARK: - Initializers
     
-    init(for transaction: Transaction, with presenter: ViewControllerPresenter, using resolver: ServiceResolver) {
+    init(for transaction: Transaction, with presenter: ViewControllerPresenter, using resolver: ServiceResolver, payerOverride: Domain.Payer? = nil) {
         self.transaction = transaction
         self.presenter = presenter
         self.resolver = resolver
-        screen = SetupPayerDetailsScreen(for: transaction, using: resolver)
+        screen = SetupPayerDetailsScreen(for: transaction, using: resolver, payerOverride: payerOverride)
         screenManager = ScreenManager(presenter: presenter)
         transactionBuilder = Domain.Transaction.Builder(paymentInfo: mapper.makePaymentInfo(from: transaction))
+        if let payerOverride {
+            transactionBuilder.set(payer: payerOverride)
+        }
     }
     
     deinit {
@@ -51,6 +55,10 @@ final class SetupPaymentFlow: ModuleFlow {
     }
     
     func stop() { }
+    
+    func endEditing() {
+        screen.viewController.view.endEditing(true)
+    }
 
     // MARK: - Private
     
@@ -60,6 +68,13 @@ final class SetupPaymentFlow: ModuleFlow {
                 self?.transactionBuilder.set(payer: payer)
                 self?.showChoosePaymentMethodScreen()
                 self?.showPayerDetails.on(.next(payer))
+            })
+            .add(to: disposer)
+        
+        screen.router.onPayerUpdate
+            .subscribe(onNext: { [weak self] payer in
+                self?.transactionBuilder.set(payer: payer)
+                self?.onPayerUpdate.on(.next(payer))
             })
             .add(to: disposer)
         

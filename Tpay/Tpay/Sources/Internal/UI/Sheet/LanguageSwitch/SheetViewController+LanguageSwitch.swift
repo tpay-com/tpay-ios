@@ -11,6 +11,7 @@ extension SheetViewController {
         // MARK: - Events
         
         private(set) lazy var languageSelected = _languageSelected.asObservable()
+        var onTap = Observable<Void>()
 
         // MARK: - Properties
         
@@ -98,11 +99,13 @@ extension SheetViewController {
         
         private func handleTap(on record: Record) {
             select(language: record.language)
+            onTap.on(.next(()))
         }
         
         private func handleTap() {
             records.forEach { $0.show() }
             appearance = .switching
+            onTap.on(.next(()))
         }
         
         private func updateAppearance() {

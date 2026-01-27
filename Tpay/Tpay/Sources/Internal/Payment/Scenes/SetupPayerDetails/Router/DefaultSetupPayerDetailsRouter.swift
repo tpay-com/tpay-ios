@@ -7,4 +7,5 @@ final class DefaultSetupPayerDetailsRouter: SetupPayerDetailsRouter {
     // MARK: - Properties
     
     let onSetup = Observable<Domain.Payer>()
+    let onPayerUpdate = Observable<Domain.Payer>()
 }

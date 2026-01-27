@@ -9,6 +9,7 @@ protocol CardTokenPaymentModel: AnyObject {
     var onPaymentCompleted: Observable<TransactionId> { get }
     var onPaymentFailed: Observable<TransactionId> { get }
     var errorOcured: Observable<PaymentError> { get }
+    var transactionWithUrlOccured: Observable<Domain.OngoingTransaction> { get }
     
     // MARK: - API
     

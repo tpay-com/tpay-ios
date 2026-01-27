@@ -84,10 +84,10 @@ final class DefaultTransactionService: TransactionService {
         }
     }
     
-    func invokePayment(for transaction: Domain.Transaction, with cardToken: Domain.CardToken, then: @escaping OngoingTransactionResultHandler) {
+    func invokePayment(for transaction: Domain.Transaction, with cardToken: Domain.CardToken, ignoreErrorsWhenContinueUrlExists: Bool, then: @escaping OngoingTransactionResultHandler) {
         do {
             let dto = try makeNewTransactionDTO(from: transaction, with: cardToken)
-            executeCreateTransactionRequest(with: dto, then: then)
+            executeCreateTransactionRequest(with: dto, ignoreErrorsWhenContinueUrlExists: ignoreErrorsWhenContinueUrlExists, then: then)
         } catch {
             then(.failure(error))
         }
@@ -131,13 +131,13 @@ final class DefaultTransactionService: TransactionService {
     
     // MARK: - Private
     
-    private func executeCreateTransactionRequest(with dto: NewTransactionDTO, then: @escaping OngoingTransactionResultHandler) {
+    private func executeCreateTransactionRequest(with dto: NewTransactionDTO, ignoreErrorsWhenContinueUrlExists: Bool = false, then: @escaping OngoingTransactionResultHandler) {
         let request = TransactionsController.CreateTransaction(dto: dto)
         networkingService.execute(request: request)
             .onSuccess { [weak self] transactionDto in
                 guard let self = self else { return }
                 let ongoingTransaction = self.mapper.makeOngoingTransaction(from: transactionDto)
-                self.validate(transaction: ongoingTransaction, then: then)
+                self.validate(transaction: ongoingTransaction, ignoreErrorsWhenContinueUrlExists: ignoreErrorsWhenContinueUrlExists, then: then)
             }
             .onError { error in then(.failure(error)) }
     }
@@ -362,11 +362,15 @@ final class DefaultTransactionService: TransactionService {
         }
     }
     
-    private func validate(transaction: Domain.OngoingTransaction, then: @escaping OngoingTransactionResultHandler) {
+    private func validate(transaction: Domain.OngoingTransaction, ignoreErrorsWhenContinueUrlExists: Bool = false, then: @escaping OngoingTransactionResultHandler) {
         do {
             try transactionValidator.validate(transaction: transaction)
             then(.success(transaction))
         } catch let error as Domain.OngoingTransaction.PaymentError {
+            if ignoreErrorsWhenContinueUrlExists && transaction.continueUrl != nil {
+                then(.success(transaction))
+                return
+            }
             handleCaughtPaymentError(error, for: transaction, then: then)
         } catch {
             then(.failure(error))

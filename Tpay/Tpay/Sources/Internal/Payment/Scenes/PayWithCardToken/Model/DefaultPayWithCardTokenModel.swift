@@ -27,6 +27,6 @@ final class DefaultPayWithCardTokenModel: PayWithCardTokenModel {
     // MARK: - API
 
     func invokePayment(with cardToken: Domain.CardToken, then: @escaping OngoingTransactionResultHandler) {
-        transactionService.invokePayment(for: transaction, with: cardToken, then: then)
+        transactionService.invokePayment(for: transaction, with: cardToken, ignoreErrorsWhenContinueUrlExists: false, then: then)
     }
 }

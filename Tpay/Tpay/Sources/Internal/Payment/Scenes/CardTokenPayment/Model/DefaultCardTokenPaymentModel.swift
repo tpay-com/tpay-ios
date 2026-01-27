@@ -9,6 +9,7 @@ final class DefaultCardTokenPaymentModel: CardTokenPaymentModel {
     let onPaymentCompleted = Observable<TransactionId>()
     let onPaymentFailed = Observable<TransactionId>()
     let errorOcured = Observable<PaymentError>()
+    let transactionWithUrlOccured = Observable<Domain.OngoingTransaction>()
     
     private var transactionObserver: TransactionObserver?
     
@@ -65,7 +66,7 @@ final class DefaultCardTokenPaymentModel: CardTokenPaymentModel {
     }
     
     private func payment() {
-        transactionService.invokePayment(for: transaction, with: cardToken) { [weak self] ongoingTransactionResult in
+        transactionService.invokePayment(for: transaction, with: cardToken, ignoreErrorsWhenContinueUrlExists: true) { [weak self] ongoingTransactionResult in
             self?.handle(ongoingTransactionResult: ongoingTransactionResult)
         }
     }
@@ -73,6 +74,11 @@ final class DefaultCardTokenPaymentModel: CardTokenPaymentModel {
     private func handle(ongoingTransactionResult: OngoingTransactionResult) {
         switch ongoingTransactionResult {
         case .success(let ongoingTransaction):
+            let hasErrors = ongoingTransaction.paymentErrors?.isNotEmpty ?? false
+            if hasErrors && ongoingTransaction.continueUrl != nil {
+                transactionWithUrlOccured.on(.next(ongoingTransaction))
+                return
+            }
             startObserving(ongoingTransaction)
         case .failure(let error):
             errorOcured.on(.next(PaymentError.cannotMakeTransaction(description: error.localizedDescription)))

@@ -221,7 +221,7 @@ private final class CardTokenPaymentInvoker: PaymentInvoker {
     }
     
     func invokePayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler) {
-        transactionService.invokePayment(for: transaction, with: cardToken, then: then)
+        transactionService.invokePayment(for: transaction, with: cardToken, ignoreErrorsWhenContinueUrlExists: false, then: then)
     }
 }
 

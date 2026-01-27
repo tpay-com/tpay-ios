@@ -45,5 +45,9 @@ final class DefaultCardTokenPaymentViewModel: CardTokenPaymentViewModel {
         model.errorOcured
             .subscribe(onNext: { [weak self] error in self?.router.invokeOnError(error) })
             .add(to: disposer)
+        
+        model.transactionWithUrlOccured
+            .subscribe(onNext: { [weak self] ongoingTransaction in self?.router.invokeOnTransactionUrl(ongoingTransaction: ongoingTransaction) })
+            .add(to: disposer)
     }
 }

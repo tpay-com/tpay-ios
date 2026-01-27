@@ -34,13 +34,13 @@ final class DefaultSetupPayerDetailsViewModel: SetupPayerDetailsViewModel {
     
     // MARK: - Initializers
     
-    init(model: SetupPayerDetailsModel, router: SetupPayerDetailsRouter) {
+    init(model: SetupPayerDetailsModel, router: SetupPayerDetailsRouter, payerOverride: Domain.Payer? = nil) {
         self.model = model
         self.router = router
         transaction = model.transaction
         
-        initialPayerName = transaction.payerContext?.payer?.name
-        initialPayerEmail = transaction.payerContext?.payer?.email
+        initialPayerName = payerOverride?.name ?? transaction.payerContext?.payer?.name
+        initialPayerEmail = payerOverride?.email ??  transaction.payerContext?.payer?.email
         
         set(payerName: initialPayerName ?? .empty)
         set(payerEmail: initialPayerEmail ?? .empty)
@@ -51,11 +51,13 @@ final class DefaultSetupPayerDetailsViewModel: SetupPayerDetailsViewModel {
     func set(payerName: String) {
         _payerName.validate(payerName)
         _payerNameState.value = .init(_payerName.result)
+        router.update(payer: makePayer())
     }
     
     func set(payerEmail: String) {
         _payerEmail.validate(payerEmail)
         _payerEmailState.value = .init(_payerEmail.result)
+        router.update(payer: makePayer())
     }
     
     func choosePaymentMethod() {

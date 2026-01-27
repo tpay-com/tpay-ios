@@ -9,6 +9,7 @@ protocol CardTokenPaymentRouter: AnyObject {
     var onPaymentCompleted: Observable<TransactionId> { get }
     var onPaymentFailed: Observable<TransactionId> { get }
     var onError: Observable<PaymentError> { get }
+    var onTransactionWithUrl: Observable<Domain.OngoingTransaction> { get }
 }
 
 extension CardTokenPaymentRouter {
@@ -25,5 +26,9 @@ extension CardTokenPaymentRouter {
     
     func invokeOnError(_ error: PaymentError) {
         onError.on(.next((error)))
+    }
+    
+    func invokeOnTransactionUrl(ongoingTransaction: Domain.OngoingTransaction) {
+        onTransactionWithUrl.on(.next((ongoingTransaction)))
     }
 }

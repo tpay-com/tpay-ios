@@ -17,6 +17,7 @@ final class PaymentCoordinator {
     let sheetViewController: SheetViewController
     
     private let transaction: Transaction
+    private var temporaryPayer: Domain.Payer?
     private let presenter: ViewControllerPresenter
     private let resolver = ModuleContainer.instance.resolver
 
@@ -76,6 +77,15 @@ final class PaymentCoordinator {
         sheetViewController.changePayerDetails
             .subscribe(onNext: { [weak self] in self?.startPaymentFlow() })
             .add(to: disposer)
+        
+        sheetViewController.onLanguageSwitchTap
+            .subscribe(queue: .main, onNext: { [weak self] in
+                guard let setupPaymentFlow = self?.currentFlow as? SetupPaymentFlow else {
+                    return
+                }
+                setupPaymentFlow.endEditing()
+            })
+            .add(to: disposer)
     }
     
     private func prefetchResources() {
@@ -90,7 +100,7 @@ final class PaymentCoordinator {
     }
     
     private func startPaymentFlow() {
-        let setupPaymentFlow = SetupPaymentFlow(for: transaction, with: presenter, using: resolver)
+        let setupPaymentFlow = SetupPaymentFlow(for: transaction, with: presenter, using: resolver, payerOverride: temporaryPayer)
 
         setupPaymentFlow.showPayerDetails
             .subscribe(onNext: { [weak self] payerDetails in self?.sheetViewController.set(payerDetails: payerDetails) })
@@ -107,6 +117,9 @@ final class PaymentCoordinator {
             .subscribe(queue: .main, onNext: { [weak self] error in self?.handle(error: error) })
             .add(to: disposer)
         
+        setupPaymentFlow.onPayerUpdate
+            .subscribe(queue: .main, onNext: { [weak self] payer in self?.temporaryPayer = payer })
+            .add(to: disposer)
         currentFlow = setupPaymentFlow
     }
     

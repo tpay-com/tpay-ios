@@ -9,6 +9,7 @@ final class SheetViewController: UIViewController {
     // MARK: - Events
     
     var languageSelected: Observable<Language> { contentView.languageSelected }
+    var onLanguageSwitchTap: Observable<Void> { contentView.onLanguageSwitchTap }
     var closeButtonTapped: Observable<Void> { contentView.closeButtonTapped }
     var changePayerDetails: Observable<Void> { contentView.changePayerDetails }
 

@@ -9,4 +9,5 @@ final class DefaultCardTokenPaymentRouter: CardTokenPaymentRouter {
     var onPaymentCompleted = Observable<TransactionId>()
     var onPaymentFailed = Observable<TransactionId>()
     let onError = Observable<PaymentError>()
+    let onTransactionWithUrl = Observable<Domain.OngoingTransaction>()
 }

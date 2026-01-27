@@ -7,6 +7,7 @@ protocol SetupPayerDetailsRouter: AnyObject {
     // MARK: - Events
     
     var onSetup: Observable<Domain.Payer> { get }
+    var onPayerUpdate: Observable<Domain.Payer> { get }
 }
 
 extension SetupPayerDetailsRouter {
@@ -15,5 +16,9 @@ extension SetupPayerDetailsRouter {
     
     func setup(payer details: Domain.Payer) {
         onSetup.on(.next(details))
+    }
+    
+    func update(payer: Domain.Payer) {
+        onPayerUpdate.on(.next(payer))
     }
 }

@@ -7,6 +7,7 @@ final class CardTokenPaymentFlow: ModuleFlow {
     let paymentCompleted = Observable<TransactionId>()
     let paymentFailed = Observable<TransactionId>()
     let errorOcurred = Observable<ModuleError>()
+    let processTransactionWithUrl = Observable<Domain.OngoingTransaction>()
     
     // MARK: - Properties
     
@@ -74,6 +75,10 @@ final class CardTokenPaymentFlow: ModuleFlow {
         
         screen.router.onError
             .subscribe(queue: .main, onNext: { [weak self] error in self?.showPaymentErrorScreen(for: error) })
+            .add(to: disposer)
+        
+        screen.router.onTransactionWithUrl
+            .subscribe(queue: .main, onNext: { [weak self] ongoingTransaction in self?.processTransactionWithUrl.on(.next(ongoingTransaction)) })
             .add(to: disposer)
         
         screenManager.show(screen)
