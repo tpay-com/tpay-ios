@@ -3,19 +3,20 @@
 //
 
 final class DefaultHeadersProvider: HttpHeadersProvider {
-    
+
     // MARK: - Properties
-    
+
     private let headersProviders: [HttpHeadersProvider]
-    
+
     // MARK: - Initializers
-    
-    init(authorizationHeadersProvider: AuthorizationHeadersProvider) {
-        headersProviders = [authorizationHeadersProvider]
+
+    init(authorizationHeadersProvider: AuthorizationHeadersProvider,
+         sdkVersionHeadersProvider: SDKVersionHeadersProvider) {
+        headersProviders = [authorizationHeadersProvider, sdkVersionHeadersProvider]
     }
-    
+
     // MARK: - API
-    
+
     func headers(for resource: NetworkResource) -> [HttpHeader] {
         headersProviders.flatMap { provider in provider.headers(for: resource) }
     }

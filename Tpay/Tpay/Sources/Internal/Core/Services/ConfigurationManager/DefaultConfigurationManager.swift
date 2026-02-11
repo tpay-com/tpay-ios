@@ -40,6 +40,11 @@ final class DefaultConfigurationManager: ConfigurationManager {
         configurationHolder.supportedLanguages = supportedLanguages
     }
     
+    func set(compatibility: Compatibility, sdkVersionName: String?) {
+        configurationHolder.compatibility = compatibility
+        configurationHolder.sdkVersionName = sdkVersionName
+    }
+    
     // MARK: - ConfigurationProvider
     
     var merchant: Merchant? {
@@ -65,15 +70,24 @@ final class DefaultConfigurationManager: ConfigurationManager {
     var supportedLanguages: [Language] {
         configurationHolder.supportedLanguages ?? Defaults.supportedLanguages
     }
+
+    var compatibility: Compatibility {
+        configurationHolder.compatibility ?? Defaults.compatibility
+    }
+
+    var sdkVersionName: String? {
+        configurationHolder.sdkVersionName
+    }
 }
 
 extension DefaultConfigurationManager {
-    
+
     enum Defaults {
-        
+
         static let paymentMethods = PaymentMethod.allCases
         static let preferredLanguage = Language.pl
         static let supportedLanguages = Language.allCases
+        static let compatibility = Compatibility.ios
 
     }
 }

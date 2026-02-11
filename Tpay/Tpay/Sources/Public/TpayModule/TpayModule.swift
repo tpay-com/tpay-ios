@@ -120,7 +120,25 @@ public enum TpayModule {
         
         return TpayModule.self
     }
-    
+
+    /// Configures the Tpay module with compatibility mode and optional SDK version.
+    ///
+    /// - Parameter compatibility: The compatibility mode (ios, flutter, reactNative).
+    /// - Parameter sdkVersionName: Optional SDK version name for cross-platform SDKs. For native iOS, this is ignored as the version is automatically read from the framework bundle.
+    /// - Returns: The TpayModule type.
+    /// - Throws: Any configuration-related errors that might occur.
+    ///
+    /// - Note: This method is used to identify the platform and SDK version in HTTP headers:
+    ///   - Native iOS: Uses framework bundle version automatically
+    ///   - Flutter/React Native: Uses provided sdkVersionName or empty if not provided
+
+    @discardableResult
+    public static func configure(compatibility: Compatibility,
+                                 sdkVersionName: String? = nil) throws -> TpayModule.Type {
+        configurationSetter.set(compatibility: compatibility, sdkVersionName: sdkVersionName)
+        return TpayModule.self
+    }
+
     /// Sets the debug logging status for the TpayModule.
     ///
     /// - Parameter enabled: A boolean value indicating whether debug logging should be enabled (`true`) or disabled (`false`).

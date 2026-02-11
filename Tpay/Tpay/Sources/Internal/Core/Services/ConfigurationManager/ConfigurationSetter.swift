@@ -3,13 +3,14 @@
 //
 
 protocol ConfigurationSetter {
-    
+
     // MARK: - API
-    
+
     func set(merchant: Merchant)
     func set(callbacksConfiguration: CallbacksConfiguration)
     func set(merchantDetailsProvider: MerchantDetailsProvider)
     func set(paymentMethods: [PaymentMethod])
     func set(preferredLanguage: Language)
     func set(supportedLanguages: [Language])
+    func set(compatibility: Compatibility, sdkVersionName: String?)
 }

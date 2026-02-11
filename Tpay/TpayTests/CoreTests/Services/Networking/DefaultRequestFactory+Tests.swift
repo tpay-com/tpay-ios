@@ -12,7 +12,9 @@ final class DefaultRequestFactory_Tests: XCTestCase {
     
     lazy var sut: RequestFactory = {
         let authorizationHeadersProvider = DefaultAuthorizationHeadersProvider(with: MockCredentialsProvider())
-        let headersProvider = DefaultHeadersProvider(authorizationHeadersProvider: authorizationHeadersProvider)
+        let sdkVersionHeadersProvider = StubSDKVersionHeadersProvider()
+        let headersProvider = DefaultHeadersProvider(authorizationHeadersProvider: authorizationHeadersProvider,
+                                                     sdkVersionHeadersProvider: sdkVersionHeadersProvider)
         let networkingProvider: NetworkingConfigurationManager = {
             let manager = DefaultNetworkingConfigurationManager()
             manager.store(configuration: Self.serviceConfiguration)
@@ -74,12 +76,24 @@ private extension DefaultRequestFactory_Tests {
 }
 
 private extension DefaultRequestFactory_Tests {
-    
+
     final class MockCredentialsProvider: CredentialsProvider {
-        
+
         // MARK: - Properties
-        
+
         let claims: AuthorizationClaims? = AuthorizationClaims(accessToken: "access_token")
         let credentials: AuthorizationCredentials? = AuthorizationCredentials(user: "client", password: "password")
+    }
+
+    final class StubSDKVersionHeadersProvider: SDKVersionHeadersProvider {
+
+        // MARK: - API
+
+        func headers(for resource: NetworkResource) -> [HttpHeader] {
+            [
+                XClientSource(compatibility: .ios, sdkVersionName: nil),
+                UserAgent(compatibility: .ios, sdkVersionName: nil)
+            ]
+        }
     }
 }

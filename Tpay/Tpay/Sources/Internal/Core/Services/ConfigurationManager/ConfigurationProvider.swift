@@ -3,7 +3,7 @@
 //
 
 protocol ConfigurationProvider {
-    
+
     // MARK: - Properties
 
     var merchant: Merchant? { get }
@@ -12,4 +12,6 @@ protocol ConfigurationProvider {
     var paymentMethods: [PaymentMethod] { get }
     var preferredLanguage: Language { get }
     var supportedLanguages: [Language] { get }
+    var compatibility: Compatibility { get }
+    var sdkVersionName: String? { get }
 }

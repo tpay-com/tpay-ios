@@ -3,23 +3,27 @@
 //
 
 final class NetworkingServiceFactory {
-    
+
     // MARK: - Properties
-    
+
     private let configurationProvider: NetworkingConfigurationProvider
     private let authorizationHeadersProvider: AuthorizationHeadersProvider
-    
+    private let sdkConfigurationProvider: ConfigurationProvider
+
     // MARK: - Initializers
-    
+
     convenience init(using resolver: ServiceResolver) {
         self.init(configurationProvider: resolver.resolve(),
-                  authorizationHeadersProvider: resolver.resolve())
+                  authorizationHeadersProvider: resolver.resolve(),
+                  sdkConfigurationProvider: resolver.resolve())
     }
-    
+
     init(configurationProvider: NetworkingConfigurationProvider,
-         authorizationHeadersProvider: AuthorizationHeadersProvider) {
+         authorizationHeadersProvider: AuthorizationHeadersProvider,
+         sdkConfigurationProvider: ConfigurationProvider) {
         self.configurationProvider = configurationProvider
         self.authorizationHeadersProvider = authorizationHeadersProvider
+        self.sdkConfigurationProvider = sdkConfigurationProvider
     }
     
     // MARK: - API
@@ -31,8 +35,10 @@ final class NetworkingServiceFactory {
         
         let queryEncoder = DefaultQueryEncoder(using: jsonEncoder, jsonSerializer)
         let bodyEncoder = DefaultBodyEncoder(jsonEncoder: jsonEncoder)
-        
-        let headersProvider = DefaultHeadersProvider(authorizationHeadersProvider: authorizationHeadersProvider)
+
+        let sdkVersionHeadersProvider = DefaultSDKVersionHeadersProvider(configurationProvider: sdkConfigurationProvider)
+        let headersProvider = DefaultHeadersProvider(authorizationHeadersProvider: authorizationHeadersProvider,
+                                                     sdkVersionHeadersProvider: sdkVersionHeadersProvider)
         let requestFactory = DefaultRequestFactory(networkingConfigurationProvider: configurationProvider,
                                                    headersProvider: headersProvider,
                                                    queryEncoder: queryEncoder,
