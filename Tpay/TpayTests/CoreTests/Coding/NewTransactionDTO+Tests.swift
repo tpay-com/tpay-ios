@@ -29,7 +29,7 @@ final class NewTransactionDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"amount":4.2,"callbacks":{"notification":{"url":null},"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"description":"stubDescription","hiddenDescription":"stubHiddenDescription","lang":"pl","pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
+        {"amount":4.2,"callbacks":{"notification":{"email":null,"url":null},"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"description":"stubDescription","hiddenDescription":"stubHiddenDescription","lang":"pl","pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
         """
         
         expect(sut) == expectedPayload
@@ -46,9 +46,9 @@ final class NewTransactionDTO_Tests: XCTestCase {
         let sut = String(data: try jsonEncoder.encode(object), encoding: .utf8)
         let expectedPayload =
         """
-        {"amount":4.2,"callbacks":{"notification":{"url":null},"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
+        {"amount":4.2,"callbacks":{"notification":{"email":null,"url":null},"payerUrls":{"error":"https:\\/\\/stub.com\\/error","success":"https:\\/\\/stub.com\\/success"}},"pay":{"channelId":-1},"payer":{"email":"stubEmail","name":"stubName"}}
         """
-        
+
         expect(sut) == expectedPayload
     }
 }

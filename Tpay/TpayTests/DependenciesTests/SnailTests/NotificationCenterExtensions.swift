@@ -12,7 +12,7 @@ class NotificationCenterTests: XCTestCase {
     func testNotification() {
         let exp = expectation(description: "notification")
         let notificationName = UIResponder.keyboardWillShowNotification
-        var notifcation: Notification?
+        var notifcation: Foundation.Notification?
         let subject = NotificationCenter.default.observeEvent(notificationName)
         subject.subscribe(onNext: { notification in
             notifcation = notification

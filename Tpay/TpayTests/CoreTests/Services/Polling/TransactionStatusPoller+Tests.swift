@@ -18,7 +18,8 @@ final class TransactionStatusPoller_Tests: XCTestCase {
             manager.store(configuration: Self.serviceConfiguration)
             return manager
         }()
-        return NetworkingServiceFactory(configurationProvider: networkingProvider, authorizationHeadersProvider: authorizationHeadersProvider).make()
+        let sdkConfigurationProvider = MockConfigurationProvider()
+        return NetworkingServiceFactory(configurationProvider: networkingProvider, authorizationHeadersProvider: authorizationHeadersProvider, sdkConfigurationProvider: sdkConfigurationProvider).make()
     }()
     private(set) lazy var sut = TransactionStatusPoller(for: "ta_zgLyJA7ELZaAGqvn", using: networkingService)
     
@@ -48,12 +49,26 @@ private extension TransactionStatusPoller_Tests {
 }
 
 private extension TransactionStatusPoller_Tests {
-    
+
     final class MockCredentialsProvider: CredentialsProvider {
-        
+
         // MARK: - Properties
-        
+
         let claims: AuthorizationClaims? = AuthorizationClaims(accessToken: "")
         let credentials: AuthorizationCredentials? = AuthorizationCredentials(user: "client", password: "password")
+    }
+
+    final class MockConfigurationProvider: ConfigurationProvider {
+
+        // MARK: - Properties
+
+        var merchant: Merchant?
+        var callbacksConfiguration: CallbacksConfiguration = .default
+        var merchantDetailsProvider: MerchantDetailsProvider?
+        var paymentMethods: [PaymentMethod] = PaymentMethod.allCases
+        var preferredLanguage: Language = .en
+        var supportedLanguages: [Language] = Language.allCases
+        var compatibility: Tpay.Compatibility = .ios
+        var sdkVersionName: String? = "1.0.0"
     }
 }

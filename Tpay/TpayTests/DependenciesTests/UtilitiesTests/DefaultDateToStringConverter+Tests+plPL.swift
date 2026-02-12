@@ -145,7 +145,7 @@ final class DefaultDateToStringConverter_Tests_plPL: XCTestCase {
     func test_DateAndTimeString() {
         let date = Date(timeIntervalSince1970: 0)
         
-        expect(self.sut.dateAndTimeString(from: date)) == "01.01.1970 o 00:00:00"
+        expect(self.sut.dateAndTimeString(from: date)) == "1970 sty 1 o 00:00:00"
     }
     
     // MARK: - func dateString(from date: Date) -> String
@@ -153,7 +153,7 @@ final class DefaultDateToStringConverter_Tests_plPL: XCTestCase {
     func test_DateString() {
         let date = Date(timeIntervalSince1970: 0)
         
-        expect(self.sut.dateString(from: date)) == "1 stycznia 1970"
+        expect(self.sut.dateString(from: date)) == "1970 stycznia 1"
     }
     
 }

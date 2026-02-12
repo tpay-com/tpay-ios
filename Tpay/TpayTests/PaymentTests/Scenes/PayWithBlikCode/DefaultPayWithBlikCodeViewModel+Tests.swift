@@ -87,8 +87,7 @@ private extension DefaultPayWithBlikCodeViewModel_Tests {
 private extension DefaultPayWithBlikCodeViewModel_Tests.Stub {
     
     static let transaction = Domain.Transaction(paymentInfo: .init(amount: 0.0, title: .empty, hiddenDescription: nil),
-                                                payer: .init(name: .empty, email: .empty, phone: nil, address: nil),
-                                                notification: nil)
+                                                payer: .init(name: .empty, email: .empty, phone: nil, address: nil))
     
     static let validBlikCode = "123456"
     static let invalidBlikCode = "123"

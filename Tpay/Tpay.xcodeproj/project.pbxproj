@@ -342,7 +342,6 @@
 		03B22D5E28609585003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D5D28609585003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView.swift */; };
 		03B22D6128609CA2003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D6028609CA2003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift */; };
 		03B714A42B960E3800EBBEF9 /* CallbacksConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B714A32B960E3800EBBEF9 /* CallbacksConfiguration.swift */; };
-		D3NOTIFY001234567890EFGH /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3NOTIFY001234567890ABCD /* Notification.swift */; };
 		03B797D627F7118500211413 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B797D527F7118500211413 /* DesignSystem.swift */; };
 		03BC27FF284FB0C200955C35 /* DefaultProcessingPaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC27FE284FB0C200955C35 /* DefaultProcessingPaymentModel.swift */; };
 		03BD0C6C27FC69A400BB0BDC /* Label+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BD0C6B27FC69A400BB0BDC /* Label+Builder.swift */; };
@@ -621,6 +620,12 @@
 		6FCAC5C1F5BCFA7E0106D4E8 /* AnySection+AnyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA868EDECF00CF1D548702 /* AnySection+AnyItem.swift */; };
 		6FE1FF233734E2B88BEE32E1 /* ResolverProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919C07885C9FE5420E00969 /* ResolverProtocolTests.swift */; };
 		70362DC5728A0D2BBAD5654C /* UIActivity+ActivityType+OpenInSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5485DFF89332A0945CEA67 /* UIActivity+ActivityType+OpenInSafari.swift */; };
+		71E58BC22F3CDCA000442BB2 /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC12F3CDCA000442BB2 /* Compatibility.swift */; };
+		71E58BC42F3CDCCA00442BB2 /* SDKVersionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC32F3CDCCA00442BB2 /* SDKVersionProvider.swift */; };
+		71E58BC62F3CDCD600442BB2 /* DeviceInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC52F3CDCD600442BB2 /* DeviceInfoProvider.swift */; };
+		71E58BC82F3CDCF000442BB2 /* SDKVersionHeadersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC72F3CDCF000442BB2 /* SDKVersionHeadersProvider.swift */; };
+		71E58BCB2F3CDD2400442BB2 /* UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC92F3CDD2400442BB2 /* UserAgent.swift */; };
+		71E58BCC2F3CDD2400442BB2 /* XClientSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BCA2F3CDD2400442BB2 /* XClientSource.swift */; };
 		722476114DBD28F5067D2209 /* AVAssetImageDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033397B25060D702BF6E6175 /* AVAssetImageDataProvider.swift */; };
 		72A9447890D48A8120FBB717 /* PersonNameComponentsToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC455BC918E85ADD5D5C2DC1 /* PersonNameComponentsToStringConverter.swift */; };
 		72C5F260F40AF9EF013DA975 /* ImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D013590C79547A3F02B7951C /* ImageView+Kingfisher.swift */; };
@@ -996,6 +1001,7 @@
 		D3E26A662A21534D00E0A675 /* Domain+MerchantDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E26A652A21534D00E0A675 /* Domain+MerchantDetails.swift */; };
 		D3E78B70298806E000AA3F86 /* AddCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E78B6F298806E000AA3F86 /* AddCardModel.swift */; };
 		D3E78B72298806E700AA3F86 /* DefaultAddCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E78B71298806E700AA3F86 /* DefaultAddCardModel.swift */; };
+		D3NOTIFY001234567890EFGH /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3NOTIFY001234567890ABCD /* Notification.swift */; };
 		D5CFB123024177586C14D848 /* DefaultViewControllerPresenter+TransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6995A15828CC981FEB1D216 /* DefaultViewControllerPresenter+TransitioningDelegate.swift */; };
 		D5D0B6D9A26F64EC3B1CBBFE /* PESELDecoder+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823AD1FE199340D13D0F6E83 /* PESELDecoder+Tests.swift */; };
 		D638F2E88D2EA5DE853824AF /* DefaultDecimalToStringConverter+Tests+plPL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6759D9FA7641C3BACBA072B /* DefaultDecimalToStringConverter+Tests+plPL.swift */; };
@@ -1416,7 +1422,6 @@
 		03B22D5D28609585003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWithCardTokenViewController+ContentView+CollectionView.swift"; sourceTree = "<group>"; };
 		03B22D6028609CA2003BAECA /* PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PayWithCardTokenViewController+ContentView+CollectionView+Delegate.swift"; sourceTree = "<group>"; };
 		03B714A32B960E3800EBBEF9 /* CallbacksConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbacksConfiguration.swift; sourceTree = "<group>"; };
-		D3NOTIFY001234567890ABCD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		03B797D527F7118500211413 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		03BC27FE284FB0C200955C35 /* DefaultProcessingPaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProcessingPaymentModel.swift; sourceTree = "<group>"; };
 		03BD0C6B27FC69A400BB0BDC /* Label+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label+Builder.swift"; sourceTree = "<group>"; };
@@ -1676,6 +1681,12 @@
 		6D3CA5D41B1CEC23BBB7DDCD /* IntegerToStringConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntegerToStringConverter.swift; sourceTree = "<group>"; };
 		70D5134FD3266B3591A6623A /* DefaultLayoutResult+ResultXAxisLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DefaultLayoutResult+ResultXAxisLayout.swift"; sourceTree = "<group>"; };
 		711036C0F8D113033C489272 /* FailAsPublisherTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FailAsPublisherTests.swift; sourceTree = "<group>"; };
+		71E58BC12F3CDCA000442BB2 /* Compatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
+		71E58BC32F3CDCCA00442BB2 /* SDKVersionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKVersionProvider.swift; sourceTree = "<group>"; };
+		71E58BC52F3CDCD600442BB2 /* DeviceInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoProvider.swift; sourceTree = "<group>"; };
+		71E58BC72F3CDCF000442BB2 /* SDKVersionHeadersProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKVersionHeadersProvider.swift; sourceTree = "<group>"; };
+		71E58BC92F3CDD2400442BB2 /* UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgent.swift; sourceTree = "<group>"; };
+		71E58BCA2F3CDD2400442BB2 /* XClientSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XClientSource.swift; sourceTree = "<group>"; };
 		7237C031F59C985C50A4C322 /* Set+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Set+Extensions.swift"; sourceTree = "<group>"; };
 		735C3D77E421131F5CF0FE1A /* DefaultDoubleToStringConverter+Tests+enUS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DefaultDoubleToStringConverter+Tests+enUS.swift"; sourceTree = "<group>"; };
 		7380DF1D60A17FAC159990A4 /* Repeater.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Repeater.swift; sourceTree = "<group>"; };
@@ -2080,6 +2091,7 @@
 		D3E26A652A21534D00E0A675 /* Domain+MerchantDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Domain+MerchantDetails.swift"; sourceTree = "<group>"; };
 		D3E78B6F298806E000AA3F86 /* AddCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardModel.swift; sourceTree = "<group>"; };
 		D3E78B71298806E700AA3F86 /* DefaultAddCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAddCardModel.swift; sourceTree = "<group>"; };
+		D3NOTIFY001234567890ABCD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		D41E4C3CFB59CBB2AFC3A9DC /* LayoutGuideLayout+LayoutGuideAxisLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "LayoutGuideLayout+LayoutGuideAxisLayout.swift"; sourceTree = "<group>"; };
 		D4B7AB8AF15A6B600BABF6AD /* DefaultNumberToServiceString+Tests+IntValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DefaultNumberToServiceString+Tests+IntValue.swift"; sourceTree = "<group>"; };
 		D56ACCD7F75574CB87990319 /* ResolverArgumentTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResolverArgumentTests.swift; sourceTree = "<group>"; };
@@ -2652,6 +2664,7 @@
 		031A895127F4AE210028D3CC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				71E58BC12F3CDCA000442BB2 /* Compatibility.swift */,
 				038F4F392A67DC5C0020B27E /* AutomaticPaymentMethods.swift */,
 				03B714A32B960E3800EBBEF9 /* CallbacksConfiguration.swift */,
 				D3NOTIFY001234567890ABCD /* Notification.swift */,
@@ -3459,6 +3472,8 @@
 		0375E816281BE75100DC6124 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				71E58BC92F3CDD2400442BB2 /* UserAgent.swift */,
+				71E58BCA2F3CDD2400442BB2 /* XClientSource.swift */,
 				0375E814281BE69C00DC6124 /* HttpHeader.swift */,
 				0375E817281BEB9400DC6124 /* ContentType.swift */,
 				0375E830281C238900DC6124 /* BasicAuthorization.swift */,
@@ -3499,6 +3514,7 @@
 		0375E821281C06CA00DC6124 /* HeadersProvider */ = {
 			isa = PBXGroup;
 			children = (
+				71E58BC72F3CDCF000442BB2 /* SDKVersionHeadersProvider.swift */,
 				0375E822281C06DE00DC6124 /* HttpHeadersProvider.swift */,
 				0375E832281C24C900DC6124 /* DefaultHeadersProvider.swift */,
 				03F408BC282826F200CE375B /* Authorization */,
@@ -4380,6 +4396,8 @@
 		03E5FB792811730800E4383B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				71E58BC52F3CDCD600442BB2 /* DeviceInfoProvider.swift */,
+				71E58BC32F3CDCCA00442BB2 /* SDKVersionProvider.swift */,
 				03746ADB283B5EAC007D9716 /* Converters */,
 				03E5FB83281173DF00E4383B /* InputValidator */,
 				03C4A91A2840EDB20027026E /* Mappers */,
@@ -6905,6 +6923,7 @@
 				03D76A3C2B516463004D36E4 /* Domain+PaymentChannel+AmountConstraints.swift in Sources */,
 				0380C95B28009069003565C5 /* DefaultConfigurationManager+ConfigurationHolder.swift in Sources */,
 				031A899027F58D9D0028D3CC /* Payment+Sheet.swift in Sources */,
+				71E58BC62F3CDCD600442BB2 /* DeviceInfoProvider.swift in Sources */,
 				6380A7F83CA53BC295616211 /* Sequence+KeyPaths.swift in Sources */,
 				037236B42845E3480058949A /* PayWithCardModel.swift in Sources */,
 				D3C5CC6D298A69A700F8BBCE /* TokenizationController.swift in Sources */,
@@ -7061,6 +7080,7 @@
 				030914D22846173A00E89615 /* TransactionsController+CreateTransaction.swift in Sources */,
 				03ACF5E92A7167CC003D9E5E /* TransactionDTO+Payments+Alternative.swift in Sources */,
 				03959775282C04FD00BCDCF5 /* ResponseDTO+Result.swift in Sources */,
+				71E58BC42F3CDCCA00442BB2 /* SDKVersionProvider.swift in Sources */,
 				035EC8F928057DD7002C6D54 /* SetupPayerDetailsViewController.swift in Sources */,
 				036C1F2F28537DFA00BEF66F /* DefaultCardDataSerializer.swift in Sources */,
 				034316DA2875E3AE00D695F8 /* FullScreenTransitioningDelegate+PresentationController.swift in Sources */,
@@ -7086,6 +7106,7 @@
 				0367C78C2C28AD24002D3C24 /* PostalCodeValidation.swift in Sources */,
 				8710399D282309AE00FB4695 /* ListDataAdapter.swift in Sources */,
 				0345DA042B4B0F2D00A0F4B0 /* Domain+PaymentMethod+InstallmentPayment+Kind.swift in Sources */,
+				71E58BC22F3CDCA000442BB2 /* Compatibility.swift in Sources */,
 				6FCAC5C1F5BCFA7E0106D4E8 /* AnySection+AnyItem.swift in Sources */,
 				034316D0287412C400D695F8 /* SheetConfigurable.swift in Sources */,
 				9F717101CE3651DEBFF7A8A7 /* UserApplicationsInteractorError.swift in Sources */,
@@ -7355,6 +7376,8 @@
 				D3A2A6222976137500310308 /* DefaultPayByLinkModel.swift in Sources */,
 				D384CDDA2A33562100D8C199 /* TransactionDTO+Payments+Attempts+AttemptError.swift in Sources */,
 				033D04D52848C6BF00652854 /* ProcessingPaymentViewController.swift in Sources */,
+				71E58BCB2F3CDD2400442BB2 /* UserAgent.swift in Sources */,
+				71E58BCC2F3CDD2400442BB2 /* XClientSource.swift in Sources */,
 				D3598CF629C129A2003CB417 /* PayWithDigitalWalletRouter.swift in Sources */,
 				033387932BD2C0A100F015FB /* ProcessExternallyGeneratedTransactionViewModel.swift in Sources */,
 				877AC3AF28197FE10013E4E9 /* DefaultChoosePaymentMethodViewModel.swift in Sources */,
@@ -7469,6 +7492,7 @@
 				0367C77E2C2816AE002D3C24 /* DefaultPayWithPayPoModel.swift in Sources */,
 				03C2BD0F283E0CE8006383BF /* Domain.swift in Sources */,
 				A9E4FFFCEA634B65D6051702 /* HeadlessTransactionService.swift in Sources */,
+				71E58BC82F3CDCF000442BB2 /* SDKVersionHeadersProvider.swift in Sources */,
 				A9E4FE6D0FB453F6D5F0CDF0 /* DefaultHeadlessTransactionService.swift in Sources */,
 				5F9224EAE45E37592549DCAE /* PESELDecoder.swift in Sources */,
 				D3BD43FD299C46EB00C862D4 /* FailureViewModel.swift in Sources */,

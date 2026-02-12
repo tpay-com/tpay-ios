@@ -40,7 +40,7 @@ final class DefaultSetupPayerDetailsViewModel: SetupPayerDetailsViewModel {
         transaction = model.transaction
         
         initialPayerName = payerOverride?.name ?? transaction.payerContext?.payer?.name
-        initialPayerEmail = payerOverride?.email ??  transaction.payerContext?.payer?.email
+        initialPayerEmail = payerOverride?.email ?? transaction.payerContext?.payer?.email
         
         set(payerName: initialPayerName ?? .empty)
         set(payerEmail: initialPayerEmail ?? .empty)

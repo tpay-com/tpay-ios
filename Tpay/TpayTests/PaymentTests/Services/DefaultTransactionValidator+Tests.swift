@@ -28,6 +28,7 @@ private extension Domain.OngoingTransaction {
         static func make(with paymentErrors: [Domain.OngoingTransaction.PaymentError]) -> Domain.OngoingTransaction {
             .init(transactionId: .empty,
                   status: .pending,
+                  notification: nil,
                   continueUrl: nil,
                   paymentErrors: paymentErrors)
         }
