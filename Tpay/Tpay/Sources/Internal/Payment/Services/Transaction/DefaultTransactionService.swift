@@ -13,7 +13,9 @@ final class DefaultTransactionService: TransactionService {
     private let callbacksConfiguration: CallbacksConfiguration
     private let transactionValidator: TransactionValidator
     private let paymentMethodsService: PaymentMethodsService
-    
+
+    private var pendingRequest: AnyObject?
+
     // MARK: - Initializers
     
     convenience init(using resolver: ServiceResolver) {
@@ -133,35 +135,53 @@ final class DefaultTransactionService: TransactionService {
     
     private func executeCreateTransactionRequest(with dto: NewTransactionDTO, ignoreErrorsWhenContinueUrlExists: Bool = false, then: @escaping OngoingTransactionResultHandler) {
         let request = TransactionsController.CreateTransaction(dto: dto)
-        networkingService.execute(request: request)
+        let result = networkingService.execute(request: request)
+        pendingRequest = result
+        result
             .onSuccess { [weak self] transactionDto in
+                defer { self?.pendingRequest = nil }
                 guard let self = self else { return }
                 let ongoingTransaction = self.mapper.makeOngoingTransaction(from: transactionDto)
                 self.validate(transaction: ongoingTransaction, ignoreErrorsWhenContinueUrlExists: ignoreErrorsWhenContinueUrlExists, then: then)
             }
-            .onError { error in then(.failure(error)) }
+            .onError { [weak self] error in
+                self?.pendingRequest = nil
+                then(.failure(error))
+            }
     }
     
     private func executeGetSpecifiedTransactionRequest(for transactionId: String, then: @escaping OngoingTransactionResultHandler) {
         let request = TransactionsController.SpecifiedTransaction(with: transactionId)
-        networkingService.execute(request: request)
+        let result = networkingService.execute(request: request)
+        pendingRequest = result
+        result
             .onSuccess { [weak self] transactionDto in
+                defer { self?.pendingRequest = nil }
                 guard let self = self else { return }
                 let ongoingTransaction = self.mapper.makeOngoingTransaction(from: transactionDto)
                 self.validate(transaction: ongoingTransaction, then: then)
             }
-            .onError { error in then(.failure(error)) }
+            .onError { [weak self] error in
+                self?.pendingRequest = nil
+                then(.failure(error))
+            }
     }
     
     private func executeContinueTransactionRequest(for transactionId: String, with dto: PayWithInstantRedirectionDTO, then: @escaping OngoingTransactionResultHandler) {
         let request = TransactionsController.PayForSpecifiedTransaction(transactionId: transactionId, dto: dto)
-        networkingService.execute(request: request)
+        let result = networkingService.execute(request: request)
+        pendingRequest = result
+        result
             .onSuccess { [weak self] transactionDto in
+                defer { self?.pendingRequest = nil }
                 guard let self = self else { return }
                 let ongoingTransaction = self.mapper.makeOngoingTransaction(from: transactionDto)
                 self.validate(transaction: ongoingTransaction, then: then)
             }
-            .onError { error in then(.failure(error)) }
+            .onError { [weak self] error in
+                self?.pendingRequest = nil
+                then(.failure(error))
+            }
     }
     
     private func makeNewTransactionDTO(from transaction: Domain.Transaction, with card: Domain.Card) throws -> NewTransactionDTO {
