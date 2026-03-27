@@ -97,6 +97,7 @@ extension Button {
             dot.backgroundColor = DesignSystem.Colors.Primary._500.color
             layer.borderColor = DesignSystem.Colors.Primary._500.color.cgColor
             addSubview(dot)
+            setNeedsLayout()
         }
         
         private func unsetSelected() {

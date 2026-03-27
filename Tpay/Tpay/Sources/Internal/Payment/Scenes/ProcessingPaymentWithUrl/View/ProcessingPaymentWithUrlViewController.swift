@@ -55,5 +55,5 @@ final class ProcessingPaymentWithUrlViewController: UIViewController {
 
 extension ProcessingPaymentWithUrlViewController: SheetConfigurable {
     
-    var sheetContext: SheetViewController.Context { .init(topSection: .none, appearance: .fixed(.large), isCancellable: false) }
+    var sheetContext: SheetViewController.Context { .init(topSection: .none, appearance: .fixed(.large), isCancellable: true) }
 }
