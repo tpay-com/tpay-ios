@@ -56,16 +56,28 @@ final class NetworkRequestResult<ResponseType: Decodable> {
         successHandler?(object)
         resultHandler?(.success(object))
         thenHandler?(.success(()))
+        clearHandlers()
     }
     
     func handle(error: Error) {
         errorHandler?(error)
         resultHandler?(.failure(error))
         thenHandler?(.failure(error))
+        clearHandlers()
     }
     
     func cancelTask() {
         networkTask?.cancel()
         cancelHandler?()
+    }
+
+    // MARK: - Private
+
+    private func clearHandlers() {
+        successHandler = nil
+        errorHandler = nil
+        resultHandler = nil
+        cancelHandler = nil
+        thenHandler = nil
     }
 }

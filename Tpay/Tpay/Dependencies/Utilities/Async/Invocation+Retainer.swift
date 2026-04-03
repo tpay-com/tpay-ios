@@ -14,6 +14,7 @@ extension Invocation {
         
         // MARK: - Properties
         
+        private let lock = NSLock()
         private var items: [UUID: AnyObject] = [:]
         
         // MARK: - Initializers
@@ -23,10 +24,14 @@ extension Invocation {
         // MARK: - API
         
         func retain(_ object: AnyObject, for uuid: UUID) {
+            lock.lock()
+            defer { lock.unlock() }
             items[uuid] = object
         }
         
         func releaseObject(with uuid: UUID) {
+            lock.lock()
+            defer { lock.unlock() }
             items[uuid] = nil
         }
         

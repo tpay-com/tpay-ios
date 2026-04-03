@@ -290,6 +290,7 @@
 		03A34A2A28182B4100AC7191 /* AlphabeticValidator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A34A2928182B4100AC7191 /* AlphabeticValidator+Tests.swift */; };
 		03A34A2C28182C8D00AC7191 /* NotEmptyValidator+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A34A2B28182C8D00AC7191 /* NotEmptyValidator+Tests.swift */; };
 		03A77569282A83DF00A83990 /* NetworkRequestResult+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A77568282A83DF00A83990 /* NetworkRequestResult+Tests.swift */; };
+		AABB0001DEADBEEF00000001 /* NetworkingThreadSafety+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB0001DEADBEEF00000002 /* NetworkingThreadSafety+Tests.swift */; };
 		03A7756C282A920700A83990 /* ErrorValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7756B282A920700A83990 /* ErrorValidator.swift */; };
 		03A7756E282A921300A83990 /* DefaultErrorValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A7756D282A921300A83990 /* DefaultErrorValidator.swift */; };
 		03A77571282A969600A83990 /* BodyDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A77570282A969600A83990 /* BodyDecoder.swift */; };
@@ -1368,6 +1369,7 @@
 		03A34A2928182B4100AC7191 /* AlphabeticValidator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlphabeticValidator+Tests.swift"; sourceTree = "<group>"; };
 		03A34A2B28182C8D00AC7191 /* NotEmptyValidator+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotEmptyValidator+Tests.swift"; sourceTree = "<group>"; };
 		03A77568282A83DF00A83990 /* NetworkRequestResult+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkRequestResult+Tests.swift"; sourceTree = "<group>"; };
+		AABB0001DEADBEEF00000002 /* NetworkingThreadSafety+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkingThreadSafety+Tests.swift"; sourceTree = "<group>"; };
 		03A7756B282A920700A83990 /* ErrorValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorValidator.swift; sourceTree = "<group>"; };
 		03A7756D282A921300A83990 /* DefaultErrorValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultErrorValidator.swift; sourceTree = "<group>"; };
 		03A77570282A969600A83990 /* BodyDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyDecoder.swift; sourceTree = "<group>"; };
@@ -3528,6 +3530,7 @@
 				0375E82C281C0E0500DC6124 /* DefaultRequestFactory+Tests.swift */,
 				03A77568282A83DF00A83990 /* NetworkRequestResult+Tests.swift */,
 				03A77582282AA43000A83990 /* DefaultNetworkingService+Tests.swift */,
+				AABB0001DEADBEEF00000002 /* NetworkingThreadSafety+Tests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -7724,6 +7727,7 @@
 				037D349F2A979C140094D482 /* CardsAPI+Tests.swift in Sources */,
 				D71B3674942ACCFE4B5A77D4 /* ViewLayout+ViewLayoutConfiguration+Tests.swift in Sources */,
 				03A77583282AA43000A83990 /* DefaultNetworkingService+Tests.swift in Sources */,
+				AABB0001DEADBEEF00000001 /* NetworkingThreadSafety+Tests.swift in Sources */,
 				03DBB9D3281A8F3900D350DB /* NameValidation+Tests.swift in Sources */,
 				03959783282C2D4800BCDCF5 /* TransactionDTO+Tests.swift in Sources */,
 				D379650629795CBC00F4DC79 /* DefaultPaymentMethodsService+Tests.swift in Sources */,

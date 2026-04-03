@@ -33,6 +33,7 @@ platform :ios do
 
   before_all do |lane, options|
     Dotenv.overload '.env.secret'
+    xcode_select "/Applications/Xcode-26.4.0.app"
   end
 
   desc "Runs module unit tests"

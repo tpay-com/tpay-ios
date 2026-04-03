@@ -12,7 +12,7 @@ final class DefaultNetworkingService: NetworkingService {
     private let responseValidator: ResponseValidator
     private let bodyDecoder: BodyDecoder
     
-    private let queue = DispatchQueue.global(qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.tpay.networking", qos: .userInitiated)
     
     // MARK: - Initializers
     
@@ -32,7 +32,7 @@ final class DefaultNetworkingService: NetworkingService {
     
     func execute<RequestType: NetworkRequest, ResponseType>(request: RequestType) -> NetworkRequestResult<ResponseType> where ResponseType == RequestType.ResponseType {
         let requestResult = NetworkRequestResult<ResponseType>()
-        queue.async { [weak self] in self?.execute(request: request, for: requestResult) }
+        queue.async { [self] in self.execute(request: request, for: requestResult) }
         return requestResult
     }
     
@@ -41,21 +41,27 @@ final class DefaultNetworkingService: NetworkingService {
     private func execute<RequestType: NetworkRequest, ResponseType>(request: RequestType, for result: NetworkRequestResult<ResponseType>) where ResponseType == RequestType.ResponseType {
         let urlRequest = requestFactory.request(for: request)
         Logger.request(urlRequest)
-                
-        result.networkTask = session.invoke(request: urlRequest) { [errorValidator, responseValidator, bodyDecoder] data, response, error in
+        
+        let errorValidator = self.errorValidator
+        let responseValidator = self.responseValidator
+        let bodyDecoder = self.bodyDecoder
+        
+        result.networkTask = session.invoke(request: urlRequest) { [queue] data, response, error in
             Logger.response(data, response, error)
             
-            do {
-                try errorValidator.validate(error: error)
-                try responseValidator.validate(response: response, with: data)
-                
-                guard let data = data else {
-                    preconditionFailure("Response validator should handle this case!")
+            queue.async {
+                do {
+                    try errorValidator.validate(error: error)
+                    try responseValidator.validate(response: response, with: data)
+                    
+                    guard let data = data else {
+                        preconditionFailure("Response validator should handle this case!")
+                    }
+                    
+                    result.handle(success: try bodyDecoder.decode(body: data))
+                } catch {
+                    result.handle(error: error)
                 }
-                
-                result.handle(success: try bodyDecoder.decode(body: data))
-            } catch {
-                result.handle(error: error)
             }
         }
     }
