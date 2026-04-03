@@ -10,7 +10,9 @@ on:
 jobs:
   publish_release:
     if: github.event.pull_request.merged && (startsWith(github.event.pull_request.head.ref, 'release/') || startsWith(github.event.pull_request.head.ref, 'hotfix/'))
-    runs-on: macos-15
+    runs-on: macos-26
+    env:
+      XCODE_PATH: /Applications/Xcode_26.4.app
     steps:
 
     - name: Extract version from branch name (for release branches)
@@ -41,6 +43,9 @@ jobs:
       with:
         allowUpdates: true
         tag: ${{ env.RELEASE_VERSION }}
+
+    - name: Select Xcode
+      run: sudo xcode-select -s ${{ env.XCODE_PATH }}
 
     - name: Validate manifests
       run: |

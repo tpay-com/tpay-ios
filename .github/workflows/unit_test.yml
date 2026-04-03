@@ -4,7 +4,9 @@ on: workflow_dispatch
 
 jobs:  
   unit_test:
-    runs-on: macos-15
+    runs-on: macos-26
+    env:
+      XCODE_PATH: /Applications/Xcode_26.4.app
     steps:
 
     - name: Checkout Source
