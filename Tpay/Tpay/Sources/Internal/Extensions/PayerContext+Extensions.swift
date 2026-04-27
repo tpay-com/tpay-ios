@@ -14,4 +14,8 @@ extension PayerContext {
     var registeredBlikAlias: RegisteredBlikAlias? {
         automaticPaymentMethods?.registeredBlikAlias
     }
+
+    var notRegisteredBlikAlias: NotRegisteredBlikAlias? {
+        automaticPaymentMethods?.notRegisteredBlikAlias
+    }
 }

@@ -3,9 +3,10 @@
 //
 
 final class DefaultProcessingPaymentWithUrlRouter: ProcessingPaymentWithUrlRouter {
-    
+
     // MARK: - Events
 
     let onSuccess = Observable<Void>()
     let onError = Observable<Void>()
+    let onGoBack = Observable<Void>()
 }

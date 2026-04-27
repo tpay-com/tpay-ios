@@ -13,10 +13,10 @@ final class PayWithBlikCodeScreen: Screen {
     
     // MARK: - Initialization
     
-    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, isNavigationToOneClickEnabled: Bool) {
+    init(for transaction: Domain.Transaction, notRegisteredBlikAlias: NotRegisteredBlikAlias? = nil, using resolver: ServiceResolver, isNavigationToOneClickEnabled: Bool) {
         router = DefaultPayWithBlikCodeRouter()
         let model = DefaultPayWithBlikCodeModel(using: resolver)
-        let viewModel = DefaultPayWithBlikCodeViewModel(for: transaction, model: model, router: router, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
+        let viewModel = DefaultPayWithBlikCodeViewModel(for: transaction, notRegisteredBlikAlias: notRegisteredBlikAlias, model: model, router: router, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
         viewController = PayWithBlikCodeViewController(with: viewModel)
     }
 }

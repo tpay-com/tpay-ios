@@ -13,6 +13,7 @@ extension SheetViewController {
         var languageSelected: Observable<Language> { languageSwitch.languageSelected }
         var onLanguageSwitchTap: Observable<Void> { languageSwitch.onTap }
         var closeButtonTapped: Observable<Void> { cardView.closeButtonTapped }
+        var backButtonTapped: Observable<Void> { cardView.backButtonTapped }
         var changePayerDetails: Observable<Void> { payerDetailsView.changePayerDetails }
         
         let appearanceChanged = Observable<Appearance>()
@@ -93,6 +94,10 @@ extension SheetViewController {
         
         func set(isCancellable: Bool) {
             cardView.set(isCancellable: isCancellable)
+        }
+
+        func set(showBackButton: Bool) {
+            cardView.set(showBackButton: showBackButton)
         }
         
         func set(payerDetails: Domain.Payer) {

@@ -11,6 +11,7 @@ final class SheetViewController: UIViewController {
     var languageSelected: Observable<Language> { contentView.languageSelected }
     var onLanguageSwitchTap: Observable<Void> { contentView.onLanguageSwitchTap }
     var closeButtonTapped: Observable<Void> { contentView.closeButtonTapped }
+    var backButtonTapped: Observable<Void> { contentView.backButtonTapped }
     var changePayerDetails: Observable<Void> { contentView.changePayerDetails }
 
     // MARK: - Properties
@@ -155,6 +156,7 @@ final class SheetViewController: UIViewController {
         adjust(topSection: context.topSection)
         adjust(appearance: context.appearance)
         contentView.set(isCancellable: context.isCancellable)
+        contentView.set(showBackButton: context.showBackButton)
     }
     
     private func adjust(topSection: TopSection) {
@@ -201,15 +203,17 @@ extension SheetViewController {
         let topSection: TopSection
         let appearance: Appearance
         let isCancellable: Bool
-        
+        let showBackButton: Bool
+
         static let `default` = Context(topSection: .none)
-        
+
         // MARK: - Initializers
-        
-        init(topSection: TopSection, appearance: Appearance = .floating, isCancellable: Bool = true) {
+
+        init(topSection: TopSection, appearance: Appearance = .floating, isCancellable: Bool = true, showBackButton: Bool = false) {
             self.topSection = topSection
             self.appearance = appearance
             self.isCancellable = isCancellable
+            self.showBackButton = showBackButton
         }
     }
     

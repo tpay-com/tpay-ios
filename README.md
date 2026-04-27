@@ -173,6 +173,15 @@ TpayModule.configure(
 In order to be able to use Apple Pay method you have to provide your `merchant_id` and `country_code` to the SDK.
 Both those information, you just put in the merchant configuration object with `walletConfiguration` field.
 
+> [!Warning]
+> - Apple Pay is available exclusively on Apple devices (iPhone, iPad, MacBook, iMac).
+> - Apple Pay supports only **Visa** and **Mastercard**.
+
+> [!important]
+> Before using Apple Pay, make sure the following prerequisites are met:
+> - Card payments are enabled in your merchant account.
+> - Apple Pay payment channel is activated in your merchant panel.
+
 > [!important]
 > To obtain the merchantIdentifier, follow these steps:
 > 1. Log in to your Apple Developer account.
@@ -180,8 +189,9 @@ Both those information, you just put in the merchant configuration object with `
 > 3. Under `Identifiers,` select `Merchant IDs.`
 > 4. Click the `+` button to create a new Merchant ID.
 > 5. Fill in the required information and associate it with your app's Bundle ID.
-> 6. Once created, the merchant identifier can be found in the list of Merchant IDs.
-> 7. For more details, please follow [Apple Pay documentation](https://developer.apple.com/documentation/passkit/apple_pay/setting_up_apple_pay).
+> 6. Set up a **Payment Processing Certificate** for the Merchant ID.
+> 7. Once created, the merchant identifier can be found in the list of Merchant IDs.
+> 8. For more details, please follow [Apple Pay documentation](https://developer.apple.com/documentation/passkit/apple_pay/setting_up_apple_pay).
 
 > [!tip]
 > As for the country code, SDK provides predefined `CountryCode.pl` value.
@@ -861,16 +871,11 @@ do {
 
 #### BLIK Alias Payment
 
-If you have for example a returning users and you want to make their payments with BLIK even
-smoother,
+If you have returning users and you want to make their BLIK payments even smoother,
 you can register BLIK Alias for them, so they will only be prompted to accept payment in their
-banking app,
-without need of entering BLIK code each time they want to make the payment.
+banking app, without need of entering BLIK code each time they want to make the payment.
 
 In order to do that, you have to pass the alias in the `aliasToBeRegistered` argument.
-
-> [!warning]
-> To properly register alias in sandbox, use `amount = 0.15`.
 
 ```swift
 with: Headless.Models.Blik.Regular(
@@ -881,9 +886,13 @@ with: Headless.Models.Blik.Regular(
 )
 ```
 
-If the payment were successful, you can assume an alias was created and can be used for the future
-payments.
-Next time you want to pay with only an alias, just use `Headless.Models.Blik.OneClick` class instead of the Regular.
+> [!warning]
+> To properly register alias in sandbox, use `amount = 0.15`.
+
+> [!important]
+> Provided alias cannot be assumed as registered until receiving webhook notification about its status. Notification should be received by dedicated backend server, for implementation details check official [documentation](https://docs-api.tpay.com/en/webhooks/) . Additionally your backend server should implement other BLIK related [notifications](https://docs-api.tpay.com/en/webhooks/#blik-one-clickblik-recurring-payments-after-expiration-update-or-delete-alias) to ensure BLIK alias is valid and usable.
+
+Once alias is registered for a user, in order to pay with only an alias, just use `Headless.Models.Blik.OneClick` class instead of the Regular.
 
 ```swift
 with: Headless.Models.Blik.OneClick(
@@ -892,6 +901,8 @@ with: Headless.Models.Blik.OneClick(
     )
 )
 ```
+> [!warning]
+> Before testing BLIK alias functionality check sandbox environment limitations listed in [documentation](https://docs-api.tpay.com/en/first-steps/environments/#blik-payments)
 
 #### BLIK Ambiguous Alias Payment
 

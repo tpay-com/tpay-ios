@@ -6,7 +6,7 @@ final class PaymentCoordinator {
     
     // MARK: - Events
     
-    var closeModule: Observable<Void> { sheetViewController.closeButtonTapped }
+    let closeModule = Observable<Void>()
     let paymentCreated = Observable<TransactionId>()
     let paymentCompleted = Observable<TransactionId>()
     let paymentFailed = Observable<TransactionId>()
@@ -69,15 +69,22 @@ final class PaymentCoordinator {
     // MARK: - Private
     
     private func setupActions() {
+        sheetViewController.closeButtonTapped
+            .forward(to: closeModule)
+
+        sheetViewController.backButtonTapped
+            .subscribe(onNext: { [weak self] in self?.startPaymentFlow() })
+            .add(to: disposer)
+
         sheetViewController.languageSelected
             .skip(first: 1)
             .subscribe(onNext: { [weak self] language in self?.changeLanguage(language) })
             .add(to: disposer)
-        
+
         sheetViewController.changePayerDetails
             .subscribe(onNext: { [weak self] in self?.startPaymentFlow() })
             .add(to: disposer)
-        
+
         sheetViewController.onLanguageSwitchTap
             .subscribe(queue: .main, onNext: { [weak self] in
                 guard let setupPaymentFlow = self?.currentFlow as? SetupPaymentFlow else {
@@ -87,7 +94,7 @@ final class PaymentCoordinator {
             })
             .add(to: disposer)
     }
-    
+
     private func prefetchResources() {
         synchronizationService.prefetchRemoteResources { result in
             Logger.info("Remote resources prefetch result: \(result)")

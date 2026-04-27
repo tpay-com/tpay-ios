@@ -14,4 +14,5 @@ protocol ProcessingPaymentWithUrlViewModel {
 
     func completeWithSuccess()
     func completeWithError()
+    func goBack()
 }

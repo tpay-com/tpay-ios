@@ -33,6 +33,10 @@ final class DefaultProcessingPaymentWithUrlViewModel: ProcessingPaymentWithUrlVi
     func completeWithError() {
         router.invokeOnError()
     }
+
+    func goBack() {
+        router.invokeOnGoBack()
+    }
     
     // MARK: - Private
 

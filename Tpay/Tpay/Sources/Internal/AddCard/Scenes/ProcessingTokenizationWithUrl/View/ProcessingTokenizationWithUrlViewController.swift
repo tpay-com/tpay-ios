@@ -55,5 +55,5 @@ final class ProcessingTokenizationWithUrlViewController: UIViewController {
 
 extension ProcessingTokenizationWithUrlViewController: SheetConfigurable {
     
-    var sheetContext: SheetViewController.Context { .init(topSection: .none, appearance: .fixed(.large), isCancellable: false) }
+    var sheetContext: SheetViewController.Context { .init(topSection: .none, appearance: .fixed(.large), isCancellable: false, showBackButton: true) }
 }

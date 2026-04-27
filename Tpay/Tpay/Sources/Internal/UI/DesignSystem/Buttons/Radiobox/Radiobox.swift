@@ -38,9 +38,12 @@ extension Button {
         
         init() {
             super.init(frame: .zero)
-            
+
             setupAppearance()
             setupActions()
+
+            addSubview(dot)
+            dot.isHidden = true
         }
         
         @available(*, unavailable)
@@ -66,8 +69,13 @@ extension Button {
         }
         
         private func setupLayout() {
-            dot.center = CGPoint(x: bounds.midX, y: bounds.midY)
-            dot.layer.frame.size = Constants.dotSize
+            let dotSize = Constants.dotSize
+            dot.frame = CGRect(
+                x: (bounds.width - dotSize.width) / 2,
+                y: (bounds.height - dotSize.height) / 2,
+                width: dotSize.width,
+                height: dotSize.height
+            )
         }
         
         private func updateAppearance() {
@@ -96,14 +104,12 @@ extension Button {
         private func setSelected() {
             dot.backgroundColor = DesignSystem.Colors.Primary._500.color
             layer.borderColor = DesignSystem.Colors.Primary._500.color.cgColor
-            addSubview(dot)
-            setNeedsLayout()
+            dot.isHidden = false
         }
-        
+
         private func unsetSelected() {
-            
             layer.borderColor = DesignSystem.Colors.Neutral._200.color.cgColor
-            dot.removeFromSuperview()
+            dot.isHidden = true
         }
         
         @objc private func changeSelection() {

@@ -15,24 +15,28 @@ final class DefaultPayWithBlikCodeViewModel: PayWithBlikCodeViewModel {
     let transaction: Domain.Transaction
     let isNavigationToOneClickEnabled: Bool
     let shouldAllowAliasRegistration: Bool
-        
+
     private let model: PayWithBlikCodeModel
     private let router: PayWithBlikCodeRouter
-    
+    private let transactionNotRegisteredAlias: Domain.Blik.Regular.Alias?
+
     private let _blikCodeState = Variable<InputContentState>(.notDetermined)
     private let _blikCode = BlikCodeValidation()
-    
+
     private var shouldRegisterAlias = false
     private var aliasLabel: String?
-    
+
     // MARK: - Initializers
-    
-    init(for transaction: Domain.Transaction, model: PayWithBlikCodeModel, router: PayWithBlikCodeRouter, isNavigationToOneClickEnabled: Bool) {
+
+    init(for transaction: Domain.Transaction, notRegisteredBlikAlias: NotRegisteredBlikAlias? = nil, model: PayWithBlikCodeModel, router: PayWithBlikCodeRouter, isNavigationToOneClickEnabled: Bool) {
         self.transaction = transaction
         self.model = model
         self.router = router
         self.isNavigationToOneClickEnabled = isNavigationToOneClickEnabled
-        self.shouldAllowAliasRegistration = model.aliasToBeRegistered != nil
+
+        let mapper = DefaultAPIToDomainModelsMapper()
+        self.transactionNotRegisteredAlias = notRegisteredBlikAlias.map { mapper.makeBlikAlias(from: $0) }
+        self.shouldAllowAliasRegistration = transactionNotRegisteredAlias != nil || model.aliasToBeRegistered != nil
     }
     
     // MARK: - API
@@ -91,12 +95,14 @@ final class DefaultPayWithBlikCodeViewModel: PayWithBlikCodeViewModel {
     }
     
     private func resolveBlikAlias() -> Domain.Blik.Regular.Alias? {
-        guard shouldRegisterAlias, var alias = model.aliasToBeRegistered else {
+        guard shouldRegisterAlias else { return nil }
+
+        guard var alias = transactionNotRegisteredAlias ?? model.aliasToBeRegistered else {
             return nil
         }
-        guard let label = aliasLabel else {
-            return alias
+        if let label = aliasLabel {
+            return alias.labeled(with: label)
         }
-        return alias.labeled(with: label)
+        return alias
     }
 }

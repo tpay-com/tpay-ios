@@ -234,7 +234,8 @@ final class SetupPaymentFlow: ModuleFlow {
             return
         }
         
-        let subScene = PayWithBlikCodeScreen(for: transaction, using: resolver, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
+        let notRegisteredAlias = self.transaction.payerContext?.notRegisteredBlikAlias
+        let subScene = PayWithBlikCodeScreen(for: transaction, notRegisteredBlikAlias: notRegisteredAlias, using: resolver, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
         
         subScene.router.onTransactionCreated
             .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })

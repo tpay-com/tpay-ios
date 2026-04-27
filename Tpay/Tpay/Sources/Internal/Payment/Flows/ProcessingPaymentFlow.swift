@@ -65,15 +65,18 @@ final class ProcessingPaymentFlow: ModuleFlow {
     
     private func showProcessingPaymentWithUrlScreen() {
         let screen = ProcessingPaymentWithUrlScreen(for: ongoingTransaction, using: resolver)
-        
+
         screen.router.onSuccess
             .subscribe(queue: .main, onNext: { [weak self] in self?.showPaymentSuccessScreen() })
             .add(to: disposer)
-        
+
         screen.router.onError
             .subscribe(queue: .main, onNext: { [weak self] in self?.showPaymentErrorScreen() })
             .add(to: disposer)
-        
+
+        screen.router.onGoBack
+            .forward(to: retry)
+
         screenManager.show(screen)
     }
 

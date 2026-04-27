@@ -53,6 +53,10 @@ final class AddCardCoordinator {
     // MARK: - Private
     
     private func setupActions() {
+        sheetViewController.backButtonTapped
+            .subscribe(onNext: { [weak self] in self?.startAddCardFlow() })
+            .add(to: disposer)
+
         sheetViewController.languageSelected
             .skip(first: 1)
             .subscribe(onNext: { [weak self] language in self?.changeLanguage(language) })

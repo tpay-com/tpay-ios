@@ -11,6 +11,7 @@ extension SheetViewController {
         // MARK: - Events
         
         var closeButtonTapped: Observable<Void> { closeButton.tap }
+        var backButtonTapped: Observable<Void> { backButton.tap }
         
         // MARK: - Properties
         
@@ -34,6 +35,17 @@ extension SheetViewController {
             let button = Button.Icon(icon: closeIcon)
             button.imageView?.tintColor = .Colors.Neutral._500.color
             button.setContentHuggingPriority(.required, for: .horizontal)
+            return button
+        }()
+
+        private lazy var backButton: UIButton = {
+            let rightArrow = DesignSystem.Icons.rightArrow.image
+                .withRenderingMode(.alwaysTemplate)
+            let flipped = UIImage(cgImage: rightArrow.cgImage!, scale: rightArrow.scale, orientation: .upMirrored)
+            let button = Button.Icon(icon: flipped)
+            button.imageView?.tintColor = .Colors.Neutral._500.color
+            button.setContentHuggingPriority(.required, for: .horizontal)
+            button.isHidden = true
             return button
         }()
         
@@ -72,6 +84,10 @@ extension SheetViewController {
         func set(isCancellable: Bool) {
             isCancellable ? closeButton.show() : closeButton.hide()
         }
+
+        func set(showBackButton: Bool) {
+            backButton.isHidden = !showBackButton
+        }
         
         func shade() {
             topShadowEmmiter.shade()
@@ -84,6 +100,12 @@ extension SheetViewController {
         // MARK: - Private
         
         private func setupLayout() {
+            backButton.layout
+                .add(to: self)
+                .top.equalTo(self, .top).with(constant: 18)
+                .trailing.equalTo(self, .trailing).with(constant: -16)
+                .activate()
+
             closeButton.layout
                 .add(to: self)
                 .top.equalTo(self, .top).with(constant: 18)
@@ -116,6 +138,7 @@ extension SheetViewController {
             bringSubviewToFront(topShadowEmmiter)
             bringSubviewToFront(titleContainer)
             bringSubviewToFront(closeButton)
+            bringSubviewToFront(backButton)
         }
         
         private func setupAppearance() {

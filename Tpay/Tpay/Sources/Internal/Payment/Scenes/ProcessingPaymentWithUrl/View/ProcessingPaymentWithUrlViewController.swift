@@ -46,7 +46,7 @@ final class ProcessingPaymentWithUrlViewController: UIViewController {
         contentView.completedWithSuccess
             .subscribe(onNext: { [weak self] in self?.viewModel.completeWithSuccess() })
             .add(to: disposer)
-        
+
         contentView.completedWithError
             .subscribe(onNext: { [weak self] in self?.viewModel.completeWithError() })
             .add(to: disposer)
@@ -54,6 +54,6 @@ final class ProcessingPaymentWithUrlViewController: UIViewController {
 }
 
 extension ProcessingPaymentWithUrlViewController: SheetConfigurable {
-    
-    var sheetContext: SheetViewController.Context { .init(topSection: .none, appearance: .fixed(.large), isCancellable: true) }
+
+    var sheetContext: SheetViewController.Context { .init(topSection: .none, appearance: .fixed(.large), isCancellable: false, showBackButton: true) }
 }
