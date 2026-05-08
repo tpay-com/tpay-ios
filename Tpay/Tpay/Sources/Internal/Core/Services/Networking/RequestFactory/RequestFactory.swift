@@ -3,8 +3,13 @@
 //
 
 protocol RequestFactory {
-    
+
     // MARK: - API
-    
-    func request<RequestType: NetworkRequest>(for object: RequestType) -> URLRequest
+
+    /// Builds a `URLRequest` for the given network request.
+    ///
+    /// TPS-55: now `throws` so callers receive a typed `NetworkingError` (e.g. `.notConfigured`,
+    /// `.invalidURL`) instead of crashing via `preconditionFailure` when the SDK has not yet
+    /// been configured or URL components are invalid.
+    func request<RequestType: NetworkRequest>(for object: RequestType) throws -> URLRequest
 }

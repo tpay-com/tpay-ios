@@ -549,7 +549,7 @@ private extension NetworkingThreadSafety_Tests {
 
     /// Returns whatever URL — we only care about threading, not request content.
     final class StubRequestFactory: RequestFactory {
-        func request<RequestType: NetworkRequest>(for object: RequestType) -> URLRequest {
+        func request<RequestType: NetworkRequest>(for object: RequestType) throws -> URLRequest {
             URLRequest(url: URL(string: "https://api.tpay.com/stub")!)
         }
     }

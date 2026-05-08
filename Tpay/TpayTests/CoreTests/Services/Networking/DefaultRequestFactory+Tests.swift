@@ -35,37 +35,37 @@ final class DefaultRequestFactory_Tests: XCTestCase {
     
     // MARK: - Tests
     
-    func test_MakeAuthorizeURLRequest() {
+    func test_MakeAuthorizeURLRequest() throws {
         let request = AuthorizationController.Authorize()
-        let urlRequest = sut.request(for: request)
-        
+        let urlRequest = try sut.request(for: request)
+
         expect(urlRequest.url?.absoluteString).to(equal("https://api.tpay.com/oauth/auth"))
         expect(urlRequest.httpMethod).to(equal(HttpMethod.post.rawValue))
         expect(urlRequest.allHTTPHeaderFields?["Authorization"]).to(equal("Basic Y2xpZW50OnBhc3N3b3Jk"))
-        
+
         expect(urlRequest.httpBody).to(beNil())
     }
-    
-    func test_MakeBankGroupsURLRequest() {
+
+    func test_MakeBankGroupsURLRequest() throws {
         let request = TransactionsController.BankGroups()
-        let urlRequest = sut.request(for: request)
-        
+        let urlRequest = try sut.request(for: request)
+
         expect(urlRequest.url?.absoluteString).to(equal("https://api.tpay.com/transactions/bank-groups?onlyOnline=true"))
         expect(urlRequest.httpMethod).to(equal(HttpMethod.get.rawValue))
         expect(urlRequest.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer access_token"))
-        
+
         expect(urlRequest.httpBody).to(beNil())
     }
-    
-    func test_MakeSpecifiedTransactionURLRequest() {
+
+    func test_MakeSpecifiedTransactionURLRequest() throws {
         let transactionId = "transaction_id"
         let request = TransactionsController.SpecifiedTransaction(with: transactionId)
-        let urlRequest = sut.request(for: request)
-        
+        let urlRequest = try sut.request(for: request)
+
         expect(urlRequest.url?.absoluteString).to(equal("https://api.tpay.com/transactions/\(transactionId)"))
         expect(urlRequest.httpMethod).to(equal(HttpMethod.get.rawValue))
         expect(urlRequest.allHTTPHeaderFields?["Authorization"]).to(equal("Bearer access_token"))
-        
+
         expect(urlRequest.httpBody).to(beNil())
     }
 }
