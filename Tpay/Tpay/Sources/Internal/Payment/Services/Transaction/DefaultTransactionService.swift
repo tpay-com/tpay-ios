@@ -118,6 +118,24 @@ final class DefaultTransactionService: TransactionService {
         }
     }
     
+    func initApplePayPayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler) {
+        do {
+            let dto = try makeNewTransactionDTOForApplePayInit(from: transaction)
+            executeCreateTransactionRequest(with: dto, then: then)
+        } catch {
+            then(.failure(error))
+        }
+    }
+
+    func finalizeApplePayPayment(for ongoingTransaction: Domain.OngoingTransaction, with applePay: Domain.ApplePayToken, then: @escaping OngoingTransactionResultHandler) {
+        do {
+            let dto = try makePayDTO(from: applePay)
+            executeContinueTransactionRequest(for: ongoingTransaction.transactionId, with: dto, then: then)
+        } catch {
+            then(.failure(error))
+        }
+    }
+
     func getPaymentStatus(for ongoingTransaction: Domain.OngoingTransaction, then: @escaping OngoingTransactionResultHandler) {
         executeGetSpecifiedTransactionRequest(for: ongoingTransaction.transactionId, then: then)
     }
@@ -263,6 +281,16 @@ final class DefaultTransactionService: TransactionService {
                           payer: makePayerDTO(from: payPoPayer),
                           callbacks: makeCallbacks(from: transaction))
     }
+
+    private func makeNewTransactionDTOForApplePayInit(from transaction: Domain.Transaction) throws -> NewTransactionDTO {
+        NewTransactionDTO(amount: Decimal(transaction.paymentInfo.amount),
+                          description: transaction.paymentInfo.title,
+                          hiddenDescription: transaction.paymentInfo.hiddenDescription,
+                          language: makeLanguage(from: Language.current),
+                          pay: try makePayDTOForApplePayInit(),
+                          payer: makePayerDTO(from: transaction.payer),
+                          callbacks: makeCallbacks(from: transaction))
+    }
     
     private func makeLanguage(from language: Language) -> NewTransactionDTO.Language {
         switch language {
@@ -328,6 +356,14 @@ final class DefaultTransactionService: TransactionService {
     
     private func makePayDTOForPayPo() throws -> PayWithInstantRedirectionDTO {
         PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .payPo),
+                                     method: nil,
+                                     blikPaymentData: nil,
+                                     cardPaymentData: nil,
+                                     recursive: nil)
+    }
+
+    private func makePayDTOForApplePayInit() throws -> PayWithInstantRedirectionDTO {
+        PayWithInstantRedirectionDTO(channelId: try paymentMethodsService.channelId(for: .applePay),
                                      method: nil,
                                      blikPaymentData: nil,
                                      cardPaymentData: nil,

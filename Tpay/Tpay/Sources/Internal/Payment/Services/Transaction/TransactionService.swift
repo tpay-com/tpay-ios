@@ -15,6 +15,9 @@ protocol TransactionService: AnyObject {
     func invokePayment(for transaction: Domain.Transaction, with installmentPayment: Domain.PaymentMethod.InstallmentPayment, then: @escaping OngoingTransactionResultHandler)
     func invokePayment(for transaction: Domain.Transaction, with payPoPayer: Domain.Payer, then: @escaping OngoingTransactionResultHandler)
     
+    func initApplePayPayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler)
+    func finalizeApplePayPayment(for ongoingTransaction: Domain.OngoingTransaction, with applePay: Domain.ApplePayToken, then: @escaping OngoingTransactionResultHandler)
+
     func getPaymentStatus(for ongoingTransaction: Domain.OngoingTransaction, then: @escaping OngoingTransactionResultHandler)
     func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with blik: Domain.Blik.OneClick, then: @escaping OngoingTransactionResultHandler)
 }

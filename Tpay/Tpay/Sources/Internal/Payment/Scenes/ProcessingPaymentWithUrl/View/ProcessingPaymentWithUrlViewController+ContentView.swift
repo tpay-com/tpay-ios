@@ -19,7 +19,7 @@ extension ProcessingPaymentWithUrlViewController {
         private let tracker: WKWebView.RedirectsTracker
 
         private lazy var webView: WKWebView = {
-            let webView = WKWebView()
+            let webView = WKWebView.zoomDisabled()
             webView.navigationDelegate = tracker
             return webView
         }()

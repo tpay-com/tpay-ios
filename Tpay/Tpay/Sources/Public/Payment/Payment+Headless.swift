@@ -134,6 +134,44 @@ public enum Headless {
         try headlessTransactionService.invokePayment(for: transaction, using: paymentChannel, with: applePay, completion: completion)
     }
     
+    /// Step 1 of the two-step Apple Pay flow: creates a pending Apple Pay transaction
+    /// and returns its identifier before the user authorizes the payment in Apple Wallet.
+    ///
+    /// Use this when the integrating application needs the Tpay `transactionId` available
+    /// at the moment the Apple Pay sheet is presented (for analytics, correlation, etc.),
+    /// matching the behaviour of other payment methods such as BLIK or PayPo. Pair this
+    /// call with `finalizeApplePayPayment(for:using:with:completion:)` once the wallet
+    /// authorization yields a payment token.
+    ///
+    /// - Parameters:
+    ///   - transaction: The transaction for which the payment is initiated.
+    ///   - paymentChannel: The Apple Pay payment channel.
+    ///   - completion: A closure called with the pending payment result containing the ongoing transaction.
+    /// - Throws: `Models.PaymentError.inappropriatePaymentKind` if the payment channel is not Apple Pay.
+    public static func initApplePayPayment(for transaction: Models.Transaction,
+                                           using paymentChannel: Models.PaymentChannel,
+                                           completion: @escaping (Result<Models.PaymentResult, Error>) -> Void) throws {
+        guard paymentChannel.paymentKind == .applePay else { throw Models.PaymentError.inappropriatePaymentKind }
+        try headlessTransactionService.initApplePayPayment(for: transaction, using: paymentChannel, completion: completion)
+    }
+
+    /// Step 2 of the two-step Apple Pay flow: finalizes a previously initialized Apple Pay
+    /// transaction by submitting the wallet payment token returned from authorization.
+    ///
+    /// - Parameters:
+    ///   - ongoingTransaction: The transaction returned from `initApplePayPayment(for:using:completion:)`.
+    ///   - paymentChannel: The Apple Pay payment channel.
+    ///   - applePay: The Apple Pay information for Apple Pay payments.
+    ///   - completion: A closure called with the result containing the final payment status.
+    /// - Throws: `Models.PaymentError.inappropriatePaymentKind` if the payment channel is not Apple Pay.
+    public static func finalizeApplePayPayment(for ongoingTransaction: Models.OngoingTransaction,
+                                               using paymentChannel: Models.PaymentChannel,
+                                               with applePay: Models.ApplePay,
+                                               completion: @escaping (Result<Models.PaymentResult, Error>) -> Void) throws {
+        guard paymentChannel.paymentKind == .applePay else { throw Models.PaymentError.inappropriatePaymentKind }
+        try headlessTransactionService.finalizeApplePayPayment(for: ongoingTransaction, using: paymentChannel, with: applePay, completion: completion)
+    }
+
     /// Retrieves the payment status for an ongoing transaction.
     ///
     /// - Parameters:
@@ -230,6 +268,11 @@ extension Headless {
         public struct OngoingTransaction {
             public let id: String
             public let notification: Notification?
+
+            public init(id: String, notification: Notification? = nil) {
+                self.id = id
+                self.notification = notification
+            }
         }
         
         /// Represents a payment channel through which a payment can be processed.

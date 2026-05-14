@@ -110,6 +110,41 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         try invokePayment(for: transaction, using: PayPoPaymentInvoker(transactionService: transactionService), completion: completion)
     }
     
+    func initApplePayPayment(for transaction: Headless.Models.Transaction,
+                             using paymentChannel: Headless.Models.PaymentChannel,
+                             completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws {
+        try invokePayment(for: transaction, using: ApplePayInitInvoker(transactionService: transactionService), completion: completion)
+    }
+
+    func finalizeApplePayPayment(for ongoingTransaction: Headless.Models.OngoingTransaction,
+                                 using paymentChannel: Headless.Models.PaymentChannel,
+                                 with applePay: Headless.Models.ApplePay,
+                                 completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws {
+        let domainOngoingTransaction = apiToDomainModelsMapper.makeDomainOngoingTransaction(from: ongoingTransaction)
+        let applePayToken = apiToDomainModelsMapper.makeDomainApplePayToken(from: applePay)
+        var updatedTransaction: Domain.OngoingTransaction?
+
+        func finalize(_ then: @escaping Completion) {
+            transactionService.finalizeApplePayPayment(for: domainOngoingTransaction, with: applePayToken) { result in
+                updatedTransaction = try? result.get()
+                then(result.map { _ in () })
+            }
+        }
+
+        Invocation.Queue()
+            .append(authenticationService.authenticate)
+            .append(finalize)
+            .invoke { [domainToAPIModelsMapper] result in
+                result.match(onSuccess: {
+                    guard let updatedTransaction else {
+                        completion(.failure(Headless.Models.PaymentError.missingOngoingTransaction))
+                        return
+                    }
+                    completion(.success(domainToAPIModelsMapper.makeHeadlessModelsPaymentResult(from: updatedTransaction)))
+                }, onFailure: { completion(.failure($0)) })
+            }
+    }
+
     func getPaymentStatus(for ongoingTransaction: Headless.Models.OngoingTransaction, completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) {
         let ongoingTransaction = apiToDomainModelsMapper.makeDomainOngoingTransaction(from: ongoingTransaction)
         var updatedTransaction: Domain.OngoingTransaction?
@@ -304,6 +339,18 @@ private final class PayPoPaymentInvoker: PaymentInvoker {
     
     func invokePayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler) {
         transactionService.invokePayment(for: transaction, with: transaction.payer, then: then)
+    }
+}
+
+private final class ApplePayInitInvoker: PaymentInvoker {
+    private let transactionService: TransactionService
+
+    init(transactionService: TransactionService) {
+        self.transactionService = transactionService
+    }
+
+    func invokePayment(for transaction: Domain.Transaction, then: @escaping OngoingTransactionResultHandler) {
+        transactionService.initApplePayPayment(for: transaction, then: then)
     }
 }
 

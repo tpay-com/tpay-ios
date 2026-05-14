@@ -324,6 +324,7 @@
 		03B22D31285C7699003BAECA /* DefaultTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D2F285C7699003BAECA /* DefaultTransactionObserver.swift */; };
 		03B22D32285C7699003BAECA /* TransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D30285C7699003BAECA /* TransactionObserver.swift */; };
 		03B22D34285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D33285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift */; };
+		FE9697C0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */; };
 		03B22D36285C9388003BAECA /* NewTransactionDTO+Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D35285C9388003BAECA /* NewTransactionDTO+Callbacks.swift */; };
 		03B22D38285CA32F003BAECA /* Merchant+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D37285CA32F003BAECA /* Merchant+Internal.swift */; };
 		03B22D4928607A37003BAECA /* PayWithCardTokenScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D3C28607A37003BAECA /* PayWithCardTokenScreen.swift */; };
@@ -1407,6 +1408,7 @@
 		03B22D2F285C7699003BAECA /* DefaultTransactionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTransactionObserver.swift; sourceTree = "<group>"; };
 		03B22D30285C7699003BAECA /* TransactionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionObserver.swift; sourceTree = "<group>"; };
 		03B22D33285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+RedirectsTracker.swift"; sourceTree = "<group>"; };
+		FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+ZoomDisabled.swift"; sourceTree = "<group>"; };
 		03B22D35285C9388003BAECA /* NewTransactionDTO+Callbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewTransactionDTO+Callbacks.swift"; sourceTree = "<group>"; };
 		03B22D37285CA32F003BAECA /* Merchant+Internal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Merchant+Internal.swift"; sourceTree = "<group>"; };
 		03B22D3C28607A37003BAECA /* PayWithCardTokenScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithCardTokenScreen.swift; sourceTree = "<group>"; };
@@ -3989,6 +3991,7 @@
 				03A7E50227FF2FE100C6E1D1 /* UIScrollView+Extensions.swift */,
 				03B22D0528589F73003BAECA /* UIImage+Extensions.swift */,
 				03B22D33285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift */,
+				FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */,
 				8727DE5328644F2300FFDCEF /* String+Regex.swift */,
 				033879D42BD7DFB40043DB43 /* URL+Extensions.swift */,
 				D3C1D14E2A2695FB00CB954A /* CharacterSet+Extensions.swift */,
@@ -7288,6 +7291,7 @@
 				033D04D92848C6D800652854 /* ProcessingPaymentModel.swift in Sources */,
 				03F408FD28294D6F00CE375B /* TransactionsController+BankGroups.swift in Sources */,
 				03B22D34285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift in Sources */,
+				FE9697C0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift in Sources */,
 				9D5E5CD420DB71EB18952B92 /* UIView+Layout.swift in Sources */,
 				D3AFAB6529B0707D000C7AB9 /* NewApplePaySessionDTO.swift in Sources */,
 				0380C9652800AAF9003565C5 /* ConfigurationManagerAssembly.swift in Sources */,

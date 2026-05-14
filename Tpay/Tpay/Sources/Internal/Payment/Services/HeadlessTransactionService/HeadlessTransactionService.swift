@@ -47,6 +47,15 @@ protocol HeadlessTransactionService: AnyObject {
                             using paymentChannel: Headless.Models.PaymentChannel,
                             completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws
     
+    func initApplePayPayment(for transaction: Headless.Models.Transaction,
+                             using paymentChannel: Headless.Models.PaymentChannel,
+                             completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws
+
+    func finalizeApplePayPayment(for ongoingTransaction: Headless.Models.OngoingTransaction,
+                                 using paymentChannel: Headless.Models.PaymentChannel,
+                                 with applePay: Headless.Models.ApplePay,
+                                 completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void) throws
+
     func getPaymentStatus(for ongoingTransaction: Headless.Models.OngoingTransaction,
                           completion: @escaping (Result<Headless.Models.PaymentResult, Error>) -> Void)
     
