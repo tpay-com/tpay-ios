@@ -324,7 +324,6 @@
 		03B22D31285C7699003BAECA /* DefaultTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D2F285C7699003BAECA /* DefaultTransactionObserver.swift */; };
 		03B22D32285C7699003BAECA /* TransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D30285C7699003BAECA /* TransactionObserver.swift */; };
 		03B22D34285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D33285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift */; };
-		FE9697C0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */; };
 		03B22D36285C9388003BAECA /* NewTransactionDTO+Callbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D35285C9388003BAECA /* NewTransactionDTO+Callbacks.swift */; };
 		03B22D38285CA32F003BAECA /* Merchant+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D37285CA32F003BAECA /* Merchant+Internal.swift */; };
 		03B22D4928607A37003BAECA /* PayWithCardTokenScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B22D3C28607A37003BAECA /* PayWithCardTokenScreen.swift */; };
@@ -564,6 +563,7 @@
 		3F8D86FCAA8A8CC9472128B5 /* ReplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A033AD4B6EF9F68F7259182 /* ReplayTests.swift */; };
 		3FAC77EA978F8A6C2D011112 /* ImageProgressive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3751FEE4B0FAF429493D78C /* ImageProgressive.swift */; };
 		40E8E6B7536F369657F5D89B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE3E0A95F713A17888E595A /* Event.swift */; };
+		432E5A76E9142211414812D4 /* WKWebViewZoomDisabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C3B408E4CEE74C4E472E69 /* WKWebViewZoomDisabledTests.swift */; };
 		43ECCC1FF3D0D05F0ADFDA45 /* DimensionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C8DBAA29CFAC3D8CAB0621 /* DimensionLayout.swift */; };
 		44122B31367329A30B06DE9B /* Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F00A90797E2C3C475E1A3A /* Kingfisher.swift */; };
 		443E78A0E056C5DB3D95B4BB /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD84FA1D053660837B4A0A69 /* Storage.swift */; };
@@ -1067,6 +1067,7 @@
 		FDEAF8BEDEB7682A5EBF28C1 /* DefaultStringToDateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7509C1C9FD6E2F6EAB9C140D /* DefaultStringToDateConverter.swift */; };
 		FE7AE656B3FEE0353182432D /* Array+Sequence+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489A734DA4E577217E2199EF /* Array+Sequence+Tests.swift */; };
 		FE8EBDCAF83A4AC0F9197EB3 /* GraphicsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C786EDBA0AE55E492F456D /* GraphicsContext.swift */; };
+		FE9697C0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */; };
 		FFBC7D69D2D417960AB0F59E /* Invocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AFAE8F9FD0BDCC5DAA2CFD /* Invocation.swift */; };
 		FFE281BD8CABAAB8EF6B0C88 /* DeviceAccessoryInteractorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C15969E1052A1C1A6B87AD3 /* DeviceAccessoryInteractorError.swift */; };
 /* End PBXBuildFile section */
@@ -1408,7 +1409,6 @@
 		03B22D2F285C7699003BAECA /* DefaultTransactionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTransactionObserver.swift; sourceTree = "<group>"; };
 		03B22D30285C7699003BAECA /* TransactionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionObserver.swift; sourceTree = "<group>"; };
 		03B22D33285C8DA4003BAECA /* WKWebView+RedirectsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+RedirectsTracker.swift"; sourceTree = "<group>"; };
-		FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+ZoomDisabled.swift"; sourceTree = "<group>"; };
 		03B22D35285C9388003BAECA /* NewTransactionDTO+Callbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewTransactionDTO+Callbacks.swift"; sourceTree = "<group>"; };
 		03B22D37285CA32F003BAECA /* Merchant+Internal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Merchant+Internal.swift"; sourceTree = "<group>"; };
 		03B22D3C28607A37003BAECA /* PayWithCardTokenScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWithCardTokenScreen.swift; sourceTree = "<group>"; };
@@ -1663,6 +1663,7 @@
 		554E42240D1C1C31792BE324 /* NSLayoutConstraint+Initializers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Initializers.swift"; sourceTree = "<group>"; };
 		58E84D2D49A03038CF9C5E49 /* Data+Properties+Tests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Data+Properties+Tests.swift"; sourceTree = "<group>"; };
 		58F6F74657415CACB4203042 /* NumberToServiceString.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NumberToServiceString.swift; sourceTree = "<group>"; };
+		59C3B408E4CEE74C4E472E69 /* WKWebViewZoomDisabledTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WKWebViewZoomDisabledTests.swift; sourceTree = "<group>"; };
 		59C8DBAA29CFAC3D8CAB0621 /* DimensionLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DimensionLayout.swift; sourceTree = "<group>"; };
 		5A033AD4B6EF9F68F7259182 /* ReplayTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplayTests.swift; sourceTree = "<group>"; };
 		5C101F071CB8813FBE142DAD /* LayoutAnchor+Axis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "LayoutAnchor+Axis.swift"; sourceTree = "<group>"; };
@@ -2152,6 +2153,7 @@
 		F9F93BF4C030650C90BBBD37 /* Resource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		FBAD0434A1F313D8756DB1C0 /* UIView+Animate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Animate.swift"; sourceTree = "<group>"; };
 		FE313EBC632D98DAB2173D77 /* ConstraintMultiplier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConstraintMultiplier.swift; sourceTree = "<group>"; };
+		FE9697A0269700AD0001CAFE /* WKWebView+ZoomDisabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+ZoomDisabled.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3313,6 +3315,7 @@
 			children = (
 				031317B42A6EACAA002EA8A9 /* Scenes */,
 				036C1F312853800100BEF66F /* Services */,
+				59C3B408E4CEE74C4E472E69 /* WKWebViewZoomDisabledTests.swift */,
 			);
 			path = PaymentTests;
 			sourceTree = "<group>";
@@ -7811,6 +7814,7 @@
 				03D76A372B4EE196004D36E4 /* PaymentChannels+Tests.swift in Sources */,
 				D34140AB2993DFCF004185A7 /* NewCardDTO+Tests.swift in Sources */,
 				6DB1C9637F8D6C89FF63FC5F /* NetworkingConfigurationRace+Tests.swift in Sources */,
+				432E5A76E9142211414812D4 /* WKWebViewZoomDisabledTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
