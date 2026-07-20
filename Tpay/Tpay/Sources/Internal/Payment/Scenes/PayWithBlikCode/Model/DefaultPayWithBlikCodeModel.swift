@@ -15,23 +15,30 @@ final class DefaultPayWithBlikCodeModel: PayWithBlikCodeModel {
     
     private let transactionService: TransactionService
     private let configurationProvider: ConfigurationProvider
+    private let transactionLock: SingleTransactionLock
     private lazy var mapper = DefaultAPIToDomainModelsMapper()
     
     // MARK: - Initializers
-    
-    convenience init(using resolver: ServiceResolver) {
+
+    convenience init(using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         let transactionService = DefaultTransactionService(using: resolver)
-        self.init(transactionService: transactionService, configurationProvider: resolver.resolve())
+        self.init(transactionService: transactionService, configurationProvider: resolver.resolve(), transactionLock: transactionLock)
     }
-    
-    init(transactionService: TransactionService, configurationProvider: ConfigurationProvider) {
+
+    init(transactionService: TransactionService, configurationProvider: ConfigurationProvider, transactionLock: SingleTransactionLock) {
         self.transactionService = transactionService
         self.configurationProvider = configurationProvider
+        self.transactionLock = transactionLock
     }
     
     // MARK: - API
     
     func invokePayment(for transaction: Domain.Transaction, with blik: Domain.Blik.Regular, then: @escaping OngoingTransactionResultHandler) {
-        transactionService.invokePayment(for: transaction, with: blik, then: then)
+        if let continuingTransactionId = transactionLock.transactionId {
+            let ongoingTransaction = Domain.OngoingTransaction(transactionId: continuingTransactionId, status: .unknown, notification: nil, continueUrl: nil, paymentErrors: nil)
+            transactionService.continuePayment(for: ongoingTransaction, with: blik, then: then)
+        } else {
+            transactionService.invokePayment(for: transaction, with: blik, then: then)
+        }
     }
 }

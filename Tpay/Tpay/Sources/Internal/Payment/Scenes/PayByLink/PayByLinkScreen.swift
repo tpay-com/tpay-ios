@@ -13,9 +13,9 @@ final class PayByLinkScreen: Screen {
     
     // MARK: - Initialization
     
-    init(for transaction: Domain.Transaction, using resolver: ServiceResolver) {
+    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         router = DefaultPayByLinkRouter()
-        let model = DefaultPayByLinkModel(for: transaction, using: resolver)
+        let model = DefaultPayByLinkModel(for: transaction, using: resolver, transactionLock: transactionLock)
         let viewModel = DefaultPayByLinkViewModel(model: model, router: router)
         viewController = PayByLinkViewController(with: viewModel)
     }

@@ -133,6 +133,8 @@ internal enum Strings {
   internal static var paymentFailureButtonTitle: String { Strings.tr("pl", "payment_failure_button_title") }
   /// Płatność nieudana
   internal static var paymentFailureTitle: String { Strings.tr("pl", "payment_failure_title") }
+  /// Zmiana formy płatności niemożliwa
+  internal static var paymentMethodChangeNotAllowed: String { Strings.tr("pl", "payment_method_change_not_allowed") }
   /// Wybierz formę płatności
   internal static var paymentMethodHeadline: String { Strings.tr("pl", "payment_method_headline") }
   /// Moje zamówienia

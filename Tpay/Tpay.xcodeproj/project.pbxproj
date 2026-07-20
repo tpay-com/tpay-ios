@@ -619,9 +619,11 @@
 		6DB1C9637F8D6C89FF63FC5F /* NetworkingConfigurationRace+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A1028CC36AF2B582F8243 /* NetworkingConfigurationRace+Tests.swift */; };
 		6DF825B91D2CCDC5895FD0D4 /* DefaultLayoutResult+ResultAxisLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CEAD5F7060EF367A9169C /* DefaultLayoutResult+ResultAxisLayout.swift */; };
 		6E9C555D587E01E63A21A8BB /* LayoutGuideLayout+LayoutGuideAxisLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41E4C3CFB59CBB2AFC3A9DC /* LayoutGuideLayout+LayoutGuideAxisLayout.swift */; };
+		6F3058BD30091657004DA60D /* Domain+OngoingTransaction+AttemptedPaymentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3058BC30091657004DA60D /* Domain+OngoingTransaction+AttemptedPaymentError.swift */; };
 		6FC2B1BF52753D24D9D6CFC2 /* KingfisherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C27FF2D62CEF2E88E6003 /* KingfisherError.swift */; };
 		6FCAC5C1F5BCFA7E0106D4E8 /* AnySection+AnyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EA868EDECF00CF1D548702 /* AnySection+AnyItem.swift */; };
 		6FE1FF233734E2B88BEE32E1 /* ResolverProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0919C07885C9FE5420E00969 /* ResolverProtocolTests.swift */; };
+		6FE9DEBB3007CD0F00E20C4E /* SingleTransactionLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE9DEBA3007CD0F00E20C4E /* SingleTransactionLock.swift */; };
 		70362DC5728A0D2BBAD5654C /* UIActivity+ActivityType+OpenInSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5485DFF89332A0945CEA67 /* UIActivity+ActivityType+OpenInSafari.swift */; };
 		71E58BC22F3CDCA000442BB2 /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC12F3CDCA000442BB2 /* Compatibility.swift */; };
 		71E58BC42F3CDCCA00442BB2 /* SDKVersionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E58BC32F3CDCCA00442BB2 /* SDKVersionProvider.swift */; };
@@ -1686,6 +1688,8 @@
 		66FFAD396ECB9D1D4C7A9C5C /* Configuration+Target+Tests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Configuration+Target+Tests.swift"; sourceTree = "<group>"; };
 		6C655EDBF27B77DD860A15A0 /* DefaultTimeIntervalToStringConverter+Tests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DefaultTimeIntervalToStringConverter+Tests.swift"; sourceTree = "<group>"; };
 		6D3CA5D41B1CEC23BBB7DDCD /* IntegerToStringConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntegerToStringConverter.swift; sourceTree = "<group>"; };
+		6F3058BC30091657004DA60D /* Domain+OngoingTransaction+AttemptedPaymentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Domain+OngoingTransaction+AttemptedPaymentError.swift"; sourceTree = "<group>"; };
+		6FE9DEBA3007CD0F00E20C4E /* SingleTransactionLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTransactionLock.swift; sourceTree = "<group>"; };
 		70D5134FD3266B3591A6623A /* DefaultLayoutResult+ResultXAxisLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DefaultLayoutResult+ResultXAxisLayout.swift"; sourceTree = "<group>"; };
 		711036C0F8D113033C489272 /* FailAsPublisherTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FailAsPublisherTests.swift; sourceTree = "<group>"; };
 		71E58BC12F3CDCA000442BB2 /* Compatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
@@ -3190,6 +3194,7 @@
 		035EC8F028057559002C6D54 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				6FE9DEBA3007CD0F00E20C4E /* SingleTransactionLock.swift */,
 				D3B562CB29A4DE9A0072FD93 /* CardTokenPaymentFlow.swift */,
 				030914DC284654B000E89615 /* ProcessingPaymentFlow.swift */,
 				035EC8F128057594002C6D54 /* SetupPaymentFlow.swift */,
@@ -3385,6 +3390,7 @@
 		03746AE1283B6643007D9716 /* DomainModels */ = {
 			isa = PBXGroup;
 			children = (
+				6F3058BC30091657004DA60D /* Domain+OngoingTransaction+AttemptedPaymentError.swift */,
 				03C2BD0E283E0CE8006383BF /* Domain.swift */,
 				035E1BB72B4D2F5D00ABC290 /* Domain+PaymentChannel.swift */,
 				03D76A3B2B516463004D36E4 /* Domain+PaymentChannel+AmountConstraints.swift */,
@@ -6913,6 +6919,7 @@
 				03F40907282955AE00CE375B /* TransactionsController+SpecifiedTransaction.swift in Sources */,
 				03E5FB81281173CF00E4383B /* InputValidationResult.swift in Sources */,
 				03B22D0B2859BD4B003BAECA /* Snackbar+Progress.swift in Sources */,
+				6FE9DEBB3007CD0F00E20C4E /* SingleTransactionLock.swift in Sources */,
 				03E5FBA32812953B00E4383B /* SetupPayerDetailsViewModel.swift in Sources */,
 				581F7D7007C8D842698DEEA5 /* Set+Extensions.swift in Sources */,
 				030914DB2846518300E89615 /* Domain+OngoingTransaction.swift in Sources */,
@@ -7176,6 +7183,7 @@
 				036C61F9B2A0ECA1C0237185 /* NSAttributedString+Builder+TextAttribute.swift in Sources */,
 				031A897F27F587610028D3CC /* Quantity.swift in Sources */,
 				8740B5D42851DF3F00DE9646 /* CardImageAnalyzer+Constants.swift in Sources */,
+				6F3058BD30091657004DA60D /* Domain+OngoingTransaction+AttemptedPaymentError.swift in Sources */,
 				D3A2A6282976137500310308 /* PayByLinkViewController+ContentView+CollectionView.swift in Sources */,
 				D330E16729C5FEA200D08109 /* ApplePayService.swift in Sources */,
 				D3A2A6262976137500310308 /* PayByLinkViewController+ContentView+DataSource.swift in Sources */,

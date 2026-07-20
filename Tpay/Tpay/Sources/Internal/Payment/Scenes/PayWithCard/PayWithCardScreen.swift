@@ -16,8 +16,8 @@ final class PayWithCardScreen: Screen {
     
     // MARK: - Initializers
     
-    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, isNavigationToOneClickEnabled: Bool) {
-        let model = DefaultPayWithCardModel(using: resolver)
+    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, isNavigationToOneClickEnabled: Bool, transactionLock: SingleTransactionLock) {
+        let model = DefaultPayWithCardModel(using: resolver, transactionLock: transactionLock)
         router = DefaultPayWithCardRouter()
         viewModel = DefaultPayWithCardViewModel(for: transaction, model: model, router: router, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
         viewController = PayWithCardViewController(with: viewModel)

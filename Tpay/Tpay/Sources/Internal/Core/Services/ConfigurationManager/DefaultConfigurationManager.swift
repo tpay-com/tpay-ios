@@ -44,6 +44,10 @@ final class DefaultConfigurationManager: ConfigurationManager {
         configurationHolder.compatibility = compatibility
         configurationHolder.sdkVersionName = sdkVersionName
     }
+
+    func set(singleTransaction: Bool) {
+        configurationHolder.singleTransaction = singleTransaction
+    }
     
     // MARK: - ConfigurationProvider
     
@@ -77,6 +81,10 @@ final class DefaultConfigurationManager: ConfigurationManager {
 
     var sdkVersionName: String? {
         configurationHolder.sdkVersionName
+    }
+
+    var singleTransaction: Bool {
+        configurationHolder.singleTransaction ?? false
     }
 }
 

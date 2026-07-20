@@ -92,6 +92,19 @@ If not specified, module will present all payment methods by default.
 > Important: Some payment methods may require additional setup to make them run succesfully.
 See: ``Merchant/CardsAPI``, ``Merchant/WalletConfiguration/ApplePayConfiguration``.
 
+### Retrying a payment
+
+By default, when a payment fails or is cancelled on one of the SDK's official screens (``Payment/Sheet``) and the user retries, the SDK starts a brand-new transaction and lets the user freely switch to a different payment method.
+
+Use the ``TpayModule/configure(singleTransactionOnly:)`` method if you want retries to continue the original transaction instead, locking the payment method picker to the channel first used:
+
+```swift
+TpayModule.configure(singleTransactionOnly: true)
+```
+
+> Note:
+This setting only affects the SDK's official screens. It has no effect on the Headless API, where you control transaction creation and retries yourself.
+
 ### Languages support
 
 Use the ``TpayModule/configure(preferredLanguage:supportedLanguages:)`` method to set up the language preferences:

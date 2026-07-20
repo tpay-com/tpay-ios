@@ -14,4 +14,5 @@ protocol ConfigurationProvider {
     var supportedLanguages: [Language] { get }
     var compatibility: Compatibility { get }
     var sdkVersionName: String? { get }
+    var singleTransaction: Bool { get }
 }

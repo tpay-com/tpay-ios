@@ -15,10 +15,11 @@ final class ChoosePaymentMethodScreen: Screen {
         
     // MARK: - Initializers
     
-    init(for transaction: Domain.Transaction, using resolver: ServiceResolver) {
+    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         router = DefaultChoosePaymentMethodRouter()
         viewModel = DefaultChoosePaymentMethodViewModel(model: DefaultChoosePaymentMethodModel(for: transaction, using: resolver),
-                                                        router: router)
+                                                        router: router,
+                                                        transactionLock: transactionLock)
         viewController = ChoosePaymentMethodViewController(with: viewModel)
         viewController.title = Strings.paymentMethodHeadline
     }

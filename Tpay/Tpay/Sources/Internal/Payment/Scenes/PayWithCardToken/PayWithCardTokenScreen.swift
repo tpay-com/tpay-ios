@@ -13,9 +13,9 @@ final class PayWithCardTokenScreen: Screen {
         
     // MARK: - Initializers
     
-    init(for transaction: Domain.Transaction, with cardTokens: [Domain.CardToken], using resolver: ServiceResolver) {
+    init(for transaction: Domain.Transaction, with cardTokens: [Domain.CardToken], using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         router = DefaultPayWithCardTokenRouter()
-        let model = DefaultPayWithCardTokenModel(for: transaction, with: cardTokens, using: resolver)
+        let model = DefaultPayWithCardTokenModel(for: transaction, with: cardTokens, using: resolver, transactionLock: transactionLock)
         let viewModel = DefaultPayWithCardTokenViewModel(model: model, router: router)        
         viewController = PayWithCardTokenViewController(with: viewModel)
     }

@@ -12,7 +12,8 @@ final class DefaultChoosePaymentMethodRouter: ChoosePaymentMethodRouter {
     let showDigitalWalletsFlow: Observable<Void> = Observable<Void>()
     let showRatyPekaoFlow: Observable<Void> = Observable<Void>()
     let showPayPoFlow: Observable<Void> = Observable<Void>()
-    
+    let paymentMethodChangeBlocked: Observable<Void> = Observable<Void>()
+
     // MARK: - API
 
     func showCard() {
@@ -37,5 +38,9 @@ final class DefaultChoosePaymentMethodRouter: ChoosePaymentMethodRouter {
     
     func showPayPo() {
         showPayPoFlow.on(.next(()))
+    }
+
+    func notifyPaymentMethodChangeBlocked() {
+        paymentMethodChangeBlocked.on(.next(()))
     }
 }

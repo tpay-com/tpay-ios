@@ -139,6 +139,20 @@ public enum TpayModule {
         return TpayModule.self
     }
 
+    /// Configures whether a retried payment should continue the original transaction instead of creating a new one.
+    ///
+    /// - Parameter singleTransaction: When `true`, retrying a payment on the SDK's official screens continues
+    ///   the originally created transaction and locks the payment method picker to the channel first used —
+    ///   switching channels on retry is blocked. When `false` (default), every retry creates a new transaction and
+    ///   the channel can be freely changed. This setting has no effect on the Headless API.
+    /// - Returns: The TpayModule type.
+
+    @discardableResult
+    public static func configure(singleTransaction: Bool) -> TpayModule.Type {
+        configurationSetter.set(singleTransaction: singleTransaction)
+        return TpayModule.self
+    }
+
     /// Sets the debug logging status for the TpayModule.
     ///
     /// - Parameter enabled: A boolean value indicating whether debug logging should be enabled (`true`) or disabled (`false`).

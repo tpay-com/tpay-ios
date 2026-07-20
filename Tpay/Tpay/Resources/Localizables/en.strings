@@ -58,6 +58,8 @@
 
 "payment_method_headline" = "Select a payment method";
 
+"payment_method_change_not_allowed" = "Payment method change not allowed";
+
 "blik" = "BLIK";
 
 "pbl" = "Transfer";

@@ -68,6 +68,7 @@ private extension TransactionStatusPoller_Tests {
         var paymentMethods: [PaymentMethod] = PaymentMethod.allCases
         var preferredLanguage: Language = .en
         var supportedLanguages: [Language] = Language.allCases
+        var singleTransaction: Bool = false
         var compatibility: Tpay.Compatibility = .ios
         var sdkVersionName: String? = "1.0.0"
     }

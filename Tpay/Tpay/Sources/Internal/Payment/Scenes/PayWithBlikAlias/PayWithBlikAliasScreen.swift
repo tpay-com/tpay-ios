@@ -13,9 +13,9 @@ final class PayWithBlikAliasScreen: Screen {
 
     // MARK: - Initializers
 
-    init(for transaction: Domain.Transaction, with blikAlias: Domain.Blik.OneClick.Alias, using resolver: ServiceResolver) {
+    init(for transaction: Domain.Transaction, with blikAlias: Domain.Blik.OneClick.Alias, using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         router = DefaultPayWithBlikAliasRouter()
-        let model = DefaultPayWithBlikAliasModel(for: transaction, with: blikAlias, using: resolver)
+        let model = DefaultPayWithBlikAliasModel(for: transaction, with: blikAlias, using: resolver, transactionLock: transactionLock)
         let viewModel = DefaultPayWithBlikAliasViewModel(model: model, router: router)
         viewController = PayWithBlikAliasViewController(viewModel: viewModel)
     }

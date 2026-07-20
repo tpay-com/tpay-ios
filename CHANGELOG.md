@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Feature: Add option to enable single transation mode for SDK's official screens
+
 ## 1.3.17
 
 - Fix: Resolved EXC_BREAKPOINT crash on `com.tpay.networking` triggered by `getAvailablePaymentChannels()` racing with `configure(merchant:)` (TPS-55). Networking layer no longer calls `preconditionFailure`; race is resolved transparently via wait-for-config (NSCondition + 5s timeout)

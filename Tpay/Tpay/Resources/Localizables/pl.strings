@@ -58,6 +58,8 @@
 
 "payment_method_headline" = "Wybierz formę płatności";
 
+"payment_method_change_not_allowed" = "Zmiana formy płatności niemożliwa";
+
 "blik" = "BLIK";
 
 "pbl" = "Przelew";

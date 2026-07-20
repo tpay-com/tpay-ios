@@ -12,7 +12,8 @@ protocol ChoosePaymentMethodRouter: AnyObject {
     var showDigitalWalletsFlow: Observable<Void> { get }
     var showRatyPekaoFlow: Observable<Void> { get }
     var showPayPoFlow: Observable<Void> { get }
-    
+    var paymentMethodChangeBlocked: Observable<Void> { get }
+
     // MARK: - Methods
     
     func showCard()
@@ -21,4 +22,5 @@ protocol ChoosePaymentMethodRouter: AnyObject {
     func showDigitalWallets()
     func showRatyPekao()
     func showPayPo()
+    func notifyPaymentMethodChangeBlocked()
 }

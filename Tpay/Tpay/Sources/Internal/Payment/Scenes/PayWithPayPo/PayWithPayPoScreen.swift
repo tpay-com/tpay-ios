@@ -13,9 +13,9 @@ final class PayWithPayPoScreen: Screen {
         
     // MARK: - Initializers
     
-    init(for transaction: Domain.Transaction, using resolver: ServiceResolver) {
+    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         router = DefaultPayWithPayPoRouter()
-        let model = DefaultPayWithPayPoModel(for: transaction, using: resolver)
+        let model = DefaultPayWithPayPoModel(for: transaction, using: resolver, transactionLock: transactionLock)
         let viewModel = DefaultPayWithPayPoViewModel(model: model, router: router)        
         viewController = PayWithPayPoViewController(with: viewModel)
     }

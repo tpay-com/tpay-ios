@@ -11,6 +11,7 @@ final class SetupPaymentFlow: ModuleFlow {
     let onPayerUpdate = Observable<Domain.Payer>()
     
     let transactionCreated = Observable<Domain.OngoingTransaction>()
+    let paymentMethodChangeBlocked = Observable<Void>()
     let errorOcurred = Observable<Error>()
     
     // MARK: - Properties
@@ -18,7 +19,9 @@ final class SetupPaymentFlow: ModuleFlow {
     private let transaction: Transaction
     private let presenter: ViewControllerPresenter
     private let resolver: ServiceResolver
-    
+    private let transactionLock: SingleTransactionLock
+    private let configurationProvider: ConfigurationProvider
+
     private let screen: SetupPayerDetailsScreen
     private var payWithCardScreen: PayWithCardScreen?
     
@@ -31,11 +34,17 @@ final class SetupPaymentFlow: ModuleFlow {
     private let disposer = Disposer()
     
     // MARK: - Initializers
-    
-    init(for transaction: Transaction, with presenter: ViewControllerPresenter, using resolver: ServiceResolver, payerOverride: Domain.Payer? = nil) {
+
+    init(for transaction: Transaction,
+         with presenter: ViewControllerPresenter,
+         using resolver: ServiceResolver,
+         payerOverride: Domain.Payer? = nil,
+         transactionLock: SingleTransactionLock) {
         self.transaction = transaction
         self.presenter = presenter
         self.resolver = resolver
+        self.transactionLock = transactionLock
+        self.configurationProvider = resolver.resolve()
         screen = SetupPayerDetailsScreen(for: transaction, using: resolver, payerOverride: payerOverride)
         screenManager = ScreenManager(presenter: presenter)
         transactionBuilder = Domain.Transaction.Builder(paymentInfo: mapper.makePaymentInfo(from: transaction))
@@ -87,8 +96,12 @@ final class SetupPaymentFlow: ModuleFlow {
             return
         }
         
-        let screen = ChoosePaymentMethodScreen(for: transaction, using: resolver)
-        
+        let screen = ChoosePaymentMethodScreen(for: transaction, using: resolver, transactionLock: transactionLock)
+
+        screen.router.paymentMethodChangeBlocked
+            .subscribe(onNext: { [weak self] in self?.paymentMethodChangeBlocked.on(.next(())) })
+            .add(to: disposer)
+
         screen.router.showCardFlow
             .subscribe(onNext: { [weak self, unowned screen] in self?.showCardFlow(using: screen) })
             .add(to: disposer)
@@ -173,8 +186,8 @@ final class SetupPaymentFlow: ModuleFlow {
             return
         }
         
-        let subScene = PayWithBlikAliasScreen(for: transaction, with: mapper.makeBlikAlias(from: blikAlias), using: resolver)
-        
+        let subScene = PayWithBlikAliasScreen(for: transaction, with: mapper.makeBlikAlias(from: blikAlias), using: resolver, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
             .subscribe(queue: .main, onNext: { [weak self, unowned screen] transaction in self?.handleOnBlikAliasTransactionCreated(transaction, using: screen) })
             .add(to: disposer)
@@ -184,7 +197,7 @@ final class SetupPaymentFlow: ModuleFlow {
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .blik) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -193,7 +206,7 @@ final class SetupPaymentFlow: ModuleFlow {
     private func handleOnBlikAliasTransactionCreated(_ transaction: Domain.OngoingTransaction, using screen: ChoosePaymentMethodScreen) {
         guard case let .ambiguousBlikAlias(alternatives: alternatives) = transaction.paymentErrors?.first,
               let blikAlias = self.transaction.payerContext?.registeredBlikAlias else {
-            transactionCreated.on(.next(transaction))
+            emitTransactionCreated(transaction, method: .blik)
             return
         }
         let specificAliases = alternatives.map { alternative in
@@ -214,7 +227,7 @@ final class SetupPaymentFlow: ModuleFlow {
         let subScene = PayWithAmbiguousBlikAliasesScreen(for: ongoingTransaction, with: aliases, transactionDetails: transaction, using: resolver)
         
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .blik) })
             .add(to: disposer)
         
         subScene.router.onNavigateToBlikCode
@@ -222,7 +235,7 @@ final class SetupPaymentFlow: ModuleFlow {
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .blik) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -235,10 +248,10 @@ final class SetupPaymentFlow: ModuleFlow {
         }
         
         let notRegisteredAlias = self.transaction.payerContext?.notRegisteredBlikAlias
-        let subScene = PayWithBlikCodeScreen(for: transaction, notRegisteredBlikAlias: notRegisteredAlias, using: resolver, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
-        
+        let subScene = PayWithBlikCodeScreen(for: transaction, notRegisteredBlikAlias: notRegisteredAlias, using: resolver, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .blik) })
             .add(to: disposer)
         
         subScene.router.onNavigateToOneClick
@@ -246,7 +259,7 @@ final class SetupPaymentFlow: ModuleFlow {
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .blik) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -259,14 +272,14 @@ final class SetupPaymentFlow: ModuleFlow {
         }
         
         let cardTokens = self.transaction.payerContext?.tokenizedCards.map { mapper.makeCardToken(from: $0) } ?? []
-        let subScene = PayWithCardTokenScreen(for: transaction, with: cardTokens, using: resolver)
-        
+        let subScene = PayWithCardTokenScreen(for: transaction, with: cardTokens, using: resolver, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .card) })
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .card) })
             .add(to: disposer)
         
         subScene.router.onAddCardRequested
@@ -285,11 +298,11 @@ final class SetupPaymentFlow: ModuleFlow {
         }
         
         let isNavigationToOneClickEnabled = self.transaction.payerContext?.hasTokenizedCards ?? false
-        let subScene = PayWithCardScreen(for: transaction, using: resolver, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled)
+        let subScene = PayWithCardScreen(for: transaction, using: resolver, isNavigationToOneClickEnabled: isNavigationToOneClickEnabled, transactionLock: transactionLock)
         self.payWithCardScreen = subScene
         
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .card) })
             .add(to: disposer)
         
         subScene.router.onCardScan
@@ -297,7 +310,7 @@ final class SetupPaymentFlow: ModuleFlow {
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .card) })
             .add(to: disposer)
         
         subScene.router.onNavigateToOneClick
@@ -316,14 +329,14 @@ final class SetupPaymentFlow: ModuleFlow {
             return
         }
         
-        let subScene = PayWithRatyPekaoScreen(for: transaction, using: resolver)
-        
+        let subScene = PayWithRatyPekaoScreen(for: transaction, using: resolver, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .installmentPayments(.any)) })
             .add(to: disposer)
 
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .installmentPayments(.any)) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -334,15 +347,15 @@ final class SetupPaymentFlow: ModuleFlow {
             assertionFailure("Cannot construct transaction object")
             return
         }
-        
-        let subScene = PayByLinkScreen(for: transaction, using: resolver)
-        
+
+        let subScene = PayByLinkScreen(for: transaction, using: resolver, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .pbl(.any)) })
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .pbl(.any)) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -353,10 +366,10 @@ final class SetupPaymentFlow: ModuleFlow {
             assertionFailure("Cannot construct transaction object")
             return
         }
-        let subScene = PayWithDigitalWalletScreen(for: transaction, using: resolver)
-        
+        let subScene = PayWithDigitalWalletScreen(for: transaction, using: resolver, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .digitalWallet(.any)) })
             .add(to: disposer)
         
         subScene.router.onApplePay
@@ -364,7 +377,7 @@ final class SetupPaymentFlow: ModuleFlow {
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .digitalWallet(.any)) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -375,14 +388,14 @@ final class SetupPaymentFlow: ModuleFlow {
             assertionFailure("Cannot construct transaction object")
             return
         }
-        let subScene = PayWithPayPoScreen(for: transaction, using: resolver)
-        
+        let subScene = PayWithPayPoScreen(for: transaction, using: resolver, transactionLock: transactionLock)
+
         subScene.router.onTransactionCreated
-            .subscribe(onNext: { [weak self] transaction in self?.transactionCreated.on(.next(transaction)) })
+            .subscribe(onNext: { [weak self] transaction in self?.emitTransactionCreated(transaction, method: .payPo) })
             .add(to: disposer)
         
         subScene.router.onError
-            .subscribe(onNext: { [weak self] error in self?.errorOcurred.on(.next(error)) })
+            .subscribe(onNext: { [weak self] error in self?.handleChannelError(error, method: .payPo) })
             .add(to: disposer)
         
         screen.present(sub: subScene)
@@ -404,5 +417,24 @@ final class SetupPaymentFlow: ModuleFlow {
     
     private func presentNoCameraAccessDialog() {
         screenManager.presentNoCameraAccessDialog()
+    }
+
+    // MARK: - Single transaction lock
+
+    private func registerAttempt(transactionId: String, method: Domain.PaymentMethod) {
+        guard configurationProvider.singleTransaction else { return }
+        transactionLock.lock(transactionId: transactionId, paymentMethod: method)
+    }
+
+    private func emitTransactionCreated(_ transaction: Domain.OngoingTransaction, method: Domain.PaymentMethod) {
+        registerAttempt(transactionId: transaction.transactionId, method: method)
+        transactionCreated.on(.next(transaction))
+    }
+
+    private func handleChannelError(_ error: Error, method: Domain.PaymentMethod) {
+        if let attempted = error as? Domain.OngoingTransaction.AttemptedPaymentError {
+            registerAttempt(transactionId: attempted.transactionId, method: method)
+        }
+        errorOcurred.on(.next(error))
     }
 }

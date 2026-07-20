@@ -13,4 +13,5 @@ protocol ConfigurationSetter {
     func set(preferredLanguage: Language)
     func set(supportedLanguages: [Language])
     func set(compatibility: Compatibility, sdkVersionName: String?)
+    func set(singleTransaction: Bool)
 }

@@ -141,16 +141,52 @@ final class DefaultTransactionService: TransactionService {
     }
     
     func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with blik: Domain.Blik.OneClick, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: blik), then: then)
+    }
+
+    func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with blik: Domain.Blik.Regular, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: blik), then: then)
+    }
+
+    func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with card: Domain.Card, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: card), then: then)
+    }
+
+    func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with cardToken: Domain.CardToken, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: cardToken), then: then)
+    }
+
+    func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with pbl: Domain.PaymentMethod.Bank, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: pbl), then: then)
+    }
+
+    func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with applePay: Domain.ApplePayToken, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: applePay), then: then)
+    }
+
+    func continuePaymentApplePay(for ongoingTransaction: Domain.OngoingTransaction, with applePay: Domain.ApplePayToken, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTO(from: applePay), then: then)
+    }
+
+    func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with installmentPayment: Domain.PaymentMethod.InstallmentPayment, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: makePayDTO(from: installmentPayment), then: then)
+    }
+
+    func continuePaymentForPayPo(for ongoingTransaction: Domain.OngoingTransaction, then: @escaping OngoingTransactionResultHandler) {
+        continuePayment(for: ongoingTransaction, with: try makePayDTOForPayPo(), then: then)
+    }
+
+    // MARK: - Private
+
+    private func continuePayment(for ongoingTransaction: Domain.OngoingTransaction, with dtoClosure: @autoclosure () throws -> PayWithInstantRedirectionDTO, then: @escaping OngoingTransactionResultHandler) {
         do {
-            let dto = try makePayDTO(from: blik)
+            let dto = try dtoClosure()
             executeContinueTransactionRequest(for: ongoingTransaction.transactionId, with: dto, then: then)
         } catch {
             then(.failure(error))
         }
     }
-    
-    // MARK: - Private
-    
+
     private func executeCreateTransactionRequest(with dto: NewTransactionDTO, ignoreErrorsWhenContinueUrlExists: Bool = false, then: @escaping OngoingTransactionResultHandler) {
         let request = TransactionsController.CreateTransaction(dto: dto)
         let result = networkingService.execute(request: request)
@@ -437,7 +473,7 @@ final class DefaultTransactionService: TransactionService {
                                           for transaction: Domain.OngoingTransaction,
                                           then: @escaping OngoingTransactionResultHandler) {
         guard case .ambiguousBlikAlias(alternatives: _) = error else {
-            then(.failure(error))
+            then(.failure(Domain.OngoingTransaction.AttemptedPaymentError(transactionId: transaction.transactionId, underlying: error)))
             return
         }
         then(.success(transaction))

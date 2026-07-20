@@ -11,22 +11,28 @@ final class DefaultChoosePaymentMethodViewModel: ChoosePaymentMethodViewModel {
     
     private let model: ChoosePaymentMethodModel
     private let router: ChoosePaymentMethodRouter
-    
+    private let transactionLock: SingleTransactionLock
+
     private var selectedPaymentMethod: Domain.PaymentMethod?
     
     // MARK: - Initializers
-    
-    init(model: ChoosePaymentMethodModel, router: ChoosePaymentMethodRouter) {
+
+    init(model: ChoosePaymentMethodModel, router: ChoosePaymentMethodRouter, transactionLock: SingleTransactionLock) {
         self.model = model
         self.router = router
-        
-        initialPaymentMethod = .digitalWallet(.any)
+        self.transactionLock = transactionLock
+
+        initialPaymentMethod = transactionLock.paymentMethod ?? .digitalWallet(.any)
     }
     
     // MARK: - API
     
     func choose(method: Domain.PaymentMethod) {
         guard method != selectedPaymentMethod else { return }
+        if let lockedPaymentMethod = transactionLock.paymentMethod, method != lockedPaymentMethod {
+            router.notifyPaymentMethodChangeBlocked()
+            return
+        }
         selectedPaymentMethod = method
         
         switch method {
@@ -42,5 +48,10 @@ final class DefaultChoosePaymentMethodViewModel: ChoosePaymentMethodViewModel {
     
     func getPaymentMethods() -> [Domain.PaymentMethod] {
         model.getPaymentMethods().sorted(by: \.order)
+    }
+
+    func isSelectable(_ method: Domain.PaymentMethod) -> Bool {
+        guard let lockedPaymentMethod = transactionLock.paymentMethod else { return true }
+        return method == lockedPaymentMethod
     }
 }

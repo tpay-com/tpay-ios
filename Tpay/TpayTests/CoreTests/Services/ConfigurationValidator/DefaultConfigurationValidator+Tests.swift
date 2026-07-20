@@ -98,6 +98,7 @@ private extension DefaultConfigurationValidator_Tests {
         var merchantDetailsProvider: MerchantDetailsProvider?
         var paymentMethods: [PaymentMethod]
         var preferredLanguage: Language
+        var singleTransaction: Bool
         var supportedLanguages: [Language]
         var compatibility: Tpay.Compatibility
         var sdkVersionName: String?
@@ -109,6 +110,7 @@ private extension DefaultConfigurationValidator_Tests {
              merchantDetailsProvider: MerchantDetailsProvider?,
              paymentMethods: [PaymentMethod] = PaymentMethod.allCases,
              preferredLanguage: Language = .en,
+             singleTransaction: Bool = false,
              supportedLanguages: [Language] = Language.allCases,
              compatibility: Tpay.Compatibility = .ios,
              sdkVersionName: String? = nil
@@ -118,6 +120,7 @@ private extension DefaultConfigurationValidator_Tests {
             self.merchantDetailsProvider = merchantDetailsProvider
             self.paymentMethods = paymentMethods
             self.preferredLanguage = preferredLanguage
+            self.singleTransaction = singleTransaction
             self.supportedLanguages = supportedLanguages
             self.compatibility = compatibility
             self.sdkVersionName = sdkVersionName

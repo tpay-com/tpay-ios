@@ -141,6 +141,19 @@ TpayModule.configure(
 )
 ```
 
+### Retrying a payment
+
+By default, when a payment fails or is cancelled on one of the SDK's official screens and the user retries, the SDK starts a brand-new transaction and lets the user freely switch to a different payment method.
+
+Set `singleTransactionOnly` to `true` if you want retries to continue the original transaction instead, locking the payment method picker to the channel first used:
+
+```swift
+TpayModule.configure(singleTransactionOnly: true)
+```
+
+> [!note]
+> This setting only affects the SDK's official screens. It has no effect on the Screenless (Headless) API, where you control transaction creation and retries yourself.
+
 ### Card
 
 If you decide to enable the credit card payment option, you have to provide SSL certificates.

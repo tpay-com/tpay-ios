@@ -23,6 +23,8 @@ final class PaymentCoordinator {
 
     private let synchronizationService: SynchronizationService
     
+    private let transactionLock = SingleTransactionLock()
+
     private var currentFlow: ModuleFlow? {
         didSet {
             oldValue?.stop()
@@ -107,7 +109,7 @@ final class PaymentCoordinator {
     }
     
     private func startPaymentFlow() {
-        let setupPaymentFlow = SetupPaymentFlow(for: transaction, with: presenter, using: resolver, payerOverride: temporaryPayer)
+        let setupPaymentFlow = SetupPaymentFlow(for: transaction, with: presenter, using: resolver, payerOverride: temporaryPayer, transactionLock: transactionLock)
 
         setupPaymentFlow.showPayerDetails
             .subscribe(onNext: { [weak self] payerDetails in self?.sheetViewController.set(payerDetails: payerDetails) })
@@ -119,7 +121,14 @@ final class PaymentCoordinator {
                 self?.startProcessingFlow(for: transaction)
             })
             .add(to: disposer)
-        
+
+        setupPaymentFlow.paymentMethodChangeBlocked
+            .subscribe(queue: .main, onNext: { [weak self] in
+                guard let self else { return }
+                self.presenter.present(Snack(message: Strings.paymentMethodChangeNotAllowed, kind: .error))
+            })
+            .add(to: disposer)
+
         setupPaymentFlow.errorOcurred
             .subscribe(queue: .main, onNext: { [weak self] error in self?.handle(error: error) })
             .add(to: disposer)

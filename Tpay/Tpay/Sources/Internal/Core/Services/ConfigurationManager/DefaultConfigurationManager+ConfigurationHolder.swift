@@ -18,6 +18,7 @@ extension DefaultConfigurationManager {
 
         var compatibility: Compatibility?
         var sdkVersionName: String?
+        var singleTransaction: Bool?
 
         // MARK: - API
 
@@ -30,6 +31,7 @@ extension DefaultConfigurationManager {
             supportedLanguages = nil
             compatibility = nil
             sdkVersionName = nil
+            singleTransaction = nil
         }
     }
 }

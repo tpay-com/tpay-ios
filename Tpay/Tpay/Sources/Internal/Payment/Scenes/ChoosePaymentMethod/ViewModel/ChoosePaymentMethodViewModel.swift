@@ -13,4 +13,5 @@ protocol ChoosePaymentMethodViewModel: AnyObject {
     
     func choose(method: Domain.PaymentMethod)
     func getPaymentMethods() -> [Domain.PaymentMethod]
+    func isSelectable(_ method: Domain.PaymentMethod) -> Bool
 }

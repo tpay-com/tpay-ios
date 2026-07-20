@@ -13,9 +13,9 @@ final class PayWithRatyPekaoScreen: Screen {
         
     // MARK: - Initializers
     
-    init(for transaction: Domain.Transaction, using resolver: ServiceResolver) {
+    init(for transaction: Domain.Transaction, using resolver: ServiceResolver, transactionLock: SingleTransactionLock) {
         router = DefaultPayWithRatyPekaoRouter()
-        let model = DefaultPayWithRatyPekaoModel(for: transaction, using: resolver)
+        let model = DefaultPayWithRatyPekaoModel(for: transaction, using: resolver, transactionLock: transactionLock)
         let viewModel = DefaultPayWithRatyPekaoViewModel(model: model, router: router)        
         viewController = PayWithRatyPekaoViewController(with: viewModel)
     }

@@ -10,7 +10,7 @@ final class ChoosePaymentMethodViewController: UIViewController {
     
     let viewModel: ChoosePaymentMethodViewModel
     
-    private let collectionViewDelegate = ContentView.CollectionView.Delegate()
+    private lazy var collectionViewDelegate = ContentView.CollectionView.Delegate(viewModel: viewModel)
     private lazy var collectionViewDataSource = ContentView.CollectionView.DataSource(viewModel: viewModel)
     
     private let contentView = ContentView()
