@@ -9,11 +9,19 @@ extension PayWithDigitalWalletViewController {
     final class ApplePayDelegate: NSObject {
         
         // MARK: - Properties
-        
+
+        private enum AuthorizationState {
+            case notStarted
+            case processing
+            case completed(ApplePayStatus)
+        }
+
         let viewModel: PayWithDigitalWalletViewModel
-        
-        private var status: ApplePayStatus = .notAuthorized
-        
+
+        private var sheetDidFinish = false
+        private var didReportFinalStatus = false
+        private var authorizationState: AuthorizationState = .notStarted
+
         // MARK: - Initializers
         
         init(viewModel: PayWithDigitalWalletViewModel) {
@@ -29,26 +37,89 @@ extension PayWithDigitalWalletViewController.ApplePayDelegate: PKPaymentAuthoriz
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
                                             didAuthorizePayment payment: PKPayment,
                                             handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        viewModel.payWithApplePay(with: Domain.ApplePayToken(token: payment.token.paymentData.base64EncodedString())) { [weak self] result in
-            self?.handleApplePayResult(result, then: completion)
+        guard case .notStarted = authorizationState else {
+            assertionFailure("Apple Pay authorization has already started")
+            completion(
+                PKPaymentAuthorizationResult(
+                    status: .failure,
+                    errors: nil
+                )
+            )
+
+            return
+        }
+
+        authorizationState = .processing
+
+        let token = Domain.ApplePayToken(
+            token: payment.token.paymentData.base64EncodedString()
+        )
+
+        viewModel.payWithApplePay(with: token) { [self] result in
+            DispatchQueue.main.async { [self] in
+                handleApplePayResult(result, then: completion)
+            }
         }
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        viewModel.applePayFinished(with: status)
+        sheetDidFinish = true
         controller.dismiss(animated: true)
+        reportFinalStatusIfPossible()
     }
-    
+
     // MARK: - Private
     
     private func handleApplePayResult(_ result: Result<Domain.OngoingTransaction, Error>, then: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        guard case .processing = authorizationState else {
+            assertionFailure("Apple Pay result received in an invalid state")
+            return
+        }
+
+        let applePayStatus: ApplePayStatus
+        let authorizationResult: PKPaymentAuthorizationResult
+
         switch result {
         case .success(let transaction):
-            status = .success(transaction: transaction)
-            then(.init(status: .success, errors: nil))
+            applePayStatus = .success(transaction: transaction)
+            authorizationResult = PKPaymentAuthorizationResult(
+                status: .success,
+                errors: nil
+            )
+
         case .failure(let error):
-            status = .failure(error: error)
-            then(.init(status: .failure, errors: [error]))
+            applePayStatus = .failure(error: error)
+            authorizationResult = PKPaymentAuthorizationResult(
+                status: .failure,
+                errors: nil
+            )
         }
+
+        authorizationState = .completed(applePayStatus)
+        then(authorizationResult)
+        reportFinalStatusIfPossible()
+    }
+
+    private func reportFinalStatusIfPossible() {
+        guard
+            sheetDidFinish,
+            didReportFinalStatus == false
+        else {
+            return
+        }
+
+        let finalStatus: ApplePayStatus
+
+        switch authorizationState {
+        case .notStarted:
+            finalStatus = .notAuthorized
+        case .processing:
+            return
+        case .completed(let status):
+            finalStatus = status
+        }
+
+        didReportFinalStatus = true
+        viewModel.applePayFinished(with: finalStatus)
     }
 }

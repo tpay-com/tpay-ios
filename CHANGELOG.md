@@ -1,3 +1,8 @@
+## 1.4.1
+
+- Fix: Prevent duplicate Apple Pay transactions caused by a race condition between payment authorization and sheet dismissal
+- Fix: Prevent transaction finalization (e.g. Apple Pay) from hanging when the transaction service was deallocated before the network request completed
+
 ## 1.4.0
 
 - Feature: Add option to enable single transation mode for SDK's official screens
