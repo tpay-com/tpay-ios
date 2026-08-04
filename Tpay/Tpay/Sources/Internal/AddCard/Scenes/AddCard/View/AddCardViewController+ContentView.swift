@@ -81,19 +81,15 @@ extension AddCardViewController {
         
         init() {
             super.init(frame: .zero)
-        }
-        
-        @available(*, unavailable)
-        required init?(coder: NSCoder) { nil }
-        
-        // MARK: - Lifecycle
-        
-        override func didMoveToSuperview() {
-            super.didMoveToSuperview()
 
             setupLayout()
         }
-        
+
+        @available(*, unavailable)
+        required init?(coder: NSCoder) { nil }
+
+        // MARK: - Lifecycle
+
         override func layoutSubviews() {
             super.layoutSubviews()
             

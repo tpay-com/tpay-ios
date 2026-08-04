@@ -20,7 +20,7 @@ final class AddCardCoordinator {
     private let payer: Payer?
     
     private var disposer = Disposer()
-    private var currentFlow: ModuleFlow? {
+    private var currentFlow: AddCardFlow? {
         didSet {
             oldValue?.stop()
             currentFlow?.start()
@@ -54,7 +54,7 @@ final class AddCardCoordinator {
     
     private func setupActions() {
         sheetViewController.backButtonTapped
-            .subscribe(onNext: { [weak self] in self?.startAddCardFlow() })
+            .subscribe(onNext: { [weak self] in self?.resumeAddCardFlow() })
             .add(to: disposer)
 
         sheetViewController.languageSelected
@@ -78,7 +78,16 @@ final class AddCardCoordinator {
         
         currentFlow = addCardFlow
     }
-    
+
+    private func resumeAddCardFlow() {
+        guard let currentFlow else {
+            startAddCardFlow()
+            return
+        }
+        sheetViewController.exitFullScreen()
+        currentFlow.resume()
+    }
+
     private func changeLanguage(_ to: Language) {
         ModuleContainer.instance.currentLanguage = to
         startAddCardFlow()

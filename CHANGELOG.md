@@ -1,3 +1,8 @@
+## 1.4.2
+
+- Fix: Back button on the bank transfer webview returns to the payment method selection with the previously chosen method and bank preserved, instead of the payer details screen
+- Fix: Back button on the card tokenization webview no longer clears the add card form
+
 ## 1.4.1
 
 - Fix: Prevent duplicate Apple Pay transactions caused by a race condition between payment authorization and sheet dismissal

@@ -25,13 +25,9 @@ final class PaymentCoordinator {
     
     private let transactionLock = SingleTransactionLock()
 
-    private var currentFlow: ModuleFlow? {
-        didSet {
-            oldValue?.stop()
-            currentFlow?.start()
-        }
-    }
-    
+    private var currentFlow: ModuleFlow?
+    private var setupPaymentFlow: SetupPaymentFlow?
+
     private var disposer = Disposer()
     
     // MARK: - Initializers
@@ -65,17 +61,19 @@ final class PaymentCoordinator {
     }
     
     func stop() {
+        currentFlow?.stop()
         currentFlow = nil
+        setupPaymentFlow = nil
     }
-    
+
     // MARK: - Private
-    
+
     private func setupActions() {
         sheetViewController.closeButtonTapped
             .forward(to: closeModule)
 
         sheetViewController.backButtonTapped
-            .subscribe(onNext: { [weak self] in self?.startPaymentFlow() })
+            .subscribe(onNext: { [weak self] in self?.resumePaymentFlow() })
             .add(to: disposer)
 
         sheetViewController.languageSelected
@@ -136,9 +134,29 @@ final class PaymentCoordinator {
         setupPaymentFlow.onPayerUpdate
             .subscribe(queue: .main, onNext: { [weak self] payer in self?.temporaryPayer = payer })
             .add(to: disposer)
-        currentFlow = setupPaymentFlow
+
+        self.setupPaymentFlow = setupPaymentFlow
+        begin(setupPaymentFlow)
     }
-    
+
+    private func resumePaymentFlow() {
+        guard let setupPaymentFlow else {
+            startPaymentFlow()
+            return
+        }
+        currentFlow?.stop()
+        currentFlow = setupPaymentFlow
+
+        sheetViewController.exitFullScreen()
+        setupPaymentFlow.resume()
+    }
+
+    private func begin(_ flow: ModuleFlow) {
+        currentFlow?.stop()
+        currentFlow = flow
+        flow.start()
+    }
+
     private func startProcessingFlow(for transaction: Domain.OngoingTransaction) {
         let processingPaymentFlow = ProcessingPaymentFlow(ongoingTransaction: transaction, presenter: presenter, resolver: resolver)
         
@@ -153,8 +171,8 @@ final class PaymentCoordinator {
         processingPaymentFlow.retry
             .subscribe(onNext: { [weak self] in self?.startPaymentFlow() }) // TODO: implement a possibility to retry created transaction instead of creating a new one
             .add(to: disposer)
-        
-        currentFlow = processingPaymentFlow
+
+        begin(processingPaymentFlow)
     }
         
     private func handle(error: Error) {

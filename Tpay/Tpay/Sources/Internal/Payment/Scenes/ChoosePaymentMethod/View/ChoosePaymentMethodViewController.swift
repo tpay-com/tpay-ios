@@ -15,7 +15,8 @@ final class ChoosePaymentMethodViewController: UIViewController {
     
     private let contentView = ContentView()
     private var currentController: UIViewController?
-    
+    private var isInitialPaymentMethodSelected = false
+
     private let keyboardObserver = DefaultKeyboardObserver()
     
     // MARK: - Initialization
@@ -38,13 +39,13 @@ final class ChoosePaymentMethodViewController: UIViewController {
         super.viewDidLoad()
         
         setupComponents()
+        bindViewWithViewModel()
         keyboardObserver.notifyKeyboardChanges(on: contentView)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        bindViewWithViewModel()
+
         selectInitialPaymentMethod()
     }
     
@@ -66,6 +67,9 @@ final class ChoosePaymentMethodViewController: UIViewController {
     }
     
     private func selectInitialPaymentMethod() {
+        guard !isInitialPaymentMethodSelected else { return } // the screen is being restored - keep the method already chosen by the payer
+        isInitialPaymentMethodSelected = true
+
         let index = viewModel.getPaymentMethods().firstIndex(of: viewModel.initialPaymentMethod) ?? 0
         let indexPath = IndexPath(row: index, section: 0)
         contentView.select(paymentMethod: indexPath)

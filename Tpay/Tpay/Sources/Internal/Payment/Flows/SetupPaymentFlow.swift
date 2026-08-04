@@ -23,6 +23,7 @@ final class SetupPaymentFlow: ModuleFlow {
     private let configurationProvider: ConfigurationProvider
 
     private let screen: SetupPayerDetailsScreen
+    private var choosePaymentMethodScreen: ChoosePaymentMethodScreen?
     private var payWithCardScreen: PayWithCardScreen?
     
     private let screenManager: ScreenManager
@@ -62,9 +63,17 @@ final class SetupPaymentFlow: ModuleFlow {
     func start() {
         presentSetupPayerDetailsScreen()
     }
-    
+
     func stop() { }
-    
+
+    func resume() {
+        guard let choosePaymentMethodScreen else {
+            start()
+            return
+        }
+        screenManager.show(choosePaymentMethodScreen)
+    }
+
     func endEditing() {
         screen.viewController.view.endEditing(true)
     }
@@ -125,10 +134,11 @@ final class SetupPaymentFlow: ModuleFlow {
         screen.router.showPayPoFlow
             .subscribe(onNext: { [weak self, unowned screen] in self?.showPayPoFlow(using: screen) })
             .add(to: disposer)
-        
+
+        choosePaymentMethodScreen = screen
         screenManager.show(screen)
     }
-    
+
     private func handleStartCardScanning() {
         guard #available(iOS 13.0, *) else { return }
         deviceAccessoryInteractor.setupCameraAccessory { [weak self] result in

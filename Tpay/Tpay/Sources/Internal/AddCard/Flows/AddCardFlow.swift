@@ -26,13 +26,6 @@ final class AddCardFlow: ModuleFlow {
     private let deviceAccessoryInteractor = DefaultDeviceAccessoryInteractor()
     private let disposer = Disposer()
     
-    private var currentFlow: ModuleFlow? {
-        didSet {
-            oldValue?.stop()
-            currentFlow?.start()
-        }
-    }
-    
     // MARK: - Initializers
     
     init(with presenter: ViewControllerPresenter, using resolver: ServiceResolver, payer: Payer?) {
@@ -54,10 +47,12 @@ final class AddCardFlow: ModuleFlow {
         showAddCardScreen()
     }
     
-    func stop() {
-        currentFlow = nil
+    func stop() { }
+
+    func resume() {
+        screenManager.show(addCardScreen)
     }
-    
+
     // MARK: - Private
     
     private func showAddCardScreen() {

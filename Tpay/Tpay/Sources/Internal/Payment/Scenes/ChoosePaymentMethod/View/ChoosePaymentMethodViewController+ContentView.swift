@@ -18,15 +18,18 @@ extension ChoosePaymentMethodViewController {
         private var pinnedContent: PinnableContent?
         private var pinnedContentPlaceholder: UIView?
         private let bottomSectionLogo = BottomSection.Logo()
-                
+
         // MARK: - Lifecycle
-        
-        override func didMoveToSuperview() {
-            super.didMoveToSuperview()
+
+        init() {
+            super.init(frame: .zero)
 
             setupLayout()
             setupAppearance()
         }
+
+        @available(*, unavailable)
+        required init?(coder: NSCoder) { nil }
         
         override func layoutSubviews() {
             super.layoutSubviews()

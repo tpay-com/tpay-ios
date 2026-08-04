@@ -69,6 +69,10 @@ final class SheetViewController: UIViewController {
     func goFullScreen() {
         contentView.set(appearance: .large)
     }
+
+    func exitFullScreen() {
+        contentView.set(appearance: .compact)
+    }
     
     // MARK: - Private
     
