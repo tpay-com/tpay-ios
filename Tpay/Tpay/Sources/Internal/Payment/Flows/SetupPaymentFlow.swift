@@ -412,16 +412,24 @@ final class SetupPaymentFlow: ModuleFlow {
     }
     
     private func presentApplePayScreen(using screen: PayWithDigitalWalletScreen) {
-        guard let transaction = transactionBuilder.build() else {
-            assertionFailure("Cannot construct transaction object")
+        guard let viewController = screen.viewController as? PayWithDigitalWalletViewController else {
+            assertionFailure("Unexpected view controller type")
             return
         }
-        
-        guard let applePayDelegate = (screen.viewController as? PayWithDigitalWalletViewController)?.applePayDelegate,
-              let applePayScreen = ApplePayScreen(transaction: transaction, using: resolver) else { return }
-        
-        applePayScreen.set(delegate: applePayDelegate)
-        
+
+        guard let transaction = transactionBuilder.build() else {
+            assertionFailure("Cannot construct transaction object")
+            viewController.applePayPresentationFailed()
+            return
+        }
+
+        guard let applePayScreen = ApplePayScreen(transaction: transaction, using: resolver) else {
+            viewController.applePayPresentationFailed()
+            return
+        }
+
+        applePayScreen.set(delegate: viewController.makeApplePayDelegate())
+
         screenManager.presentModally(applePayScreen)
     }
     

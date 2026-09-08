@@ -9,21 +9,33 @@ final class NetworkingServiceFactory {
     private let configurationProvider: NetworkingConfigurationProvider
     private let authorizationHeadersProvider: AuthorizationHeadersProvider
     private let sdkConfigurationProvider: ConfigurationProvider
+    private let credentialsStore: CredentialsStore
+    private let credentialsProvider: CredentialsProvider
+    private let authenticationServiceFactory: () -> AuthenticationService
 
     // MARK: - Initializers
 
     convenience init(using resolver: ServiceResolver) {
         self.init(configurationProvider: resolver.resolve(),
                   authorizationHeadersProvider: resolver.resolve(),
-                  sdkConfigurationProvider: resolver.resolve())
+                  sdkConfigurationProvider: resolver.resolve(),
+                  credentialsStore: resolver.resolve(),
+                  credentialsProvider: resolver.resolve(),
+                  authenticationServiceFactory: { resolver.resolve() })
     }
 
     init(configurationProvider: NetworkingConfigurationProvider,
          authorizationHeadersProvider: AuthorizationHeadersProvider,
-         sdkConfigurationProvider: ConfigurationProvider) {
+         sdkConfigurationProvider: ConfigurationProvider,
+         credentialsStore: CredentialsStore,
+         credentialsProvider: CredentialsProvider,
+         authenticationServiceFactory: @escaping () -> AuthenticationService) {
         self.configurationProvider = configurationProvider
         self.authorizationHeadersProvider = authorizationHeadersProvider
         self.sdkConfigurationProvider = sdkConfigurationProvider
+        self.credentialsStore = credentialsStore
+        self.credentialsProvider = credentialsProvider
+        self.authenticationServiceFactory = authenticationServiceFactory
     }
     
     // MARK: - API
@@ -51,11 +63,16 @@ final class NetworkingServiceFactory {
         let errorValidator = DefaultErrorValidator()
         let responseValidator = DefaultResponseValidator(using: jsonDecoder)
         
-        return DefaultNetworkingService(requestFactory: requestFactory,
-                                        session: session,
-                                        errorValidator: errorValidator,
-                                        responseValidator: responseValidator,
-                                        bodyDecoder: bodyDecoder)
+        let networkingService = DefaultNetworkingService(requestFactory: requestFactory,
+                                                         session: session,
+                                                         errorValidator: errorValidator,
+                                                         responseValidator: responseValidator,
+                                                         bodyDecoder: bodyDecoder)
+
+        return AuthenticatingNetworkingService(decorating: networkingService,
+                                               credentialsStore: credentialsStore,
+                                               credentialsProvider: credentialsProvider,
+                                               authenticationServiceFactory: authenticationServiceFactory)
     }
     
 }

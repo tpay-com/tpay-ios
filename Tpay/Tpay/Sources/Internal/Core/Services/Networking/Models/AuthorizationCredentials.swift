@@ -16,3 +16,5 @@ struct AuthorizationCredentials {
         self.password = password
     }
 }
+
+extension AuthorizationCredentials: Equatable { }

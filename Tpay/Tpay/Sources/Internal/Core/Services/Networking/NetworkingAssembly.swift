@@ -23,6 +23,11 @@ final class NetworkingAssembly: Assembly {
             NetworkingServiceFactory(using: resolver).make()
         }
         .scope(.cached)
+
+        container.register(AuthenticationService.self, name: nil) { resolver in
+            DefaultAuthenticationService(resolver: resolver)
+        }
+        .scope(.cached)
         
         container.register(NetworkingConfigurationManager.self, name: nil) { _ in
             DefaultNetworkingConfigurationManager()

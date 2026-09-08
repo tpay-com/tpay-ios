@@ -1,3 +1,8 @@
+## 1.4.3
+
+- Improvement: The authorization token is reused until it expires, so payments start faster and make fewer network requests
+- Fix: A second Apple Pay attempt made after the first one was cancelled or failed no longer leaves the button stuck in the loading state or closes immediately with an error
+
 ## 1.4.2
 
 - Fix: Back button on the bank transfer webview returns to the payment method selection with the previously chosen method and bank preserved, instead of the payer details screen

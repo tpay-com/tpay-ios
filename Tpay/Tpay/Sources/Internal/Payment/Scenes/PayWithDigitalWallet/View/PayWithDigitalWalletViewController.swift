@@ -8,8 +8,8 @@ final class PayWithDigitalWalletViewController: UIViewController {
     
     // MARK: - Properties
     
-    private(set) lazy var applePayDelegate = ApplePayDelegate(viewModel: viewModel)
-    
+    private(set) var applePayDelegate: ApplePayDelegate?
+
     private let viewModel: PayWithDigitalWalletViewModel
     private let contentView = ContentView()
     
@@ -42,7 +42,19 @@ final class PayWithDigitalWalletViewController: UIViewController {
         
         preselectSoleWallet()
     }
-    
+
+    // MARK: - API
+
+    func makeApplePayDelegate() -> ApplePayDelegate {
+        let delegate = ApplePayDelegate(viewModel: viewModel)
+        applePayDelegate = delegate
+        return delegate
+    }
+
+    func applePayPresentationFailed() {
+        viewModel.applePayFinished(with: .notAuthorized)
+    }
+
     // MARK: - Private
     
     private func setupComponents() {

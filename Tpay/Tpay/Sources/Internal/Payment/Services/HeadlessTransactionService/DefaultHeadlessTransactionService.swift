@@ -6,7 +6,6 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
     
     // MARK: - Properties
     
-    private let authenticationService: AuthenticationService
     private let paymentDataService: PaymentDataService
     private let paymentMethodsService: PaymentMethodsService
     private var transactionService: TransactionService { transactionServiceFactory() }
@@ -17,21 +16,18 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
     // MARK: - Initializers
     
     convenience init(using resolver: ServiceResolver) {
-        self.init(authenticationService: DefaultAuthenticationService(resolver: resolver),
-                  paymentDataService: DefaultPaymentDataService(resolver: resolver),
+        self.init(paymentDataService: DefaultPaymentDataService(resolver: resolver),
                   paymentMethodsService: DefaultPaymentMethodsService(resolver: resolver),
                   transactionServiceFactory: { DefaultTransactionService(using: resolver) },
                   apiToDomainModelsMapper: DefaultAPIToDomainModelsMapper(),
                   domainToAPIModelsMapper: DefaultDomainToAPIModelsMapper())
     }
     
-    init(authenticationService: AuthenticationService,
-         paymentDataService: PaymentDataService,
+    init(paymentDataService: PaymentDataService,
          paymentMethodsService: PaymentMethodsService,
          transactionServiceFactory: @escaping() -> TransactionService,
          apiToDomainModelsMapper: APIToDomainModelsMapper,
          domainToAPIModelsMapper: DomainToAPIModelsMapper) {
-        self.authenticationService = authenticationService
         self.paymentDataService = paymentDataService
         self.paymentMethodsService = paymentMethodsService
         self.transactionServiceFactory = transactionServiceFactory
@@ -43,7 +39,6 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
     
     func getAvailablePaymentChannels(completion: @escaping (Result<[Headless.Models.PaymentChannel], Error>) -> Void) {
         Invocation.Queue()
-            .append(authenticationService.authenticate)
             .append(paymentDataService.fetchChannels)
             .invoke { [weak self, domainToAPIModelsMapper] result in
                 completion(result.map { self?.paymentMethodsService.paymentChannels.tryMap(using: domainToAPIModelsMapper) ?? [] })
@@ -132,7 +127,6 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         }
 
         Invocation.Queue()
-            .append(authenticationService.authenticate)
             .append(finalize)
             .invoke { [domainToAPIModelsMapper] result in
                 result.match(onSuccess: {
@@ -157,7 +151,6 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         }
         
         Invocation.Queue()
-            .append(authenticationService.authenticate)
             .append(updatePaymentStatus)
             .invoke { [domainToAPIModelsMapper] result in
                 result.match(onSuccess: {
@@ -185,7 +178,6 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         }
         
         Invocation.Queue()
-            .append(authenticationService.authenticate)
             .append(continueBlikPayment)
             .invoke { [domainToAPIModelsMapper] result in
                 result.match(onSuccess: {
@@ -212,7 +204,6 @@ final class DefaultHeadlessTransactionService: HeadlessTransactionService {
         }
         
         Invocation.Queue()
-            .append(authenticationService.authenticate)
             .append(invokePayment)
             .invoke { [domainToAPIModelsMapper] result in
                 result.match(onSuccess: {

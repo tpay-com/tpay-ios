@@ -10,27 +10,22 @@ final class DefaultSynchronizationService: SynchronizationService {
     
     // MARK: - Properties
     
-    private let authenticationService: AuthenticationService
     private let paymentDataService: PaymentDataService
     private let banksService: BanksService
     private let digitalWalletService: DigitalWalletService
-    
+
     // MARK: - Initializers
-    
+
     convenience init(resolver: ServiceResolver) {
-        let authenticationService = DefaultAuthenticationService(resolver: resolver)
         let paymentDataService = DefaultPaymentDataService(resolver: resolver)
-        self.init(authenticationService: authenticationService,
-                  paymentDataService: paymentDataService,
+        self.init(paymentDataService: paymentDataService,
                   banksService: resolver.resolve(),
                   digitalWalletService: resolver.resolve())
     }
-    
-    init(authenticationService: AuthenticationService,
-         paymentDataService: PaymentDataService,
+
+    init(paymentDataService: PaymentDataService,
          banksService: BanksService,
          digitalWalletService: DigitalWalletService) {
-        self.authenticationService = authenticationService
         self.paymentDataService = paymentDataService
         self.banksService = banksService
         self.digitalWalletService = digitalWalletService
@@ -41,7 +36,6 @@ final class DefaultSynchronizationService: SynchronizationService {
     func fetchPaymentData(then: @escaping Completion) {
         synchronizationStatus.value = .syncing
         Invocation.Queue()
-            .append(authenticationService.authenticate)
             .append(paymentDataService.fetchChannels)
             .invoke(completion: { [weak self] result in
                 self?.handleSyncResult(result, then: then)

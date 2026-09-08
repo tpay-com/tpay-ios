@@ -19,7 +19,12 @@ final class DefaultNetworkingService_Tests: XCTestCase {
             return manager
         }()
         let sdkConfigurationProvider = MockConfigurationProvider()
-        return NetworkingServiceFactory(configurationProvider: networkingProvider, authorizationHeadersProvider: authorizationHeadersProvider, sdkConfigurationProvider: sdkConfigurationProvider).make()
+        return NetworkingServiceFactory(configurationProvider: networkingProvider,
+                                        authorizationHeadersProvider: authorizationHeadersProvider,
+                                        sdkConfigurationProvider: sdkConfigurationProvider,
+                                        credentialsStore: DefaultCredentialsManager(),
+                                        credentialsProvider: credentialsProvider,
+                                        authenticationServiceFactory: { StubAuthenticationService() }).make()
     }()
  
     // MARK: - Tests
@@ -62,6 +67,15 @@ private extension DefaultNetworkingService_Tests {
 
         let claims: AuthorizationClaims? = AuthorizationClaims(accessToken: "")
         let credentials: AuthorizationCredentials? = AuthorizationCredentials(user: "client", password: "password")
+    }
+
+    final class StubAuthenticationService: AuthenticationService {
+
+        // MARK: - API
+
+        func authenticate(then: @escaping Completion) {
+            then(.success(()))
+        }
     }
 
     final class MockConfigurationProvider: ConfigurationProvider {

@@ -2,22 +2,51 @@
 //  Copyright © 2022 Tpay. All rights reserved.
 //
 
+import Foundation
+
 struct AuthorizationClaims {
-    
+
     // MARK: - Properties
-    
+
     let accessToken: String
-    let refreshToken: String?
-    
+
+    /// `nil` in either property means the token is used for requests, but never cached.
+    let expiresAt: Date?
+    let issuedFor: AuthorizationCredentials?
+
     // MARK: - Initializers
-    
-    init(accessToken: String) {
+
+    init(
+        accessToken: String,
+        expiresAt: Date? = nil,
+        issuedFor: AuthorizationCredentials? = nil
+    ) {
         self.accessToken = accessToken
-        refreshToken = nil
+        self.expiresAt = expiresAt
+        self.issuedFor = issuedFor
     }
-    
-    init(accessToken: String, refreshToken: String) {
-        self.accessToken = accessToken
-        self.refreshToken = refreshToken
+}
+
+extension AuthorizationClaims {
+
+    // MARK: - Static properties
+
+    static let refreshMargin: TimeInterval = 100
+
+    // MARK: - API
+
+    func isValid(
+        at date: Date,
+        for credentials: AuthorizationCredentials
+    ) -> Bool {
+        guard
+            let expiresAt,
+            let issuedFor,
+            issuedFor == credentials
+        else {
+            return false
+        }
+
+        return date.addingTimeInterval(Self.refreshMargin) < expiresAt
     }
 }
