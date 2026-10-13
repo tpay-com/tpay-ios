@@ -5,22 +5,12 @@ How to install the SDK.
 ## Integrating Tpay using SPM
 
 ```
-File > Swift Packages > Add Package Dependency
-Add https://github.com/tpay-com/tpay-ios.git
-Select "Up to Next Major" with "1.0.0"
+File > Add Package Dependencies…
+Enter https://github.com/tpay-com/tpay-ios.git
+Set Dependency Rule to "Up to Next Major Version" from "1.0.0"
 ```
 
-## Integrating Tpay using CocoaPods
-
-```ruby
-use_frameworks!
-
-target :MyTarget do
-  pod 'Tpay-SDK'
-end
-```
-
-Once you have completed your Podfile, simply run `pod install`.
+If you integrated the SDK with CocoaPods, follow <doc:MigratingFromCocoaPods>.
 
 ## Integrating Tpay manually
 

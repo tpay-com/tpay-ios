@@ -1,3 +1,7 @@
+## 1.5.0
+
+- Improvement: The SDK is distributed only through Swift Package Manager. Version 1.4.3 is the last version published to CocoaPods. To switch from CocoaPods, follow the [migration guide](https://tpay-com.github.io/tpay-ios/documentation/tpay/migratingfromcocoapods)
+
 ## 1.4.3
 
 - Improvement: The authorization token is reused until it expires, so payments start faster and make fewer network requests

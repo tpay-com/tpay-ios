@@ -9,6 +9,7 @@ The Tpay SDK empowers your app to seamlessly integrate Tpay's payment functional
 ### Getting started
 
 - <doc:Installation>
+- <doc:MigratingFromCocoaPods>
 - <doc:Permissions>
 - <doc:Basics>
 

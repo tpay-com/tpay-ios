@@ -8,10 +8,8 @@ ENV['FASTLANE_XCODEBUILD_SETTINGS_RETRIES'] = "10"
 # - Variables
 
 module_name = "Tpay"
-pod_name = "Tpay-SDK"
 xcodeproj_file = "#{module_name}.xcodeproj"
 pbxproj_file = "#{xcodeproj_file}/project.pbxproj"
-podspec_file = "#{pod_name}.podspec"
 package_file = "Package.swift"
 xcframework_file = "#{module_name}.xcframework"
 xcframework_zip_file = "#{module_name}.xcframework.zip"
@@ -49,7 +47,6 @@ platform :ios do
     build_xcframework
     zip_assets
     release_to_github(version: version)
-    update_podspec(version: version)
     update_swift_package(version: version)
   end
 
@@ -94,29 +91,7 @@ platform :ios do
       api_token: github_api_token,
       upload_assets: [xcframework_zip_file],
       is_draft: true,
-      description: "# [#{version} release notes](https://tpay-com.github.io/tpay-ios/documentation/tpay/changelog##{version})"
-    )
-  end
-
-  private_lane :update_podspec do |options|
-    version = options[:version]
-    published_asset_source = resolve_tagged_binary_url(
-      draft_asset_url: github_release_uploaded_binary_url(xcframework_zip_file),
-      version: version
-    )
-
-    version_bump_podspec(
-      path: podspec_file,
-      version_number: version
-    )
-    update_podspec_source(
-      remote_binary_zip_url: published_asset_source,
-      podspec_file_path: podspec_file
-    )
-    git_commit(
-      path: [podspec_file],
-      message: "Update podspec",
-      allow_nothing_to_commit: true
+      description: "# [#{version} release notes](https://github.com/tpay-com/tpay-ios/blob/master/CHANGELOG.md##{version.delete('.')})"
     )
   end
 
